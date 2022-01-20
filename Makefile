@@ -7,11 +7,12 @@ run-clean:
 clean:
 	cd src; poetry run dipdup schema wipe
 
-#start:
-#	docker-compose -f docker-compose.dev.yml up
-#
-#stop:
-#	docker-compose -f docker-compose.dev.yml down
-#
-#db-start:
-#	docker-compose -f docker-compose.dev.yml up -d db
+docker-build:
+	cd src; poetry run dipdup init
+	docker-compose build
+
+docker-start:
+	docker-compose up -d
+
+docker-stop:
+	docker-compose down -v

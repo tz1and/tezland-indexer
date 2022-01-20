@@ -26,14 +26,14 @@ datasources:
   #tzkt_mainnet:
   #  kind: tzkt
   #  url: https://api.tzkt.io
-  tzkt_sandbox:
+  tzkt_mainnet:
     kind: tzkt
-    url: http://0.0.0.0:5020
+    url: http://api-tzkt:5000
     
 indexes:
   tezland_mainnet:
     kind: operation
-    datasource: tzkt_sandbox
+    datasource: tzkt_mainnet
     contracts: 
       - tezlandMinter
       - tezlandItems

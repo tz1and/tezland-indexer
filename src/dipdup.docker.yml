@@ -1,0 +1,14 @@
+database:
+  kind: postgres
+  host: db-dipdup
+  port: 15435
+  user: root # TODO: don't use root
+  password: ${POSTGRES_PASSWORD:-changeme}
+  database: dipdup
+
+hasura:
+  url: http://hasura:8080
+  admin_secret: ${ADMIN_SECRET:-changeme}
+  allow_aggregations: False
+  camel_case: true
+  select_limit: 100

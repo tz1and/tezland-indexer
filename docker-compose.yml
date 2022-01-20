@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  indexer-dipdup:
+    build: .
+    depends_on:
+      - db-dipdup
+      - hasura
+    restart: "no"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+
+  # TODO don't run on root
+  db-dipdup:
+    image: postgres:13
+    restart: always
+    volumes:
+      - db-dipdup:/var/lib/postgres/data
+    environment: 
+      - POSTGRES_USER=root
+      - POSTGRES_DB=dipdup
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - PGPORT=15435
+    expose:
+      - 15435
+    #healthcheck:
+    #  test: ["CMD-SHELL", "pg_isready -U dipdup"] # TODO: don't use root
+    #  interval: 10s
+    #  timeout: 5s
+    #  retries: 5
+
+  hasura:
+    image: hasura/graphql-engine:v2.0.1
+    ports:
+      - 127.0.0.1:42000:8080
+    depends_on:
+      - db-dipdup
+    restart: always
+    environment:
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://root:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/dipdup # todo: don't use root
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=false
+      - HASURA_GRAPHQL_DEV_MODE=false
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
+      - HASURA_GRAPHQL_ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+      - HASURA_GRAPHQL_UNAUTHORIZED_ROLE=user
+  
+volumes:
+  db-dipdup:
+
+networks:
+  default:
+    external: true
+    name: bcdbox_default
