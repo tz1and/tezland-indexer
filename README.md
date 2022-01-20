@@ -2,7 +2,7 @@
 
 An indexer for tz1aND based on [dipdup](https://dipdup.net/) by [Baking Bad](https://baking-bad.org/)
 
-Also loosely based on [hicdex]https://github.com/hicdex/hicdex
+Also loosely based on [hicdex](https://github.com/hicdex/hicdex)
 
 ## running landex
 
