@@ -1,0 +1,96 @@
+spec_version: 1.2
+package: landex
+
+database:
+  kind: sqlite
+  path: landex.sqlite3
+  
+contracts:
+  tezlandMinter:
+    address: KT1HDjfoTe7noxMVJ2ixhe316vCaAHazbWCo
+    typename: tezlandMinter
+
+  tezlandItems:
+    address: KT1HBs4mGTy7hn3oqkHCpHNe6G5DJw1sv2qM
+    typename: tezlandItems
+
+  tezlandPlaces:
+    address: KT1KzJD2TekqaeZJyj9w2KXtraBXuf2VRYbV
+    typename: tezlandPlaces
+
+  tezlandDutchAuctions:
+    address: KT1QJYiJ62VifvM1jnw2HhnsV3neNKTY3i5j
+    typename: tezlandDutchAuctions
+
+datasources:
+  #tzkt_mainnet:
+  #  kind: tzkt
+  #  url: https://api.tzkt.io
+  tzkt_sandbox:
+    kind: tzkt
+    url: http://0.0.0.0:5020
+    
+indexes:
+  tezland_mainnet:
+    kind: operation
+    datasource: tzkt_sandbox
+    contracts: 
+      - tezlandMinter
+      - tezlandItems
+      - tezlandPlaces
+      - tezlandDutchAuctions
+    handlers:
+
+      # Dutch auctions
+      - callback: on_dutch_auction_create
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctions
+            entrypoint: create
+      - callback: on_dutch_auction_cancel
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctions
+            entrypoint: cancel
+      - callback: on_dutch_auction_bid
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctions
+            entrypoint: bid
+
+      # Minter
+      - callback: on_item_mint
+        pattern:
+          - type: transaction
+            destination: tezlandMinter
+            entrypoint: mint_Item
+          - type: transaction
+            destination: tezlandItems
+            entrypoint: mint
+      - callback: on_place_mint
+        pattern:
+          - type: transaction
+            destination: tezlandMinter
+            entrypoint: mint_Place
+          - type: transaction
+            destination: tezlandPlaces
+            entrypoint: mint
+
+      # FA2 Item
+      - callback: on_item_transfer
+        pattern:
+          - type: transaction
+            destination: tezlandItems
+            entrypoint: transfer
+      - callback: on_item_burn
+        pattern:
+          - type: transaction
+            destination: tezlandItems
+            entrypoint: burn
+
+      # FA2 Place
+      - callback: on_place_transfer
+        pattern:
+          - type: transaction
+            destination: tezlandPlaces
+            entrypoint: transfer

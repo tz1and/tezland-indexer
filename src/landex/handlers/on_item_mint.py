@@ -1,0 +1,53 @@
+from typing import Optional
+from decimal import Decimal
+
+from dipdup.models import Transaction
+from dipdup.context import HandlerContext
+
+import landex.models as models
+
+from landex.types.tezlandItems.parameter.mint import MintParameter
+from landex.types.tezlandItems.storage import TezlandItemsStorage
+from landex.types.tezlandMinter.parameter.mint_item import MintItemParameter
+from landex.types.tezlandMinter.storage import TezlandMinterStorage
+
+
+async def on_item_mint(
+    ctx: HandlerContext,
+    mint_Item: Transaction[MintItemParameter, TezlandMinterStorage],
+    mint: Transaction[MintParameter, TezlandItemsStorage],
+) -> None:
+    holder, _ = await models.Holder.get_or_create(address=mint.parameter.address)
+    
+    minter = holder
+    if mint.parameter.address != mint_Item.data.sender_address:
+        minter, _ = await models.Holder.get_or_create(address=mint_Item.data.sender_address)
+
+    # this is nonsense. can't mint an item twice
+    #if await models.Token.exists(id=mint.parameter.token_id):
+    #    return
+
+    metadata = ''
+    # TODO
+    #if mint_Item.parameter.metadata:
+    #    metadata = fromhex(mint_objkt.parameter.metadata)
+
+    token = models.ItemToken(
+        id=mint.parameter.token_id,
+        royalties=mint_Item.parameter.royalties,
+        minter=minter,
+        name='',
+        description='',
+        artifact_uri='',
+        thumbnail_uri='',
+        metadata=metadata,
+        mime='',
+        supply=int(mint.parameter.amount),
+        level=mint.data.level,
+        timestamp=mint.data.timestamp
+    )
+    await token.save()
+
+    holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder, quantity=int(mint.parameter.amount))
+    await holding.save()
+

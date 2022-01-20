@@ -1,0 +1,6 @@
+# ignore generated types for now
+src/landex/types/
+# ignore pycache
+__pycache__
+# ignore sqlite files
+src/*.sqlite3*
