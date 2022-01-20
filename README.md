@@ -1,4 +1,3 @@
-resources
 # landex
 
 An indexer for tz1aND based on [dipdup](https://dipdup.net/) by [Baking Bad](https://baking-bad.org/)
