@@ -10,6 +10,7 @@ from landex.types.tezlandPlaces.parameter.mint import MintParameter
 from landex.types.tezlandPlaces.storage import TezlandPlacesStorage
 from landex.types.tezlandMinter.parameter.mint_place import MintPlaceParameter
 from landex.types.tezlandMinter.storage import TezlandMinterStorage
+from landex.utils import fromhex
 
 
 async def on_place_mint(
@@ -23,14 +24,9 @@ async def on_place_mint(
     if mint.parameter.address != mint_Place.data.sender_address:
         minter, _ = await models.Holder.get_or_create(address=mint_Place.data.sender_address)
 
-    # this is nonsense. can't mint an item twice
-    #if await models.Token.exists(id=mint.parameter.token_id):
-    #    return
-
     metadata = ''
-    # TODO
-    #if mint_Place.parameter.metadata:
-    #    metadata = fromhex(mint_objkt.parameter.metadata)
+    if mint_Place.parameter.metadata:
+        metadata = fromhex(mint_Place.parameter.metadata)
 
     token = models.PlaceToken(
         id=mint.parameter.token_id,

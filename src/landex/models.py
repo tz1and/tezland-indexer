@@ -4,6 +4,7 @@ from tortoise import Model, fields
 
 # TODO: probably shouldn't be called holder?
 # maybe Account or TezosAccount or TezlandAccount?
+# TODO: holder should be by id, probably, we can union the address in queries.
 class Holder(Model):
     address = fields.CharField(max_length=36, pk=True)
     balance = fields.DecimalField(decimal_places=8, max_digits=20, default=0)

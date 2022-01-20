@@ -11,8 +11,8 @@ docker-build:
 	cd src; poetry run dipdup init
 	docker-compose build
 
-docker-start:
+docker-up:
 	docker-compose up -d
 
-docker-stop:
+docker-down:
 	docker-compose down -v
