@@ -1,0 +1,10 @@
+src/landex.sqlite3
+src/landex/types
+**/__pycache__
+**.pyc
+.dockerignore
+Dockerfile
+Dockerfile.prod
+Makefile
+.env*
+!.env.production.local

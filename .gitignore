@@ -4,3 +4,5 @@ src/landex/types/
 __pycache__
 # ignore sqlite files
 src/*.sqlite3*
+# ignore .env file
+.env*

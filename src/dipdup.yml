@@ -4,31 +4,33 @@ package: landex
 database:
   kind: sqlite
   path: landex.sqlite3
-  
+
+# TODO: use env vars for contracts
 contracts:
   tezlandMinter:
-    address: KT1HDjfoTe7noxMVJ2ixhe316vCaAHazbWCo
+    address: KT1B6MowAVqx5F6z4kB1nnVwkVeSazwKsNA5
     typename: tezlandMinter
 
   tezlandItems:
-    address: KT1HBs4mGTy7hn3oqkHCpHNe6G5DJw1sv2qM
+    address: KT18qhic3J2FWVfKXoH1EQ49fqWNQ34LQTLi
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1KzJD2TekqaeZJyj9w2KXtraBXuf2VRYbV
+    address: KT1QRURi1ANAPqkNiqZxaq5ySfNguWRLH5mY
     typename: tezlandPlaces
 
   tezlandDutchAuctions:
-    address: KT1QJYiJ62VifvM1jnw2HhnsV3neNKTY3i5j
+    address: KT1NajfPjjBSyvqVwdEQh1nqbeQv21Jnhbiv
     typename: tezlandDutchAuctions
 
 datasources:
-  #tzkt_mainnet:
-  #  kind: tzkt
-  #  url: https://api.tzkt.io
   tzkt_mainnet:
     kind: tzkt
-    url: http://api-tzkt:5000
+    url: https://api.tzkt.io
+# TODO: add to dipdup.docker.dev.yml
+#  tzkt_mainnet:
+#    kind: tzkt
+#    url: http://api-tzkt:5020
     
 indexes:
   tezland_mainnet:
