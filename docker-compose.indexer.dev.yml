@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  tezland-indexer:
+    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.docker.dev.yml run"
+    build:
+      network: bcdbox_default
+      args:
+        - extra_dipdup_conf=-c dipdup.docker.dev.yml
+
+  tezland-hasura:
+    ports:
+      - 127.0.0.1:42000:8080
+
+networks:
+  default:
+    external: true
+    name: bcdbox_default

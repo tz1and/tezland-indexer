@@ -7,14 +7,23 @@ run-clean:
 clean:
 	cd src; poetry run dipdup schema wipe
 
+dev-docker-build:
+	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml build --no-cache
+
+dev-docker-up:
+	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml up -d
+
+dev-docker-down:
+	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml down -v
+
 docker-build:
-	docker-compose -f docker-compose.indexer.yml build
+	TAG=latest docker-compose -f docker-compose.indexer.yml build
 
 docker-up:
-	docker-compose -f docker-compose.indexer.yml up -d
+	TAG=latest docker-compose -f docker-compose.indexer.yml up -d
 
 docker-down:
-	docker-compose -f docker-compose.indexer.yml down -v
+	TAG=latest docker-compose -f docker-compose.indexer.yml down -v
 
 docker-push:
 	docker save -o tezland-indexer-latest.tar tezland-indexer:latest

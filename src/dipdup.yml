@@ -8,29 +8,25 @@ database:
 # TODO: use env vars for contracts
 contracts:
   tezlandMinter:
-    address: KT1B6MowAVqx5F6z4kB1nnVwkVeSazwKsNA5
+    address: KT1Gu3uP4NJywjUYC4EBxUjLRLXzLzZbicnB
     typename: tezlandMinter
 
   tezlandItems:
-    address: KT18qhic3J2FWVfKXoH1EQ49fqWNQ34LQTLi
+    address: KT1UNZFiTA3AwU2vBQUZFWjEGQ8pLWEMeeCk
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1QRURi1ANAPqkNiqZxaq5ySfNguWRLH5mY
+    address: KT1WeQ3ziL15DNvc72CaiNF88Ed7BEybvWzM
     typename: tezlandPlaces
 
   tezlandDutchAuctions:
-    address: KT1NajfPjjBSyvqVwdEQh1nqbeQv21Jnhbiv
+    address: KT1SbSGiT8ejj4A2KgNx8x2zMKNFWdS5B5Ft
     typename: tezlandDutchAuctions
 
 datasources:
   tzkt_mainnet:
     kind: tzkt
     url: https://api.tzkt.io
-# TODO: add to dipdup.docker.dev.yml
-#  tzkt_mainnet:
-#    kind: tzkt
-#    url: http://api-tzkt:5020
     
 indexes:
   tezland_mainnet:

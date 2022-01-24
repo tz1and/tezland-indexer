@@ -3,11 +3,10 @@ version: "3.7"
 services:
   tezland-indexer:
     container_name: tezland-indexer
-    image: tezland-indexer:latest
+    image: tezland-indexer:$TAG
     build:
       context: .
       dockerfile: Dockerfile
-    build: .
     depends_on:
       - db-dipdup
       - tezland-hasura
@@ -18,6 +17,7 @@ services:
 
   # TODO don't run on root
   db-dipdup:
+    container_name: db-dipdup
     image: postgres:13
     restart: always
     volumes:
@@ -36,6 +36,7 @@ services:
     #  retries: 5
 
   tezland-hasura:
+    container_name: tezland-hasura
     image: hasura/graphql-engine:v2.0.1
     depends_on:
       - db-dipdup

@@ -1,4 +1,5 @@
 FROM python:3.10-slim-buster
+ARG extra_dipdup_conf
 
 # todo: don't run as root?
 
@@ -13,7 +14,7 @@ COPY ./src ./src
 
 WORKDIR /landex/src
 
-RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml init
+RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml $extra_dipdup_conf init
 
 ENTRYPOINT ["poetry", "run", "dipdup"]
 CMD ["-c", "dipdup.yml", "-c", "dipdup.docker.yml", "run"]

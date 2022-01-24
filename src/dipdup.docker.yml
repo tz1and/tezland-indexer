@@ -7,7 +7,7 @@ database:
   database: dipdup
 
 hasura:
-  url: http://hasura:8080
+  url: http://tezland-hasura:8080
   admin_secret: ${ADMIN_SECRET:-changeme}
   allow_aggregations: False
   camel_case: true
