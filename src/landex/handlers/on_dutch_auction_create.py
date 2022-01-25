@@ -25,6 +25,7 @@ async def on_dutch_auction_create(
         end_price=create.parameter.end_price,
         start_time=create.parameter.start_time,
         end_time=create.parameter.end_time,
+        fa2=create.parameter.fa2,
         level=create.data.level,
         timestamp=create.data.timestamp
     )

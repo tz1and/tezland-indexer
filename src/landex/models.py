@@ -63,6 +63,7 @@ class DutchAuction(Model):
     end_time = fields.DatetimeField(null=False)
     start_price = fields.BigIntField(null=False)
     end_price = fields.BigIntField(null=False)
+    fa2 = fields.CharField(max_length=36)
 
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)
