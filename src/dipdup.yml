@@ -5,22 +5,22 @@ database:
   kind: sqlite
   path: landex.sqlite3
 
-# TODO: use env vars for contracts
+# No contracts actually deployed on mainnet yet. specify in ...dev.local.yml
 contracts:
-  tezlandMinter:
-    address: KT1Gu3uP4NJywjUYC4EBxUjLRLXzLzZbicnB
-    typename: tezlandMinter
-
   tezlandItems:
-    address: KT1UNZFiTA3AwU2vBQUZFWjEGQ8pLWEMeeCk
+    address: KT1000000000000000000000000000000000
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1WeQ3ziL15DNvc72CaiNF88Ed7BEybvWzM
+    address: KT1000000000000000000000000000000000
     typename: tezlandPlaces
 
+  tezlandMinter:
+    address: KT1000000000000000000000000000000000
+    typename: tezlandMinter
+
   tezlandDutchAuctions:
-    address: KT1SbSGiT8ejj4A2KgNx8x2zMKNFWdS5B5Ft
+    address: KT1000000000000000000000000000000000
     typename: tezlandDutchAuctions
 
 datasources:

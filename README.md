@@ -11,3 +11,7 @@ in src dir:
 - `poetry run dipdup init`
 - `poetry run dipdup schema wipe`
 - `poetry run dipdup run`
+
+## local dev env
+
+override contracts in dipdup.docker.dev.local.yml
