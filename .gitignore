@@ -6,4 +6,4 @@ __pycache__
 src/*.sqlite3*
 # ignore .env file
 .env*
-dipdup.docker.dev.local.yml
+dipdup.dev.local.yml

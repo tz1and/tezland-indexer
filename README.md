@@ -14,4 +14,4 @@ in src dir:
 
 ## local dev env
 
-override contracts in dipdup.docker.dev.local.yml
+override contracts in dipdup.dev.local.yml

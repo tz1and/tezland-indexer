@@ -2,11 +2,11 @@ version: "3.7"
 
 services:
   tezland-indexer:
-    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.docker.dev.yml -c dipdup.docker.dev.local.yml run"
+    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.docker.dev.yml -c dipdup.dev.local.yml run"
     build:
       network: bcdbox_default
       args:
-        - extra_dipdup_conf=-c dipdup.docker.dev.yml -c dipdup.docker.dev.local.yml
+        - extra_dipdup_conf=-c dipdup.docker.dev.yml -c dipdup.dev.local.yml
 
   tezland-hasura:
     ports:
