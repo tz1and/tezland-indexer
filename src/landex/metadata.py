@@ -83,7 +83,7 @@ def file_path(token_id: str, base_path: str):
 
 
 # download metadata from ipfs.
-# TODO: change __failed_attempt stuff. store it in the db maybe.
+# TODO: change __failed_attempt stuff. store it in the db maybe?
 async def fetch_metadata_ipfs(token, cache_path, failed_attempt):
     addr = token.metadata.replace('ipfs://', '')
     try:
@@ -97,11 +97,10 @@ async def fetch_metadata_ipfs(token, cache_path, failed_attempt):
             with open(cache_path, 'w') as write_file:
                 json.dump(normalise_metadata(matadata), write_file)
             return matadata
-        
+    except Exception:
         # if we got nothing, write a failed attempt.
         with open(cache_path, 'w') as write_file:
             json.dump({'__failed_attempt': failed_attempt + 1}, write_file)
-    except Exception:
         await session.close()
     return {}
 

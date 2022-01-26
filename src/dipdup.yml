@@ -101,4 +101,4 @@ hooks:
 jobs:
   retry_metadata:
     hook: retry_metadata
-    interval: 10  # in seconds
+    interval: 120  # in seconds
