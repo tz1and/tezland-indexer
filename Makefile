@@ -4,7 +4,7 @@ run:
 	cd src; poetry run dipdup $(devconfig) init; poetry run dipdup $(devconfig) run
 
 run-clean:
-	cd src; poetry run dipdup $(devconfig) init; poetry run dipdup $(devconfig) schema wipe; poetry run dipdup $(devconfig) run
+	cd src; poetry run dipdup $(devconfig) schema wipe; poetry run dipdup $(devconfig) init; poetry run dipdup $(devconfig) run
 
 clean:
 	cd src; poetry run dipdup $(devconfig) schema wipe

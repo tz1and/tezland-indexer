@@ -32,7 +32,7 @@ class ItemToken(Model):
 class PlaceToken(Model):
     id = fields.BigIntField(pk=True)
     minter = fields.ForeignKeyField('models.Holder', 'placetokens', index=True, null=True)
-    
+
     name = fields.TextField(default='')
     description = fields.TextField(default='')
     thumbnail_uri = fields.TextField(default='')
@@ -75,3 +75,4 @@ class DutchAuction(Model):
     class Meta:
         table = 'dutch_auction'
 
+# TODO: have distinct models for Item and Place metadata?
