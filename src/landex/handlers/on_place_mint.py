@@ -11,6 +11,7 @@ from landex.types.tezlandPlaces.storage import TezlandPlacesStorage
 from landex.types.tezlandMinter.parameter.mint_place import MintPlaceParameter
 from landex.types.tezlandMinter.storage import TezlandMinterStorage
 from landex.utils import fromhex
+from landex.metadata import get_place_metadata
 
 
 async def on_place_mint(
@@ -31,9 +32,6 @@ async def on_place_mint(
     token = models.PlaceToken(
         id=mint.parameter.token_id,
         minter=minter,
-        name='',
-        description='',
-        thumbnail_uri='',
         metadata=metadata,
         level=mint.data.level,
         timestamp=mint.data.timestamp
@@ -42,3 +40,5 @@ async def on_place_mint(
 
     holding, _ = await models.PlaceTokenHolder.get_or_create(token=token, holder=holder)
     await holding.save()
+
+    await get_place_metadata(token)

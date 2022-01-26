@@ -14,6 +14,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+      - TOKEN_METADATA_DIR=/landex/tz1aND_metadata
+      - IPFS_GATEWAY=https://cloudflare-ipfs.com/ipfs
+    volumes:
+      - ./tz1aND_metadata:/landex/tz1aND_metadata
 
   # TODO don't run on root
   db-dipdup:

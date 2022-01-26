@@ -7,6 +7,8 @@ services:
       network: bcdbox_default
       args:
         - extra_dipdup_conf=-c dipdup.docker.dev.yml -c dipdup.dev.local.yml
+    environment:
+      - IPFS_GATEWAY=http://localhost:8080/ipfs
 
   tezland-hasura:
     ports:

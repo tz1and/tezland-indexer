@@ -7,3 +7,4 @@ src/*.sqlite3*
 # ignore .env file
 .env*
 dipdup.dev.local.yml
+tz1aND_metadata/

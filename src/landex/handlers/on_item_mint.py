@@ -11,6 +11,7 @@ from landex.types.tezlandItems.storage import TezlandItemsStorage
 from landex.types.tezlandMinter.parameter.mint_item import MintItemParameter
 from landex.types.tezlandMinter.storage import TezlandMinterStorage
 from landex.utils import fromhex
+from landex.metadata import get_item_metadata
 
 
 async def on_item_mint(
@@ -32,12 +33,7 @@ async def on_item_mint(
         id=mint.parameter.token_id,
         royalties=mint_Item.parameter.royalties,
         minter=minter,
-        name='',
-        description='',
-        artifact_uri='',
-        thumbnail_uri='',
         metadata=metadata,
-        mime='',
         supply=int(mint.parameter.amount),
         level=mint.data.level,
         timestamp=mint.data.timestamp
@@ -46,4 +42,6 @@ async def on_item_mint(
 
     holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder, quantity=int(mint.parameter.amount))
     await holding.save()
+
+    await get_item_metadata(token)
 

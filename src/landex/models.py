@@ -15,14 +15,16 @@ class Holder(Model):
 class ItemToken(Model):
     id = fields.BigIntField(pk=True)
     minter = fields.ForeignKeyField('models.Holder', 'itemtokens', index=True, null=True)
+    royalties = fields.SmallIntField(default=0)
+    supply = fields.BigIntField(default=0)
+
     name = fields.TextField(default='')
     description = fields.TextField(default='')
     artifact_uri = fields.TextField(default='')
     thumbnail_uri = fields.TextField(default='')
-    metadata = fields.TextField(default='')
     mime = fields.TextField(default='')
-    royalties = fields.SmallIntField(default=0)
-    supply = fields.BigIntField(default=0)
+    metadata = fields.TextField(default='')
+    metadata_fetched = fields.BooleanField(default=False)
 
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)
@@ -30,12 +32,14 @@ class ItemToken(Model):
 class PlaceToken(Model):
     id = fields.BigIntField(pk=True)
     minter = fields.ForeignKeyField('models.Holder', 'placetokens', index=True, null=True)
+    
     name = fields.TextField(default='')
     description = fields.TextField(default='')
     thumbnail_uri = fields.TextField(default='')
+    center_coordinates = fields.TextField(default='')
+    border_coordinates = fields.TextField(default='')
     metadata = fields.TextField(default='')
-
-    # TODO: add center coords and the other one
+    metadata_fetched = fields.BooleanField(default=False)
 
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)

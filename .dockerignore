@@ -8,3 +8,4 @@ Dockerfile.prod
 Makefile
 .env*
 !.env.production.local
+tz1aND_metadata/
