@@ -41,7 +41,7 @@ services:
 
   tezland-hasura:
     container_name: tezland-hasura
-    image: hasura/graphql-engine:v2.0.1
+    image: hasura/graphql-engine:v2.1.1
     depends_on:
       - db-dipdup
     restart: always
