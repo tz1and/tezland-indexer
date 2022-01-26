@@ -92,3 +92,13 @@ indexes:
           - type: transaction
             destination: tezlandPlaces
             entrypoint: transfer
+
+hooks:
+  retry_metadata:
+    callback: retry_metadata
+    atomic: False
+
+jobs:
+  retry_metadata:
+    hook: retry_metadata
+    interval: 10  # in seconds
