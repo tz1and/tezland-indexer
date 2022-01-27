@@ -6,7 +6,7 @@ import landex.models as models
 from landex.utils import clean_null_bytes, http_request
 
 IPFS_GATEWAY = env.get('IPFS_GATEWAY', 'http://localhost:8080/ipfs')
-TOKEN_METADATA_DIR = env.get('TOKEN_METADATA_DIR', '../tz1aND_metadata')
+TOKEN_METADATA_DIR = env.get('TOKEN_METADATA_DIR', './tz1aND_metadata')
 ITEM_METADTA_PATH = f'{TOKEN_METADATA_DIR}/items'
 PLACE_METADTA_PATH = f'{TOKEN_METADATA_DIR}/places'
 
