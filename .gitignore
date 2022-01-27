@@ -1,9 +1,9 @@
 # ignore generated types for now
-src/landex/types/
+landex/types/
 # ignore pycache
 __pycache__
 # ignore sqlite files
-src/*.sqlite3*
+*.sqlite3*
 # ignore .env file
 .env*
 dipdup.dev.local.yml

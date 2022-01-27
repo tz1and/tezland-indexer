@@ -1,13 +1,13 @@
 devconfig = -c dipdup.yml -c dipdup.dev.yml -c dipdup.dev.local.yml
 
 run:
-	cd src; poetry run dipdup $(devconfig) init; poetry run dipdup $(devconfig) run
+	source .venv/bin/activate; dipdup $(devconfig) init; dipdup $(devconfig) run
 
 run-clean:
-	cd src; poetry run dipdup $(devconfig) schema wipe; poetry run dipdup $(devconfig) init; poetry run dipdup $(devconfig) run
+	source .venv/bin/activate; dipdup $(devconfig) schema wipe; dipdup $(devconfig) init; dipdup $(devconfig) run
 
 clean:
-	cd src; poetry run dipdup $(devconfig) schema wipe
+	source .venv/bin/activate; dipdup $(devconfig) schema wipe
 
 dev-docker-build:
 	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml build --no-cache
