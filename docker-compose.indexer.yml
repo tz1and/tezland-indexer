@@ -14,12 +14,11 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
-      - TOKEN_METADATA_DIR=/landex/tz1aND_metadata
+      - TOKEN_METADATA_DIR=/home/landex/indexer/tz1aND_metadata
       - IPFS_GATEWAY=https://cloudflare-ipfs.com/ipfs
     volumes:
-      - ./tz1aND_metadata:/landex/tz1aND_metadata
+      - ./tz1aND_metadata:/home/landex/indexer/tz1aND_metadata
 
-  # TODO don't run on root
   db-dipdup:
     container_name: db-dipdup
     image: postgres:13
@@ -27,14 +26,14 @@ services:
     volumes:
       - db-dipdup:/var/lib/postgres/data
     environment: 
-      - POSTGRES_USER=root
+      - POSTGRES_USER=dipdup
       - POSTGRES_DB=dipdup
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - PGPORT=15435
     expose:
       - 15435
     #healthcheck:
-    #  test: ["CMD-SHELL", "pg_isready -U dipdup"] # TODO: don't use root
+    #  test: ["CMD-SHELL", "pg_isready -U dipdup"]
     #  interval: 10s
     #  timeout: 5s
     #  retries: 5
@@ -46,7 +45,7 @@ services:
       - db-dipdup
     restart: always
     environment:
-      - HASURA_GRAPHQL_DATABASE_URL=postgres://root:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/dipdup # todo: don't use root
+      - HASURA_GRAPHQL_DATABASE_URL=postgres://dipdup:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/dipdup
       - HASURA_GRAPHQL_ENABLE_CONSOLE=true
       - HASURA_GRAPHQL_DEV_MODE=false
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
@@ -59,12 +58,3 @@ volumes:
 networks:
   default:
     name: tz1and_prod
-
-# todo: have a docker-compose.indexer.dev.yml
-#networks:
-#  default:
-#    external: true
-#    name: bcdbox_default
-#that also overrides port on hasura
-#    ports:
-#      - 127.0.0.1:42000:8080

@@ -1,12 +1,17 @@
 FROM python:3.10-slim-buster
 ARG extra_dipdup_conf
 
-# todo: don't run as root?
+# add group and user with homedir
+RUN groupadd -r landex && useradd -m -l -g landex landex
+USER landex
 
+WORKDIR /home/landex/indexer
+ENV PATH="/home/landex/.local/bin:${PATH}"
+
+RUN pip install --upgrade pip
 RUN pip install poetry
 
-WORKDIR /landex
-COPY ./ ./
+COPY --chown=landex:landex ./ ./
 
 RUN poetry config virtualenvs.create false && poetry install --no-dev
 

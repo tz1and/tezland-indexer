@@ -2,7 +2,7 @@ database:
   kind: postgres
   host: db-dipdup
   port: 15435
-  user: root # TODO: don't use root
+  user: dipdup
   password: ${POSTGRES_PASSWORD:-changeme}
   database: dipdup
 

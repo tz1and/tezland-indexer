@@ -19,7 +19,7 @@ dev-docker-down:
 	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml down -v
 
 docker-build:
-	TAG=latest docker-compose -f docker-compose.indexer.yml build
+	TAG=latest docker-compose -f docker-compose.indexer.yml build --no-cache
 
 docker-up:
 	TAG=latest docker-compose -f docker-compose.indexer.yml up -d
