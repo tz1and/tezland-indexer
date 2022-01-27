@@ -22,7 +22,7 @@ class ItemToken(Model):
     description = fields.TextField(default='')
     artifact_uri = fields.TextField(default='')
     thumbnail_uri = fields.TextField(default='')
-    mime = fields.TextField(default='')
+    mime_type = fields.TextField(default='')
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
 

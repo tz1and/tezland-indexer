@@ -38,7 +38,7 @@ async def get_item_metadata(token):
         token.description = metadata.get('description', '')
         token.artifact_uri = metadata.get('artifactUri', '')
         token.thumbnail_uri = metadata.get('thumbnailUri', '')
-        token.mime = get_mime(metadata)
+        token.mime_type = get_mime_type(metadata)
         token.metadata_fetched = True
         await token.save()
 
@@ -95,7 +95,7 @@ async def fetch_metadata_ipfs(token, cache_path, failed_attempt):
         # if we succeed, normalise it and write it.
         if matadata and not isinstance(matadata, list):
             with open(cache_path, 'w') as write_file:
-                json.dump(normalise_metadata(matadata), write_file)
+                json.dump(matadata, write_file) # normalise_metadata?
             return matadata
     except Exception:
         # if we got nothing, write a failed attempt.
@@ -106,18 +106,19 @@ async def fetch_metadata_ipfs(token, cache_path, failed_attempt):
 
 
 # normalise the metadata strings
-def normalise_metadata(metadata):
-    normalised = {}
-    for key in metadata:
-        value = metadata[key]
-        if isinstance(value, str):
-            normalised[key] = clean_null_bytes(value)
-        else:
-            normalised[key] = value
-    return normalised
+# TODO: do I really need to do this? it's json data
+#def normalise_metadata(metadata):
+#    normalised = {}
+#    for key in metadata:
+#        value = metadata[key]
+#        if isinstance(value, str):
+#            normalised[key] = clean_null_bytes(value)
+#        else:
+#            normalised[key] = value
+#    return normalised
 
 
-def get_mime(metadata):
+def get_mime_type(metadata):
     if ('formats' in metadata) and metadata['formats'] and ('mimeType' in metadata['formats'][0]):
         return metadata['formats'][0]['mimeType']
     return ''
