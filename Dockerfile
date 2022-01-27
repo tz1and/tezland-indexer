@@ -6,13 +6,9 @@ ARG extra_dipdup_conf
 RUN pip install poetry
 
 WORKDIR /landex
-COPY poetry.lock pyproject.toml ./
+COPY ./ ./
 
 RUN poetry config virtualenvs.create false && poetry install --no-dev
-
-COPY ./src ./src
-
-WORKDIR /landex/src
 
 RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml $extra_dipdup_conf init
 
