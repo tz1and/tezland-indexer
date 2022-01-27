@@ -8,7 +8,7 @@ services:
       args:
         - extra_dipdup_conf=-c dipdup.docker.dev.yml -c dipdup.dev.local.yml
     environment:
-      - IPFS_GATEWAY=http://localhost:8080/ipfs
+      - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
 
   tezland-hasura:
     ports:
