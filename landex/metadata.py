@@ -11,7 +11,7 @@ ITEM_METADTA_PATH = f'{TOKEN_METADATA_DIR}/items'
 PLACE_METADTA_PATH = f'{TOKEN_METADATA_DIR}/places'
 
 _logger = logging.getLogger(__name__)
-
+_logger.info(f'IPFS_GATEWAY={IPFS_GATEWAY}')
 
 async def get_place_metadata(token):
     metadata = await fetch_metadata(token, PLACE_METADTA_PATH)
