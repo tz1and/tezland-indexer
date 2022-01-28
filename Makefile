@@ -18,7 +18,7 @@ dev-docker-build:
 
 dev-docker-up:
 	TAG=dev docker-compose ${DOCKER_DEV_CONF} up -d
-# && docker-compose ${DOCKER_DEV_CONF} logs -f tezland-indexer
+	TAG=dev docker-compose ${DOCKER_DEV_CONF} logs -f
 
 dev-docker-down:
 	TAG=dev docker-compose ${DOCKER_DEV_CONF} down -v

@@ -38,6 +38,7 @@ class PlaceToken(Model):
     thumbnail_uri = fields.TextField(default='')
     center_coordinates = fields.TextField(default='')
     border_coordinates = fields.TextField(default='')
+    build_height = fields.IntField(default=0)
     place_type = fields.TextField(default='')
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
