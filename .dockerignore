@@ -1,16 +1,21 @@
-*.sqlite3*
-landex/types
-**/__pycache__
-**.pyc
+# ignore various standard-ish
 .dockerignore
 Dockerfile
 Dockerfile.prod
-poetry.toml
-Makefile
-.env*
-.venv/
-!.env.production.local
-tz1aND_metadata/
 docker-compose.*
 nginx.conf
+Makefile
 .git/
+
+# ignore project specific
+.venv/
+landex/types/
+tz1aND_metadata/
+poetry.toml
+*.sqlite3*
+**/__pycache__
+**.pyc
+
+# env files
+.env*
+!.env.production.local
