@@ -33,7 +33,7 @@ docker-down:
 	TAG=latest docker-compose -f docker-compose.indexer.yml down -v
 
 docker-push:
-	docker save -o tezland-indexer-latest.tar tezland-indexer:latest && \
-	rsync tezland-indexer-latest.tar docker-compose.indexer.yml nginx.conf .env.production tz1and.com:/home/yves/docker && \
-	ssh tz1and.com "source .profile; cd docker; docker load -i tezland-indexer-latest.tar; mv .env.production .env; mv nginx.conf nginx/conf/indexer.conf; rm tezland-indexer-latest.tar" && \
+	docker save -o tezland-indexer-latest.tar tezland-indexer:latest
+	rsync tezland-indexer-latest.tar docker-compose.indexer.yml nginx.conf .env.production tz1and.com:/home/yves/docker
+	ssh tz1and.com "source .profile; cd docker; docker load -i tezland-indexer-latest.tar; mv .env.production .env; mv nginx.conf nginx/conf/indexer.conf; rm tezland-indexer-latest.tar"
 	rm tezland-indexer-latest.tar
