@@ -22,8 +22,9 @@ async def get_place_metadata(token):
         token.name = metadata.get('name', '')
         token.description = metadata.get('description', '')
         token.thumbnail_uri = metadata.get('thumbnailUri', '')
-        token.center_coordinates = metadata.get('center_coordinates', '')
-        token.border_coordinates = metadata.get('border_coordinates', '')
+        token.center_coordinates = metadata.get('centerCoordinates', '')
+        token.border_coordinates = metadata.get('borderCoordinates', '')
+        token.place_type = metadata.get('placeType', '')
         token.metadata_fetched = True
         await token.save()
 
