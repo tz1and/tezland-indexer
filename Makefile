@@ -1,3 +1,5 @@
+EXTRA_ARGS?=
+
 devconfig = -c dipdup.yml -c dipdup.dev.yml -c dipdup.dev.local.yml
 
 run:
@@ -9,14 +11,17 @@ run-clean:
 clean:
 	source .venv/bin/activate && dipdup $(devconfig) schema wipe
 
+DOCKER_DEV_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml
+
 dev-docker-build:
-	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml build --no-cache
+	TAG=dev docker-compose ${DOCKER_DEV_CONF} build $(EXTRA_ARGS)
 
 dev-docker-up:
-	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml up -d
+	TAG=dev docker-compose ${DOCKER_DEV_CONF} up -d
+# && docker-compose ${DOCKER_DEV_CONF} logs -f tezland-indexer
 
 dev-docker-down:
-	TAG=dev docker-compose -f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml down -v
+	TAG=dev docker-compose ${DOCKER_DEV_CONF} down -v
 
 docker-build:
 	TAG=latest docker-compose -f docker-compose.indexer.yml build --no-cache

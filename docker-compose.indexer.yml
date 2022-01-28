@@ -14,10 +14,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
-      - TOKEN_METADATA_DIR=/home/landex/indexer/tz1aND_metadata
+      - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
       - IPFS_GATEWAY=https://cloudflare-ipfs.com/ipfs
     volumes:
-      - ./tz1aND_metadata:/home/landex/indexer/tz1aND_metadata
+      - ./tz1aND_metadata:/indexer/tz1aND_metadata
 
   db-dipdup:
     container_name: db-dipdup
