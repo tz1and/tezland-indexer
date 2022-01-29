@@ -2,13 +2,14 @@ version: "3.7"
 
 services:
   tezland-indexer:
-    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.docker.dev.yml -c dipdup.dev.local.yml run"
+    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.dev.local.yml run"
     build:
       network: bcdbox_default
       args:
-        - extra_dipdup_conf=-c dipdup.docker.dev.yml -c dipdup.dev.local.yml
+        - extra_dipdup_conf=-c dipdup.dev.local.yml
     environment:
       - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
+      - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
 
   tezland-hasura:
     ports:

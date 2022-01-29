@@ -18,6 +18,7 @@ services:
       - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
       - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
       - IPFS_GATEWAY=https://cloudflare-ipfs.com/ipfs
+      - TZKT_URL=https://api.tzkt.io
     volumes:
       - ./tz1aND_metadata:/indexer/tz1aND_metadata
 

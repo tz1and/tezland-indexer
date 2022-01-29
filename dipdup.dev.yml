@@ -1,4 +1,0 @@
-datasources:
-  tzkt_mainnet:
-    kind: tzkt
-    url: http://0.0.0.0:5020

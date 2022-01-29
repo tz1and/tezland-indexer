@@ -1,4 +1,0 @@
-datasources:
-  tzkt_mainnet:
-    kind: tzkt
-    url: http://api-tzkt:5000
