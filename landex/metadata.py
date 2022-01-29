@@ -41,6 +41,7 @@ async def get_item_metadata(token):
         token.artifact_uri = metadata.get('artifactUri', '')
         token.thumbnail_uri = metadata.get('thumbnailUri', '')
         token.mime_type = get_mime_type(metadata)
+        token.file_size = get_file_size(metadata)
         token.metadata_fetched = True
         await token.save()
 
@@ -124,3 +125,8 @@ def get_mime_type(metadata):
     if ('formats' in metadata) and metadata['formats'] and ('mimeType' in metadata['formats'][0]):
         return metadata['formats'][0]['mimeType']
     return ''
+
+def get_file_size(metadata):
+    if ('formats' in metadata) and metadata['formats'] and ('fileSize' in metadata['formats'][0]):
+        return metadata['formats'][0]['fileSize']
+    return 34359738368 # if not set, we assume very large. Tough luck.

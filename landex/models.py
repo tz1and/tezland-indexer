@@ -23,6 +23,7 @@ class ItemToken(Model):
     artifact_uri = fields.TextField(default='')
     thumbnail_uri = fields.TextField(default='')
     mime_type = fields.TextField(default='')
+    file_size = fields.BigIntField(default=34359738368) # Assume very large if not set.
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
 

@@ -8,8 +8,10 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - db-dipdup
-      - tezland-hasura
+      db-dipdup:
+        condition: service_healthy
+      tezland-hasura:
+        condition: service_started
     restart: always
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
@@ -32,17 +34,18 @@ services:
       - PGPORT=15435
     expose:
       - 15435
-    #healthcheck:
-    #  test: ["CMD-SHELL", "pg_isready -U dipdup"]
-    #  interval: 10s
-    #  timeout: 5s
-    #  retries: 5
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dipdup"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   tezland-hasura:
     container_name: tezland-hasura
     image: hasura/graphql-engine:v2.1.1
     depends_on:
-      - db-dipdup
+      db-dipdup:
+        condition: service_healthy
     restart: always
     environment:
       - HASURA_GRAPHQL_DATABASE_URL=postgres://dipdup:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/dipdup
