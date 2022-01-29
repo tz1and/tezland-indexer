@@ -7,6 +7,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - TZKT_URL=https://api.tzkt.io
     depends_on:
       db-dipdup:
         condition: service_healthy

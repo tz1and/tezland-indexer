@@ -1,5 +1,7 @@
 FROM python:3.10-slim-buster
-ARG extra_dipdup_conf
+ARG EXTRA_DIPDUP_CONF
+ARG TZKT_URL
+ENV TZKT_URL $TZKT_URL
 
 WORKDIR /indexer
 
@@ -11,7 +13,7 @@ RUN poetry config virtualenvs.create false && poetry install --no-dev
 
 COPY ./ ./
 
-RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml $extra_dipdup_conf init
+RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml $EXTRA_DIPDUP_CONF init
 
 ENTRYPOINT ["poetry", "run", "dipdup"]
 CMD ["-c", "dipdup.yml", "-c", "dipdup.docker.yml", "run"]

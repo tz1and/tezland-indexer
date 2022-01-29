@@ -6,7 +6,8 @@ services:
     build:
       network: bcdbox_default
       args:
-        - extra_dipdup_conf=-c dipdup.dev.local.yml
+        - EXTRA_DIPDUP_CONF=-c dipdup.dev.local.yml
+        - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
     environment:
       - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
       - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
