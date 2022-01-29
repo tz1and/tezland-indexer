@@ -6,7 +6,7 @@ authors = ["852Kerfunkle <852Kerfunkle@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-dipdup = "^4.1.1"
+dipdup = "^4.1.2"
 aiohttp = "^3.8.1"
 
 [tool.poetry.dev-dependencies]

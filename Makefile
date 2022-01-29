@@ -6,10 +6,10 @@ run:
 	source .venv/bin/activate && dipdup $(devconfig) init && dipdup $(devconfig) run
 
 run-clean:
-	source .venv/bin/activate && dipdup $(devconfig) schema wipe && dipdup $(devconfig) init; dipdup $(devconfig) run
+	source .venv/bin/activate && dipdup $(devconfig) schema wipe --force && dipdup $(devconfig) init; dipdup $(devconfig) run
 
 clean:
-	source .venv/bin/activate && dipdup $(devconfig) schema wipe
+	source .venv/bin/activate && dipdup $(devconfig) schema wipe --force
 
 DOCKER_DEV_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml
 
