@@ -1,9 +1,10 @@
-import json, logging, aiohttp
+import json, logging
 from pathlib import Path
 from os import environ as env
 
+from dipdup.datasources.ipfs.datasource import IpfsDatasource
+
 import landex.models as models
-from landex.utils import clean_null_bytes, http_request
 
 IPFS_GATEWAY = env.get('IPFS_GATEWAY', 'http://localhost:8080/ipfs')
 TOKEN_METADATA_DIR = env.get('TOKEN_METADATA_DIR', './tz1aND_metadata')
@@ -13,9 +14,10 @@ PLACE_METADTA_PATH = f'{TOKEN_METADATA_DIR}/places'
 _logger = logging.getLogger(__name__)
 _logger.info(f'IPFS_GATEWAY={IPFS_GATEWAY}')
 
-async def get_place_metadata(token):
-    metadata = await fetch_metadata(token, PLACE_METADTA_PATH)
-    if metadata.get('__stop_trying'):
+
+async def get_place_metadata(ipfs: IpfsDatasource, token):
+    metadata = await fetch_metadata(ipfs, token, PLACE_METADTA_PATH)
+    if metadata is None:
         token.metadata_fetched = True
         await token.save()
     elif metadata != {}:
@@ -30,9 +32,9 @@ async def get_place_metadata(token):
         await token.save()
 
 
-async def get_item_metadata(token):
-    metadata = await fetch_metadata(token, ITEM_METADTA_PATH)
-    if metadata.get('__stop_trying'):
+async def get_item_metadata(ipfs: IpfsDatasource, token):
+    metadata = await fetch_metadata(ipfs, token, ITEM_METADTA_PATH)
+    if metadata is None:
         token.metadata_fetched = True
         await token.save()
     elif metadata != {}:
@@ -47,32 +49,47 @@ async def get_item_metadata(token):
 
 
 # fetches metadata from disk or from external
-async def fetch_metadata(token, base_path: str):
-    num_retries = 10
-    failed_attempt = 0
+# returns a dict for valid metadata, none for invalid.
+async def fetch_metadata(ipfs: IpfsDatasource, token, base_path: str):
     cache_path = file_path(token.id, base_path)
     # try to read the metadata from cache
-    # if it doesn't exist or has previously failed,
-    # try to fetch it again. up to num_retries.
+    # if it previously failed, return.
     try:
         with open(cache_path, 'r') as json_file:
             metadata = json.load(json_file)
-            failed_attempt = metadata.get('__failed_attempt')
-            if failed_attempt and failed_attempt > num_retries:
-                _logger.info(f'Too many attempts to download metadata for {token.id}')
-                return { '__stop_trying': True }
-            if not failed_attempt:
-                _logger.info(f'Got metadata for {token.id} from cache')
-                return metadata
+            invalid_json = metadata.get('__invalid_json')
+            if invalid_json:
+                _logger.info(f'Metadata from cache invalid json for: {token.id}')
+                return None
+
+            _logger.info(f'Got metadata for {token.id} from cache')
+            return metadata
     except Exception:
         pass
 
     # try to fetch the metadata from ipfs.
-    data = await fetch_metadata_ipfs(token, cache_path, failed_attempt)
-    if data != {}:
-        _logger.info(f'Got metadata for {token.id} from IPFS')
+    return await fetch_metadata_ipfs(ipfs, token, cache_path)
 
-    return data
+
+# download metadata from ipfs.
+# TODO: change __invalid_json stuff. store it in the db maybe?
+async def fetch_metadata_ipfs(ipfs: IpfsDatasource, token, cache_path):
+    addr = token.metadata.replace('ipfs://', '')
+    try:
+        data = await ipfs.get(addr)
+        if isinstance(data, bytes):
+            _logger.warning(f'Not a json metadata file: {addr}')
+            with open(cache_path, 'w') as write_file:
+                json.dump({'__invalid_json': True}, write_file)
+            return None
+        else:
+            _logger.info(f'Got metadata for {token.id} from IPFS')
+            with open(cache_path, 'w') as write_file:
+                json.dump(data, write_file) # normalise_metadata?
+            return data
+    except Exception as err:
+        _logger.warning(f'Failed to fetch metadata {addr} from ipfs: {err}')
+        return None
 
 
 # returns path of the ondisk cache of a tokens metadata
@@ -83,42 +100,6 @@ def file_path(token_id: str, base_path: str):
     dir = f'{base_path}/{lvl1}/{lvl2}'
     Path(dir).mkdir(parents=True, exist_ok=True)
     return f'{dir}/{token_id}.json'
-
-
-# download metadata from ipfs.
-# TODO: change __failed_attempt stuff. store it in the db maybe?
-async def fetch_metadata_ipfs(token, cache_path, failed_attempt):
-    addr = token.metadata.replace('ipfs://', '')
-    try:
-        # try dl the file from ipfs
-        session = aiohttp.ClientSession()
-        matadata = await http_request(session, 'get', url=f'{IPFS_GATEWAY}/{addr}', timeout=10)
-        await session.close()
-
-        # if we succeed, normalise it and write it.
-        if matadata and not isinstance(matadata, list):
-            with open(cache_path, 'w') as write_file:
-                json.dump(matadata, write_file) # normalise_metadata?
-            return matadata
-    except Exception:
-        # if we got nothing, write a failed attempt.
-        with open(cache_path, 'w') as write_file:
-            json.dump({'__failed_attempt': failed_attempt + 1}, write_file)
-        await session.close()
-    return {}
-
-
-# normalise the metadata strings
-# TODO: do I really need to do this? it's json data
-#def normalise_metadata(metadata):
-#    normalised = {}
-#    for key in metadata:
-#        value = metadata[key]
-#        if isinstance(value, str):
-#            normalised[key] = clean_null_bytes(value)
-#        else:
-#            normalised[key] = value
-#    return normalised
 
 
 def get_mime_type(metadata):

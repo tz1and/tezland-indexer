@@ -10,6 +10,7 @@ Makefile
 # ignore project specific
 .venv/
 landex/types/
+landex/schema/
 tz1aND_metadata/
 poetry.toml
 *.sqlite3*

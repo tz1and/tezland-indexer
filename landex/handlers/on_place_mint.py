@@ -41,4 +41,4 @@ async def on_place_mint(
     holding, _ = await models.PlaceTokenHolder.get_or_create(token=token, holder=holder)
     await holding.save()
 
-    await get_place_metadata(token)
+    await get_place_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)

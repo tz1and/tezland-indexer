@@ -27,6 +27,13 @@ datasources:
   tzkt_mainnet:
     kind: tzkt
     url: ${TZKT_URL:-http://0.0.0.0:5020}
+  local_ipfs:
+    kind: ipfs
+    url: ${IPFS_GATEWAY:-http://localhost:8080/ipfs}
+    http:
+      retry_count: 10
+      retry_sleep: 2
+      retry_multiplier: 2
     
 indexes:
   tezland_mainnet:
@@ -93,12 +100,12 @@ indexes:
             destination: tezlandPlaces
             entrypoint: transfer
 
-hooks:
-  retry_metadata:
-    callback: retry_metadata
-    atomic: False
-
-jobs:
-  retry_metadata:
-    hook: retry_metadata
-    interval: 120  # in seconds
+#hooks:
+#  retry_metadata:
+#    callback: retry_metadata
+#    atomic: False
+#
+#jobs:
+#  retry_metadata:
+#    hook: retry_metadata
+#    interval: 120  # in seconds

@@ -5,6 +5,7 @@ import landex.models as models
 from landex.metadata import get_place_metadata, get_item_metadata
 
 
+# NOTE: isn't used at the moment.
 async def retry_metadata(
     ctx: HookContext,
 ) -> None:
