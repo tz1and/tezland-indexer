@@ -9,12 +9,10 @@ from landex.metadata import get_place_metadata, get_item_metadata
 async def retry_metadata(
     ctx: HookContext,
 ) -> None:
-    places = await models.PlaceToken.filter(metadata_fetched=False).all()
-    for token in places:
+    async for token in models.PlaceToken.filter(metadata_fetched=False):
         await get_place_metadata(token)
 
-    items = await models.ItemToken.filter(metadata_fetched=False).all()
-    for token in items:
+    async for token in models.ItemToken.filter(metadata_fetched=False):
         await get_item_metadata(token)
     
     await ctx.execute_sql('retry_metadata')
