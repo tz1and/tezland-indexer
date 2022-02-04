@@ -233,7 +233,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "datamodel-code-generator"
-version = "0.11.17"
+version = "0.11.18"
 description = "Datamodel Code Generator"
 category = "main"
 optional = false
@@ -1037,8 +1037,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 datamodel-code-generator = [
-    {file = "datamodel-code-generator-0.11.17.tar.gz", hash = "sha256:8ca7a385978c10fd3e709daa083672804417112476c89f64722196cb970f24ec"},
-    {file = "datamodel_code_generator-0.11.17-py3-none-any.whl", hash = "sha256:f860323e48d930b983a54959fdc507649c3fa381b86174be087808d6765004cb"},
+    {file = "datamodel-code-generator-0.11.18.tar.gz", hash = "sha256:8b9dff10c3002f09aaf861523265c54ebcdc80668848e1716be0efba6535f783"},
+    {file = "datamodel_code_generator-0.11.18-py3-none-any.whl", hash = "sha256:6466b590a2c16fd721714944f6d12e625707a5f06174144cf20d6701c5d363ae"},
 ]
 dipdup = [
     {file = "dipdup-4.2.2-py3-none-any.whl", hash = "sha256:c96d9b4701b93888bf1186284bbe1a5a153f69e2cd8eddd915f4cb0b4e5c4552"},
