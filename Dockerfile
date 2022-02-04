@@ -5,6 +5,8 @@ ENV TZKT_URL $TZKT_URL
 
 WORKDIR /indexer
 
+#RUN apt update
+#RUN apt install git -y
 #RUN pip install --upgrade pip
 RUN pip install poetry
 

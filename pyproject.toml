@@ -6,6 +6,7 @@ authors = ["852Kerfunkle <852Kerfunkle@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+#dipdup = { git = "https://github.com/dipdup-net/dipdup-py.git", branch = "feat/ctx-pool" }
 dipdup = "^4.2.2"
 aiohttp = "^3.8.1"
 

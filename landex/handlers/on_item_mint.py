@@ -43,4 +43,5 @@ async def on_item_mint(
     holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder, quantity=int(mint.parameter.amount))
     await holding.save()
 
-    await get_item_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)
+    # runs in retry_metadata deamon job now
+    #await get_item_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)

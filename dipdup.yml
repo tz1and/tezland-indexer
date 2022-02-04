@@ -5,28 +5,36 @@ database:
   kind: sqlite
   path: landex.sqlite3
 
-# No contracts actually deployed on mainnet yet. specify in ...dev.local.yml
+# Contracts on testnet
 contracts:
   tezlandItems:
-    address: KT1000000000000000000000000000000000
+    address: KT1M3Wji7k87JhH86RFmJeBp9vrTXpsCjNQ9
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1000000000000000000000000000000000
+    address: KT1DJfnW5dPWUCyF5F86FvEdM129pYiFXUEL
     typename: tezlandPlaces
 
+  tezlandDAO:
+    address: KT1TLT1wipsFZkF43kcpyLNQBXpZiNyZb51o
+    typename: tezlandDAO
+
+  tezlandWorld:
+    address: KT1TUpa5hrfZTR4MiHLQnryAn92NhH5ADXhw
+    typename: tezlandWorld
+
   tezlandMinter:
-    address: KT1000000000000000000000000000000000
+    address: KT1Nh6Jv5G4CeG1YkhZsMSBwL6vQufiq1TZ9
     typename: tezlandMinter
 
   tezlandDutchAuctions:
-    address: KT1000000000000000000000000000000000
+    address: KT1Wwor4wSo5pEJbfviMKF3pjuoJw9pkJhks
     typename: tezlandDutchAuctions
 
 datasources:
   tzkt_mainnet:
     kind: tzkt
-    url: ${TZKT_URL:-http://0.0.0.0:5020}
+    url: ${TZKT_URL:-https://api.hangzhou2net.tzkt.io}
   local_ipfs:
     kind: ipfs
     url: ${IPFS_GATEWAY:-http://localhost:8080/ipfs}
@@ -100,12 +108,13 @@ indexes:
             destination: tezlandPlaces
             entrypoint: transfer
 
-#hooks:
-#  retry_metadata:
-#    callback: retry_metadata
-#    atomic: False
-#
-#jobs:
-#  retry_metadata:
-#    hook: retry_metadata
-#    interval: 120  # in seconds
+hooks:
+  retry_metadata:
+    callback: retry_metadata
+    atomic: False
+
+jobs:
+  retry_metadata:
+    hook: retry_metadata
+    daemon: true
+    #interval: 1  # in seconds
