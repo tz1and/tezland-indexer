@@ -5,8 +5,13 @@ ENV TZKT_URL $TZKT_URL
 
 WORKDIR /indexer
 
+# alpine - doesn't work tho. some pytz error.
+#RUN apk update && apk add gcc libc-dev python3-dev libffi-dev
+
+# debian - if git needed
 #RUN apt update
 #RUN apt install git -y
+
 #RUN pip install --upgrade pip
 RUN pip install poetry
 
