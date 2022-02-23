@@ -8,27 +8,27 @@ database:
 # Contracts on testnet
 contracts:
   tezlandItems:
-    address: KT1M3Wji7k87JhH86RFmJeBp9vrTXpsCjNQ9
+    address: KT1SdBmADH7YTdbio8QnhWXKJ3eBtzxprr49
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1DJfnW5dPWUCyF5F86FvEdM129pYiFXUEL
+    address: KT1B8g74YtySkTnxNHo3hgab8L3u3kqvKkmM
     typename: tezlandPlaces
 
   tezlandDAO:
-    address: KT1TLT1wipsFZkF43kcpyLNQBXpZiNyZb51o
+    address: KT1SULJeVxroBuktQgkC8rBcp852fayGuCWu
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1TUpa5hrfZTR4MiHLQnryAn92NhH5ADXhw
+    address: KT1KX5WDu12Fje2joZnHFgR5un7jovZRWNiA
     typename: tezlandWorld
 
   tezlandMinter:
-    address: KT1Nh6Jv5G4CeG1YkhZsMSBwL6vQufiq1TZ9
+    address: KT1BjayXEp7xizV366L4Ps4XFyRJTNsnyGzC
     typename: tezlandMinter
 
   tezlandDutchAuctions:
-    address: KT1Wwor4wSo5pEJbfviMKF3pjuoJw9pkJhks
+    address: KT1Kusg2CCTtUCvhasLD8x7g6hNhcztxN8ri
     typename: tezlandDutchAuctions
 
 datasources:
