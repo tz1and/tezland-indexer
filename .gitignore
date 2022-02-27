@@ -9,3 +9,6 @@ __pycache__
 .env*
 dipdup.dev.local.yml
 tz1aND_metadata/
+
+# notes and stuff
+TODO.txt

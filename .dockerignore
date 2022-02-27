@@ -20,3 +20,6 @@ poetry.toml
 # env files
 .env*
 !.env.production.local
+
+# notes and stuff
+TODO.txt
