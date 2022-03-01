@@ -44,6 +44,7 @@ async def get_item_metadata(ipfs: IpfsDatasource, token):
         token.thumbnail_uri = metadata.get('thumbnailUri', '')
         token.mime_type = get_mime_type(metadata)
         token.file_size = get_file_size(metadata)
+        token.base_scale = metadata.get('baseScale', 1)
         token.metadata_fetched = True
         await token.save()
 

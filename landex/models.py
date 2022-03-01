@@ -24,6 +24,7 @@ class ItemToken(Model):
     thumbnail_uri = fields.TextField(default='')
     mime_type = fields.TextField(default='')
     file_size = fields.BigIntField(default=34359738368) # Assume very large if not set.
+    base_scale = fields.FloatField(default=1) # baseScale default is 1
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
 
@@ -39,7 +40,7 @@ class PlaceToken(Model):
     thumbnail_uri = fields.TextField(default='')
     center_coordinates = fields.TextField(default='')
     border_coordinates = fields.TextField(default='')
-    build_height = fields.IntField(default=0)
+    build_height = fields.FloatField(default=0)
     place_type = fields.TextField(default='')
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
