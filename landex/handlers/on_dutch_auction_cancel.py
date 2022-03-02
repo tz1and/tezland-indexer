@@ -14,7 +14,7 @@ async def on_dutch_auction_cancel(
     ctx: HandlerContext,
     cancel: Transaction[CancelParameter, TezlandDutchAuctionsStorage],
 ) -> None:
-    auction_id = cancel.parameter.__root__
+    auction_id = cancel.parameter.auction_id
 
     auction = await models.DutchAuction.filter(id=int(auction_id)).get()
     await auction.delete()
