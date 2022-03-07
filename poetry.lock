@@ -78,7 +78,7 @@ python-versions = "*"
 
 [[package]]
 name = "apscheduler"
-version = "3.8.1"
+version = "3.9.1"
 description = "In-process task scheduler with Cron-like capabilities"
 category = "main"
 optional = false
@@ -97,7 +97,7 @@ mongodb = ["pymongo (>=3.0)"]
 redis = ["redis (>=3.0)"]
 rethinkdb = ["rethinkdb (>=2.4.0)"]
 sqlalchemy = ["sqlalchemy (>=0.8)"]
-testing = ["pytest (<6)", "pytest-cov", "pytest-tornado5", "mock", "pytest-asyncio (<0.6)", "pytest-asyncio"]
+testing = ["pytest", "pytest-cov", "pytest-tornado5", "mock", "pytest-asyncio (<0.6)", "pytest-asyncio"]
 tornado = ["tornado (>=4.3)"]
 twisted = ["twisted"]
 zookeeper = ["kazoo"]
@@ -253,7 +253,7 @@ http = ["httpx"]
 
 [[package]]
 name = "dipdup"
-version = "4.2.5"
+version = "4.2.6"
 description = "Python SDK for developing indexers of Tezos smart contracts inspired by The Graph"
 category = "main"
 optional = false
@@ -973,8 +973,8 @@ appdirs = [
     {file = "appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
 ]
 apscheduler = [
-    {file = "APScheduler-3.8.1-py2.py3-none-any.whl", hash = "sha256:c22cb14b411a31435eb2c530dfbbec948ac63015b517087c7978adb61b574865"},
-    {file = "APScheduler-3.8.1.tar.gz", hash = "sha256:5cf344ebcfbdaa48ae178c029c055cec7bc7a4a47c21e315e4d1f08bd35f2355"},
+    {file = "APScheduler-3.9.1-py2.py3-none-any.whl", hash = "sha256:ddc25a0ddd899de44d7f451f4375fb971887e65af51e41e5dcf681f59b8b2c9a"},
+    {file = "APScheduler-3.9.1.tar.gz", hash = "sha256:65e6574b6395498d371d045f2a8a7e4f7d50c6ad21ef7313d15b1c7cf20df1e3"},
 ]
 argcomplete = [
     {file = "argcomplete-2.0.0-py2.py3-none-any.whl", hash = "sha256:cffa11ea77999bb0dd27bb25ff6dc142a6796142f68d45b1a26b11f58724561e"},
@@ -1056,8 +1056,8 @@ datamodel-code-generator = [
     {file = "datamodel_code_generator-0.11.19-py3-none-any.whl", hash = "sha256:26a62a1f99c7c8148b808e3e67e82c762cc9f7bbe036fb4c2798352460d68e38"},
 ]
 dipdup = [
-    {file = "dipdup-4.2.5-py3-none-any.whl", hash = "sha256:f379c325a34538fa71f6a59e56da07aa30915433f8fbeed00c8092a9313845ba"},
-    {file = "dipdup-4.2.5.tar.gz", hash = "sha256:993c6cd797c5df139d7eb2aead8272d0ddd421f1915da35cf73524285d1f919a"},
+    {file = "dipdup-4.2.6-py3-none-any.whl", hash = "sha256:764fe217b2f275ae9bc9b70cd7d61cf6f4df02e3c3210ce370fd811f14282ecb"},
+    {file = "dipdup-4.2.6.tar.gz", hash = "sha256:c98ea68cbe81374df1bbe95515e14c361fc07253297cff70bc76059fc82caa92"},
 ]
 dnspython = [
     {file = "dnspython-2.2.0-py3-none-any.whl", hash = "sha256:081649da27ced5e75709a1ee542136eaba9842a0fe4c03da4fb0a3d3ed1f3c44"},

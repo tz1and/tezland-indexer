@@ -19,27 +19,31 @@ async def on_place_mint(
     mint_Place: Transaction[MintPlaceParameter, TezlandMinterStorage],
     mint: Transaction[MintParameter, TezlandPlacesStorage],
 ) -> None:
-    holder, _ = await models.Holder.get_or_create(address=mint.parameter.address)
-    
-    minter = holder
-    if mint.parameter.address != mint_Place.data.sender_address:
-        minter, _ = await models.Holder.get_or_create(address=mint_Place.data.sender_address)
+    assert len(mint.parameter.__root__) == 1
+    for mint_batch_item in mint.parameter.__root__:
+        # NOTE: this will fail if minter can mint multiple tokens
+        token_id = int(mint.storage.last_token_id) - 1
+        holder, _ = await models.Holder.get_or_create(address=mint_batch_item.to_)
+        
+        minter = holder
+        if mint_batch_item.to_ != mint_Place.data.sender_address:
+            minter, _ = await models.Holder.get_or_create(address=mint_Place.data.sender_address)
 
-    metadata = ''
-    if mint_Place.parameter.metadata:
-        metadata = fromhex(mint_Place.parameter.metadata)
+        metadata = ''
+        if mint_Place.parameter.metadata:
+            metadata = fromhex(mint_Place.parameter.metadata)
 
-    token = models.PlaceToken(
-        id=mint.parameter.token_id,
-        minter=minter,
-        metadata=metadata,
-        level=mint.data.level,
-        timestamp=mint.data.timestamp
-    )
-    await token.save()
+        token = models.PlaceToken(
+            id=token_id,
+            minter=minter,
+            metadata=metadata,
+            level=mint.data.level,
+            timestamp=mint.data.timestamp
+        )
+        await token.save()
 
-    holding, _ = await models.PlaceTokenHolder.get_or_create(token=token, holder=holder)
-    await holding.save()
+        holding, _ = await models.PlaceTokenHolder.get_or_create(token=token, holder=holder)
+        await holding.save()
 
-    # runs in retry_metadata deamon job now
-    #await get_place_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)
+        # runs in retry_metadata deamon job now
+        #await get_place_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)

@@ -14,14 +14,15 @@ async def on_item_burn(
     ctx: HandlerContext,
     burn: Transaction[BurnParameter, TezlandItemsStorage],
 ) -> None:
-    holder, _ = await models.Holder.get_or_create(address=burn.parameter.address)
-    token = await models.ItemToken.filter(id=int(burn.parameter.token_id)).get()
+    for burn_batch_item in burn.parameter.__root__:
+        holder, _ = await models.Holder.get_or_create(address=burn_batch_item.from_)
+        token = await models.ItemToken.filter(id=int(burn_batch_item.token_id)).get()
 
-    # update sender holding
-    holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder)
-    holding.quantity -= int(burn.parameter.amount)
-    await holding.save()
-    
-    # update token supply
-    token.supply -= int(burn.parameter.amount)
-    await token.save()
+        # update sender holding
+        holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder)
+        holding.quantity -= int(burn_batch_item.amount)
+        await holding.save()
+
+        # update token supply
+        token.supply -= int(burn_batch_item.amount)
+        await token.save()
