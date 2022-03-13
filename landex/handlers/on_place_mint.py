@@ -19,10 +19,10 @@ async def on_place_mint(
     mint_Place: Transaction[MintPlaceParameter, TezlandMinterStorage],
     mint: Transaction[MintParameter, TezlandPlacesStorage],
 ) -> None:
-    assert len(mint.parameter.__root__) == 1
+    mint_counter = len(mint.parameter.__root__)
     for mint_batch_item in mint.parameter.__root__:
-        # NOTE: this will fail if minter can mint multiple tokens
-        token_id = int(mint.storage.last_token_id) - 1
+        # subtract decresing mint counter from last_token_id to get token_id
+        token_id = int(mint.storage.last_token_id) - mint_counter
         holder, _ = await models.Holder.get_or_create(address=mint_batch_item.to_)
         
         minter = holder
@@ -30,8 +30,8 @@ async def on_place_mint(
             minter, _ = await models.Holder.get_or_create(address=mint_Place.data.sender_address)
 
         metadata = ''
-        if mint_Place.parameter.metadata:
-            metadata = fromhex(mint_Place.parameter.metadata)
+        if mint_batch_item.metadata['']:
+            metadata = fromhex(mint_batch_item.metadata[''])
 
         token = models.PlaceToken(
             id=token_id,
@@ -44,6 +44,8 @@ async def on_place_mint(
 
         holding, _ = await models.PlaceTokenHolder.get_or_create(token=token, holder=holder)
         await holding.save()
+
+        mint_counter -= 1
 
         # runs in retry_metadata deamon job now
         #await get_place_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)
