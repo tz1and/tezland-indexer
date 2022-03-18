@@ -25,6 +25,7 @@ class ItemToken(Model):
     mime_type = fields.TextField(default='')
     file_size = fields.BigIntField(default=34359738368) # Assume very large if not set.
     base_scale = fields.FloatField(default=1) # baseScale default is 1
+    polygon_count = fields.FloatField(default=0) # polygonCount default is 0
     metadata = fields.TextField(default='')
     metadata_fetched = fields.BooleanField(default=False)
 
