@@ -5,36 +5,36 @@ database:
   kind: sqlite
   path: landex.sqlite3
 
-# Contracts on testnet
+# Contracts on mainnet
 contracts:
   tezlandItems:
-    address: KT1SdBmADH7YTdbio8QnhWXKJ3eBtzxprr49
+    address: KT1TKFWDiMk35c5n94TMmLaYksdXkHuaL112
     typename: tezlandItems
 
   tezlandPlaces:
-    address: KT1B8g74YtySkTnxNHo3hgab8L3u3kqvKkmM
+    address: KT1G6bH9NVDp8tSSz7FzDUnCgbJwQikxtUog
     typename: tezlandPlaces
 
   tezlandDAO:
-    address: KT1SULJeVxroBuktQgkC8rBcp852fayGuCWu
+    address: KT1Xag669km4EXaQPi3GH9fcofjvPnJneuaL
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1KX5WDu12Fje2joZnHFgR5un7jovZRWNiA
+    address: KT1EuSjJgQRGXM18TEu1WaMRyshPSkSCg11n
     typename: tezlandWorld
 
   tezlandMinter:
-    address: KT1BjayXEp7xizV366L4Ps4XFyRJTNsnyGzC
+    address: KT1GmLfej8mFrfB3bRSoc1fTuCa9eQHJw8Qi
     typename: tezlandMinter
 
   tezlandDutchAuctions:
-    address: KT1Kusg2CCTtUCvhasLD8x7g6hNhcztxN8ri
+    address: KT1WmMn55RjXwk5Xb4YE6asjy5BvMiEsB6nA
     typename: tezlandDutchAuctions
 
 datasources:
   tzkt_mainnet:
     kind: tzkt
-    url: ${TZKT_URL:-https://api.hangzhou2net.tzkt.io}
+    url: ${TZKT_URL:-https://api.tzkt.io}
   local_ipfs:
     kind: ipfs
     url: ${IPFS_GATEWAY:-http://localhost:8080/ipfs}

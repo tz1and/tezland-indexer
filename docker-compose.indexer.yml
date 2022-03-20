@@ -19,7 +19,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
       - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
-      - IPFS_GATEWAY=https://cloudflare-ipfs.com/ipfs
+      - IPFS_GATEWAY=http://backend-ipfs:8080/ipfs # as defined in backend compose
       - TZKT_URL=https://api.tzkt.io
     volumes:
       - ./tz1aND_metadata:/indexer/tz1aND_metadata
@@ -45,7 +45,7 @@ services:
 
   tezland-hasura:
     container_name: tezland-hasura
-    image: hasura/graphql-engine:v2.1.1
+    image: hasura/graphql-engine:v2.3.0
     depends_on:
       db-dipdup:
         condition: service_healthy
@@ -57,6 +57,7 @@ services:
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
       - HASURA_GRAPHQL_ADMIN_SECRET=${ADMIN_SECRET:-changeme}
       - HASURA_GRAPHQL_UNAUTHORIZED_ROLE=user
+      - HASURA_GRAPHQL_CORS_DOMAIN=https://*.tz1and.com
   
 volumes:
   db-dipdup:
