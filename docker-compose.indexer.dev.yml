@@ -7,14 +7,16 @@ services:
       network: bcdbox_default
       args:
         - EXTRA_DIPDUP_CONF=-c dipdup.dev.local.yml
-        - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
+        - TZKT_URL=https://api.tzkt.io  #- TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
     environment:
       - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
-      - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
+      - TZKT_URL=https://api.tzkt.io #- TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
 
   tezland-hasura:
     ports:
       - 127.0.0.1:42000:8080
+    environment:
+      - HASURA_GRAPHQL_CORS_DOMAIN=*
 
 networks:
   default:
