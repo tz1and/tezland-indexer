@@ -11,6 +11,7 @@ run-clean:
 clean:
 	source .venv/bin/activate && dipdup $(devconfig) schema wipe --force
 
+# Dev
 DOCKER_DEV_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml
 
 dev-docker-build:
@@ -23,6 +24,20 @@ dev-docker-up:
 dev-docker-down:
 	TAG=dev docker-compose ${DOCKER_DEV_CONF} down -v
 
+# Staging
+DOCKER_STAGING_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.staging.yml
+
+staging-docker-build:
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} build $(EXTRA_ARGS)
+
+staging-docker-up:
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} up -d
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} logs -f
+
+staging-docker-down:
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} down -v
+
+# Prod
 docker-build:
 	TAG=latest docker-compose -f docker-compose.indexer.yml build
 

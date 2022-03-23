@@ -2,17 +2,16 @@ version: "3.7"
 
 services:
   tezland-indexer:
-    command: "-c dipdup.yml -c dipdup.docker.yml -c dipdup.dev.local.yml run"
+    command: "-c dipdup.yml -c dipdup.docker.yml run"
     build:
       network: bcdbox_default
       args:
-        - EXTRA_DIPDUP_CONF=-c dipdup.dev.local.yml
-        - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
+        - TZKT_URL=https://api.tzkt.io
     environment:
       - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
-      - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
+      - TZKT_URL=https://api.tzkt.io
     volumes:
-      - ./tz1aND_metadata.dev:/indexer/tz1aND_metadata
+      - ./tz1aND_metadata.staging:/indexer/tz1aND_metadata
 
   tezland-hasura:
     ports:
