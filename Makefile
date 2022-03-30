@@ -31,21 +31,21 @@ staging-docker-build:
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} build $(EXTRA_ARGS)
 
 staging-docker-up:
-	TAG=staging docker-compose ${DOCKER_STAGING_CONF} up -d
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} up -d -V
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} logs -f
 
 staging-docker-down:
-	TAG=staging docker-compose ${DOCKER_STAGING_CONF} down -v
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} down
 
 # Prod
 docker-build:
 	TAG=latest docker-compose -f docker-compose.indexer.yml build
 
 docker-up:
-	TAG=latest docker-compose -f docker-compose.indexer.yml up -d
+	TAG=latest docker-compose -f docker-compose.indexer.yml up -d -V
 
 docker-down:
-	TAG=latest docker-compose -f docker-compose.indexer.yml down -v
+	TAG=latest docker-compose -f docker-compose.indexer.yml down
 
 docker-push:
 	docker save -o tezland-indexer-latest.tar tezland-indexer:latest

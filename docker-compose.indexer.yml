@@ -29,7 +29,7 @@ services:
     image: postgres:13
     restart: always
     volumes:
-      - db-dipdup:/var/lib/postgres/data
+      - db-dipdup:/var/lib/postgresql/data
     environment: 
       - POSTGRES_USER=dipdup
       - POSTGRES_DB=dipdup
