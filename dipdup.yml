@@ -40,7 +40,8 @@ datasources:
     url: ${IPFS_GATEWAY:-http://localhost:8080/ipfs}
     http:
       retry_count: 10
-      retry_sleep: 2
+      retry_sleep: 10 # seconds
+      connection_timeout: 10 # seconds
       retry_multiplier: 2
 
 # TEMP: For now on rollback wipe and reindex
@@ -80,16 +81,10 @@ indexes:
       - callback: on_item_mint
         pattern:
           - type: transaction
-            destination: tezlandMinter
-            entrypoint: mint_Item
-          - type: transaction
             destination: tezlandItems
             entrypoint: mint
       - callback: on_place_mint
         pattern:
-          - type: transaction
-            destination: tezlandMinter
-            entrypoint: mint_Place
           - type: transaction
             destination: tezlandPlaces
             entrypoint: mint

@@ -8,15 +8,12 @@ import landex.models as models
 
 from landex.types.tezlandPlaces.parameter.mint import MintParameter
 from landex.types.tezlandPlaces.storage import TezlandPlacesStorage
-from landex.types.tezlandMinter.parameter.mint_place import MintPlaceParameter
-from landex.types.tezlandMinter.storage import TezlandMinterStorage
 from landex.utils import fromhex
 from landex.metadata import get_place_metadata
 
 
 async def on_place_mint(
     ctx: HandlerContext,
-    mint_Place: Transaction[MintPlaceParameter, TezlandMinterStorage],
     mint: Transaction[MintParameter, TezlandPlacesStorage],
 ) -> None:
     mint_counter = len(mint.parameter.__root__)
@@ -26,8 +23,6 @@ async def on_place_mint(
         holder, _ = await models.Holder.get_or_create(address=mint_batch_item.to_)
         
         minter = holder
-        if mint_batch_item.to_ != mint_Place.data.sender_address:
-            minter, _ = await models.Holder.get_or_create(address=mint_Place.data.sender_address)
 
         metadata = ''
         if mint_batch_item.metadata['']:
@@ -46,6 +41,3 @@ async def on_place_mint(
         await holding.save()
 
         mint_counter -= 1
-
-        # runs in retry_metadata deamon job now
-        #await get_place_metadata(ctx.get_ipfs_datasource("local_ipfs"), token)
