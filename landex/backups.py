@@ -74,15 +74,15 @@ def get_available_backups():
     return available_levels
 
 
-def delete_old_backups():
+# we keep 3 backups but only 2 are really needed
+def delete_old_backups(keep: int = 3):
     backups = get_available_backups()
 
     # sort in descending order
     backups.sort(reverse=True)
 
     for index, backup in enumerate(backups):
-        # we keep 3 backups but only 2 are really needed
-        if index > 2:
+        if index >= keep:
             _logger.info(f'Deleting backup level: {backup}')
             backup_file = get_backup_file(backup)
             remove(backup_file)
