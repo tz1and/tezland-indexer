@@ -17,7 +17,7 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
-      - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+      - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET:-changeme}
       - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
       - IPFS_GATEWAY=http://backend-ipfs:8080/ipfs # as defined in backend compose
       - TZKT_URL=https://api.tzkt.io
@@ -30,35 +30,38 @@ services:
     restart: always
     volumes:
       - db-dipdup:/var/lib/postgresql/data
+      - ./docker_postgresql_multiple_databases.sh:/docker-entrypoint-initdb.d/docker_postgresql_multiple_databases.sh
     environment: 
       - POSTGRES_USER=dipdup
       - POSTGRES_DB=dipdup
+      - POSTGRES_MULTIPLE_DATABASES=hasurametadata,dipdup
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - PGPORT=15435
     expose:
       - 15435
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dipdup"]
+      test: ["CMD-SHELL", "pg_isready -U dipdup -d dipdup && pg_isready -U dipdup -d hasurametadata"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   tezland-hasura:
     container_name: tezland-hasura
-    image: hasura/graphql-engine:v2.3.0
+    image: hasura/graphql-engine:v2.4.0
     depends_on:
       db-dipdup:
         condition: service_healthy
     restart: always
     environment:
+      - HASURA_GRAPHQL_METADATA_DATABASE_URL=postgres://dipdup:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/hasurametadata
       - HASURA_GRAPHQL_DATABASE_URL=postgres://dipdup:${POSTGRES_PASSWORD:-changeme}@db-dipdup:15435/dipdup
       - HASURA_GRAPHQL_ENABLE_CONSOLE=true
       - HASURA_GRAPHQL_DEV_MODE=false
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
-      - HASURA_GRAPHQL_ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+      - HASURA_GRAPHQL_ADMIN_SECRET=${HASURA_ADMIN_SECRET:-changeme}
       - HASURA_GRAPHQL_UNAUTHORIZED_ROLE=user
       - HASURA_GRAPHQL_CORS_DOMAIN=https://*.tz1and.com
-  
+
 volumes:
   db-dipdup:
 

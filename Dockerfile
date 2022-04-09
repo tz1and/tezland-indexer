@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-bullseye
 ARG EXTRA_DIPDUP_CONF
 ARG TZKT_URL
 ENV TZKT_URL $TZKT_URL
@@ -9,8 +9,8 @@ WORKDIR /indexer
 #RUN apk update && apk add gcc libc-dev python3-dev libffi-dev
 
 # debian - if git needed
-#RUN apt update
-#RUN apt install git -y
+RUN apt update
+RUN apt install postgresql-client -y
 
 #RUN pip install --upgrade pip
 RUN pip install poetry

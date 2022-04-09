@@ -34,6 +34,9 @@ staging-docker-up:
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} up -d -V
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} logs -f
 
+staging-docker-logs:
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} logs -f
+
 staging-docker-down:
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} down
 

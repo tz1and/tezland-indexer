@@ -112,9 +112,21 @@ hooks:
   retry_metadata:
     callback: retry_metadata
     atomic: False
+  run_backups:
+    callback: run_backups
+    atomic: True
+  #simulate_reorg:
+  #  callback: simulate_reorg
+  #  atomic: True
 
 jobs:
   retry_metadata:
     hook: retry_metadata
     daemon: true
     #interval: 1  # in seconds
+  run_backups:
+    hook: run_backups
+    interval: 1800 # in seconds, 30 minutes
+  #simulate_reorg:
+  #  hook: simulate_reorg
+  #  interval: 150  # in seconds
