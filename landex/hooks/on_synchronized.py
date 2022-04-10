@@ -14,6 +14,8 @@ async def on_synchronized(
 ) -> None:
     await ctx.execute_sql('on_synchronized')
 
+    return
+    # TODO: sometimes level is None. figure out how to get it from the DB.
     # do a backup if the last one is too old.
     # let's say 50 blocks.
 
