@@ -76,6 +76,7 @@ class DutchAuction(Model):
 
     finished = fields.BooleanField(default=False)
     finishing_bid = fields.BigIntField(null=True)
+    bid_op_hash = fields.TextField(null=True)
 
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)

@@ -46,6 +46,7 @@ async def on_dutch_auction_bid(
 
     auction = await models.DutchAuction.filter(id=int(auction_id)).get()
 
+    auction.bid_op_hash = bid.data.hash
     auction.finishing_bid = getAuctionPrice(auction, bid)
     auction.finished = True
     await auction.save()
