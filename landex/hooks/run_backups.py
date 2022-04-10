@@ -1,8 +1,5 @@
-import gzip, logging
-from io import StringIO
-from pathlib import Path
+import logging
 from typing import Union
-from sh import pg_dump, ErrorReturnCode
 
 from dipdup.context import HookContext
 from dipdup.enums import MessageType
