@@ -48,6 +48,7 @@ datasources:
 advanced:
   reindex:
     rollback: wipe
+    schema_modified: wipe
     
 indexes:
   tezland_mainnet:
