@@ -14,8 +14,16 @@ async def on_synchronized(
 ) -> None:
     await ctx.execute_sql('on_synchronized')
 
+    level = ctx.get_tzkt_datasource("tzkt_mainnet")._level.get(MessageType.head)
+
+    # TODO: level will almost always be None in on_synchronized.
     return
-    # TODO: sometimes level is None. figure out how to get it from the DB.
+    # If level is None, realtime state hasn't been reached and
+    # we wait for the next on_synchronized.
+    if not level:
+        _logger.info('datasource level is None')
+        return
+
     # do a backup if the last one is too old.
     # let's say 50 blocks.
 
@@ -33,8 +41,6 @@ async def on_synchronized(
     for level in available_levels:
         if level > highest_level:
             highest_level = level
-    
-    level = ctx.get_tzkt_datasource("tzkt_mainnet")._level.get(MessageType.head)
 
     # if highest level is old, run a backup.
     if level - highest_level > 50:
