@@ -27,6 +27,7 @@ async def on_dutch_auction_create(
         end_time=create.parameter.end_time,
         fa2=create.parameter.fa2,
         level=create.data.level,
-        timestamp=create.data.timestamp
+        timestamp=create.data.timestamp,
+        is_primary=(owner.address == create.storage.administrator)
     )
     await auction.save()
