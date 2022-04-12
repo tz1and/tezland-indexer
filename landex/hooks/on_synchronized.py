@@ -14,15 +14,7 @@ async def on_synchronized(
 ) -> None:
     await ctx.execute_sql('on_synchronized')
 
-    # TODO: level will almost always be None in on_synchronized.
-    return
-    level = ctx.get_tzkt_datasource("tzkt_mainnet")._level.get(MessageType.head)
-
-    # If level is None, realtime state hasn't been reached and
-    # we wait for the next on_synchronized.
-    if not level:
-        _logger.info('datasource level is None')
-        return
+    level = ctx.get_tzkt_datasource("tzkt_mainnet").get_channel_level(MessageType.head)
 
     # do a backup if the last one is too old.
     # let's say 50 blocks.

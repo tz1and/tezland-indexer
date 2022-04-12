@@ -18,11 +18,7 @@ async def run_backups(
         _logger.info(f'Not postgres database, skipping backup')
         return
 
-    level = ctx.get_tzkt_datasource("tzkt_mainnet")._level.get(MessageType.head)
-
-    if level is None:
-        _logger.info(f'No level, skipping backup')
-        return
+    level = ctx.get_tzkt_datasource("tzkt_mainnet").get_channel_level(MessageType.head)
 
     backups.backup(level, database_config)
 

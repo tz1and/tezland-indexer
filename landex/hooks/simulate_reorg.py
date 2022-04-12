@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 async def simulate_reorg(
     ctx: HookContext
 ) -> None:
-    level = ctx.get_tzkt_datasource("tzkt_mainnet")._level.get(MessageType.head)
+    level = ctx.get_tzkt_datasource("tzkt_mainnet").get_channel_level(MessageType.head)
 
-    if level:
-        await ctx.fire_hook("on_rollback", wait=True, datasource=ctx.get_tzkt_datasource("tzkt_mainnet"), from_level=level, to_level=level-2)
+    await ctx.fire_hook("on_rollback", wait=True, datasource=ctx.get_tzkt_datasource("tzkt_mainnet"), from_level=level, to_level=level-2)
