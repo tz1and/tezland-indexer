@@ -85,4 +85,17 @@ class DutchAuction(Model):
     class Meta:
         table = 'dutch_auction'
 
+class DutchAuctionWhitelist(Model):
+    address = fields.CharField(max_length=36, pk=True)
+    current_status = fields.BooleanField(default=False)
+    added_count = fields.IntField(default=0)
+    removed_count = fields.IntField(default=0)
+    used_count = fields.IntField(default=0)
+
+    #level = fields.BigIntField(default=0)
+    #timestamp = fields.DatetimeField(null=False)
+
+    class Meta:
+        table = 'dutch_auction_whitelist'
+
 # TODO: have distinct models for Item and Place metadata?

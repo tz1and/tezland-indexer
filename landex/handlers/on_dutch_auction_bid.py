@@ -50,3 +50,14 @@ async def on_dutch_auction_bid(
     auction.finishing_bid = getAuctionPrice(auction, bid)
     auction.finished = True
     await auction.save()
+
+    # handle wl removal
+    if bid.storage.whitelist_enabled:
+        await auction.fetch_related("owner")
+        is_primary = (auction.owner.address == bid.storage.administrator)
+
+        if is_primary:
+            wl = await models.DutchAuctionWhitelist.get(address=bid.data.sender_address)
+            wl.used_count += 1
+            wl.current_status = False
+            await wl.save()

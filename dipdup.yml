@@ -77,6 +77,11 @@ indexes:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: bid
+      - callback: on_dutch_auction_manage_wl
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctions
+            entrypoint: manage_whitelist
 
       # Minter
       - callback: on_item_mint
