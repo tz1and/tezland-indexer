@@ -30,7 +30,7 @@ async def retry_metadata(
 
     try:
         await fetchMetadata(ctx)
-    except Exception as error:
-        _logger.error(f'fetchMetadata failed: {error}')
+    except:
+        _logger.error(f'fetchMetadata failed')
     #thread_result = await asyncio.gather(ctx.pool_map(Pool, threadFunc, [ctx.config])) #_async(ctx), 
     #print(thread_result)
