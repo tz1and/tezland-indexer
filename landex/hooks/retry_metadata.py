@@ -1,5 +1,6 @@
 import asyncio
 import threading
+import logging
 
 from dipdup.context import HookContext
 
@@ -8,6 +9,7 @@ from landex.metadata import get_place_metadata, get_item_metadata
 
 #from multiprocessing.pool import Pool, ThreadPool
 #from landex.hooks.retry_metadata_thread import threadFunc
+_logger = logging.getLogger(__name__)
 
 async def fetchMetadata(ctx: HookContext):
     ipfs = ctx.get_ipfs_datasource("local_ipfs")
@@ -24,8 +26,11 @@ async def fetchMetadata(ctx: HookContext):
 async def retry_metadata(
     ctx: HookContext,
 ) -> None:
-    print(f'retry_metadata: {threading.get_ident()}')
+    _logger.info(f'retry_metadata: {threading.get_ident()}')
 
-    await fetchMetadata(ctx)
+    try:
+        await fetchMetadata(ctx)
+    except Exception as error:
+        _logger.error(f'fetchMetadata failed: {error}')
     #thread_result = await asyncio.gather(ctx.pool_map(Pool, threadFunc, [ctx.config])) #_async(ctx), 
     #print(thread_result)
