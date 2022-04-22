@@ -28,9 +28,6 @@ async def retry_metadata(
 ) -> None:
     _logger.info(f'retry_metadata: {threading.get_ident()}')
 
-    try:
-        await fetchMetadata(ctx)
-    except:
-        _logger.error(f'fetchMetadata failed')
+    await fetchMetadata(ctx)
     #thread_result = await asyncio.gather(ctx.pool_map(Pool, threadFunc, [ctx.config])) #_async(ctx), 
     #print(thread_result)

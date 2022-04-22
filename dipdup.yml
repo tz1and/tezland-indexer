@@ -115,9 +115,9 @@ indexes:
             entrypoint: transfer
 
 hooks:
-  retry_metadata:
-    callback: retry_metadata
-    atomic: False
+  #retry_metadata:
+  #  callback: retry_metadata
+  #  atomic: False
   run_backups:
     callback: run_backups
     atomic: True
@@ -126,9 +126,9 @@ hooks:
   #  atomic: True
 
 jobs:
-  retry_metadata:
-    hook: retry_metadata
-    daemon: true
+  #retry_metadata:
+  #  hook: retry_metadata
+  #  daemon: true
     #interval: 1  # in seconds
   run_backups:
     hook: run_backups

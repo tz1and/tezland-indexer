@@ -18,33 +18,12 @@ class ItemToken(Model):
     royalties = fields.SmallIntField(default=0)
     supply = fields.BigIntField(default=0)
 
-    name = fields.TextField(default='')
-    description = fields.TextField(default='')
-    artifact_uri = fields.TextField(default='')
-    thumbnail_uri = fields.TextField(default='')
-    mime_type = fields.TextField(default='')
-    file_size = fields.BigIntField(default=34359738368) # Assume very large if not set.
-    base_scale = fields.FloatField(default=1) # baseScale default is 1
-    polygon_count = fields.FloatField(default=0) # polygonCount default is 0
-    metadata = fields.TextField(default='')
-    metadata_fetched = fields.BooleanField(default=False)
-
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)
 
 class PlaceToken(Model):
     id = fields.BigIntField(pk=True)
     minter = fields.ForeignKeyField('models.Holder', 'placetokens', index=True, null=True)
-
-    name = fields.TextField(default='')
-    description = fields.TextField(default='')
-    thumbnail_uri = fields.TextField(default='')
-    center_coordinates = fields.TextField(default='')
-    border_coordinates = fields.TextField(default='')
-    build_height = fields.FloatField(default=0)
-    place_type = fields.TextField(default='')
-    metadata = fields.TextField(default='')
-    metadata_fetched = fields.BooleanField(default=False)
 
     level = fields.BigIntField(default=0)
     timestamp = fields.DatetimeField(null=False)

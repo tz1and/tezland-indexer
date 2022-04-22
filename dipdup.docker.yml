@@ -12,3 +12,5 @@ hasura:
   allow_aggregations: false
   camel_case: true
   select_limit: 100
+  source: dipdup
+  add_source: true
