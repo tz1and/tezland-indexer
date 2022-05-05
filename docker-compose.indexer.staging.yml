@@ -15,13 +15,17 @@ services:
 
   tezland-metadata:
     environment:
-      - LOCAL_IPFS_NODE=http://localhost:8080
+      - LOCAL_IPFS_NODE=http://ipfs-node:8080
 
   tezland-hasura:
     ports:
       - 127.0.0.1:42000:8080
     environment:
       - HASURA_GRAPHQL_CORS_DOMAIN=*
+
+  db-dipdup:
+    ports:
+      - 127.0.0.1:15435:15435
 
 networks:
   default:
