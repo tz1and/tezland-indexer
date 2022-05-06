@@ -8,9 +8,9 @@ WORKDIR /indexer
 # alpine - doesn't work tho. some pytz error.
 #RUN apk update && apk add gcc libc-dev python3-dev libffi-dev
 
-# debian - if git needed
+# debian - git needed for installing dipdup from git
 RUN apt update
-RUN apt install postgresql-client -y
+RUN apt install git postgresql-client -y
 
 #RUN pip install --upgrade pip
 RUN pip install poetry

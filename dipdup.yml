@@ -120,7 +120,7 @@ hooks:
   #  atomic: False
   run_backups:
     callback: run_backups
-    atomic: True
+    atomic: False
   #simulate_reorg:
   #  callback: simulate_reorg
   #  atomic: True
@@ -135,4 +135,4 @@ jobs:
     interval: 1800 # in seconds, 30 minutes
   #simulate_reorg:
   #  hook: simulate_reorg
-  #  interval: 150  # in seconds
+  #  interval: 90  # in seconds
