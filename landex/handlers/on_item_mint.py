@@ -9,7 +9,6 @@ import landex.models as models
 from landex.types.tezlandItems.parameter.mint import MintParameter
 from landex.types.tezlandItems.storage import TezlandItemsStorage
 from landex.utils import fromhex
-from landex.metadata import get_item_metadata
 
 
 async def on_item_mint(

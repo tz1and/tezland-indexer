@@ -8,7 +8,6 @@ services:
       args:
         - TZKT_URL=https://api.tzkt.io
     environment:
-      - IPFS_GATEWAY=http://ipfs-node:8080/ipfs # as defined in tezland sanbox
       - TZKT_URL=https://api.tzkt.io
     volumes:
       - ./tz1aND_metadata.staging:/indexer/tz1aND_metadata

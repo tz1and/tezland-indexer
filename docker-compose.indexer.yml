@@ -19,7 +19,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET:-changeme}
       - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
-      - IPFS_GATEWAY=http://backend-ipfs:8080/ipfs # as defined in backend compose
       - TZKT_URL=https://api.tzkt.io
     volumes:
       - ./tz1aND_metadata:/indexer/tz1aND_metadata

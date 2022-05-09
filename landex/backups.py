@@ -3,12 +3,12 @@ import gzip, logging
 from io import StringIO
 from pathlib import Path
 from os import remove, walk
+from os import environ as env
 from sh import psql, pg_dump, ErrorReturnCode
 
 from dipdup.config import PostgresDatabaseConfig
 
-from landex.metadata import TOKEN_METADATA_DIR
-
+TOKEN_METADATA_DIR = env.get('TOKEN_METADATA_DIR', './tz1aND_metadata')
 BACKUPS_PATH = f'{TOKEN_METADATA_DIR}/backups'
 
 _logger = logging.getLogger(__name__)
@@ -27,9 +27,14 @@ def backup(level: int, database_config: PostgresDatabaseConfig):
     Path(BACKUPS_PATH).mkdir(parents=True, exist_ok=True)
 
     backup_file = get_backup_file(level)
-    _logger.info(f'Backing up database at level {level} to {backup_file}')
+
+    # check if backup at this level exists and skip.
+    #if Path(backup_file).is_file():
+    #    _logger.info(f'Backup at level {level} exists')
+    #    return
 
     # TODO: use gzip but causes 'invalid byte sequence for encoding "UTF8": 0x8b' on restore
+    _logger.info(f'Backing up database at level {level} to {backup_file}')
     with open(backup_file, 'wb') as f:
         try:
             err_buf = StringIO()

@@ -35,14 +35,6 @@ datasources:
   tzkt_mainnet:
     kind: tzkt
     url: ${TZKT_URL:-https://api.tzkt.io}
-  local_ipfs:
-    kind: ipfs
-    url: ${IPFS_GATEWAY:-http://localhost:8080/ipfs}
-    http:
-      retry_count: 10
-      retry_sleep: 10 # seconds
-      connection_timeout: 10 # seconds
-      retry_multiplier: 2
 
 # TEMP: For now on rollback wipe and reindex
 advanced:
