@@ -253,7 +253,7 @@ http = ["httpx"]
 
 [[package]]
 name = "dipdup"
-version = "5.0.4"
+version = "5.1.0"
 description = "Python SDK for developing indexers of Tezos smart contracts inspired by The Graph"
 category = "main"
 optional = false
@@ -289,7 +289,7 @@ pytezos = ["pytezos (>=3.2.4,<4.0.0)"]
 type = "git"
 url = "https://github.com/tz1and/dipdup-py.git"
 reference = "feat/hasura-update-metadata-hash"
-resolved_reference = "f838b4451be8137941bef6c72e972991a4978a01"
+resolved_reference = "af68ce16450553964eee24b5178a2a63063f1d67"
 
 [[package]]
 name = "dnspython"
@@ -578,7 +578,7 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pyhumps"
-version = "3.5.3"
+version = "3.7.1"
 description = "🐫  Convert strings (and dictionary keys) between snake case, camel case and pascal case in Python. Inspired by Humps for Node"
 category = "main"
 optional = false
@@ -716,7 +716,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "sentry-sdk"
-version = "1.5.11"
+version = "1.5.12"
 description = "Python client for Sentry (https://sentry.io)"
 category = "main"
 optional = false
@@ -1436,8 +1436,8 @@ pydantic = [
     {file = "pydantic-1.9.0.tar.gz", hash = "sha256:742645059757a56ecd886faf4ed2441b9c0cd406079c2b4bee51bcc3fbcd510a"},
 ]
 pyhumps = [
-    {file = "pyhumps-3.5.3-py3-none-any.whl", hash = "sha256:8d7e9865d6ddb6e64a2e97d951b78b5cc827d3d66cda1297310fc83b2ddf51dc"},
-    {file = "pyhumps-3.5.3.tar.gz", hash = "sha256:0ecf7fee84503b45afdd3841ec769b529d32dfaed855e07046ff8babcc0ab831"},
+    {file = "pyhumps-3.7.1-py3-none-any.whl", hash = "sha256:c6f2d833f2c7afae039d71b7dc0aba5412ae5b8c8c33d4a208c1d412de17229e"},
+    {file = "pyhumps-3.7.1.tar.gz", hash = "sha256:5616f0afdbc73ef479fa9999f4abdcb336a0232707ff1a0b86e29fc9339e18da"},
 ]
 pypika-tortoise = [
     {file = "pypika-tortoise-0.1.4.tar.gz", hash = "sha256:f4b4e6c72fc13f49058181928e66930b59fee988823c8fd01498f95e2ff788ca"},
@@ -1541,8 +1541,8 @@ semver = [
     {file = "semver-2.13.0.tar.gz", hash = "sha256:fa0fe2722ee1c3f57eac478820c3a5ae2f624af8264cbdf9000c980ff7f75e3f"},
 ]
 sentry-sdk = [
-    {file = "sentry-sdk-1.5.11.tar.gz", hash = "sha256:6c01d9d0b65935fd275adc120194737d1df317dce811e642cbf0394d0d37a007"},
-    {file = "sentry_sdk-1.5.11-py2.py3-none-any.whl", hash = "sha256:c17179183cac614e900cbd048dab03f49a48e2820182ec686c25e7ce46f8548f"},
+    {file = "sentry-sdk-1.5.12.tar.gz", hash = "sha256:259535ba66933eacf85ab46524188c84dcb4c39f40348455ce15e2c0aca68863"},
+    {file = "sentry_sdk-1.5.12-py2.py3-none-any.whl", hash = "sha256:778b53f0a6c83b1ee43d3b7886318ba86d975e686cb2c7906ccc35b334360be1"},
 ]
 sh = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
