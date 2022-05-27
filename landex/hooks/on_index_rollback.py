@@ -20,12 +20,12 @@ async def on_index_rollback(
     await ctx.execute_sql('on_index_rollback')
 
     def emitReindex():
-        return ctx.reindex(
-            ReindexingReason.rollback,
-            index=index.name,
-            datasource=index.datasource.name,
-            from_level=from_level,
-            to_level=to_level,
+        return ctx.reindex("Reindex from rollback"
+            #ReindexingReason.rollback,
+            #index=index.name,
+            #datasource=index.datasource.name,
+            #from_level=from_level,
+            #to_level=to_level,
         )
 
     database_config: Union[SqliteDatabaseConfig, PostgresDatabaseConfig] = ctx.config.database

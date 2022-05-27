@@ -13,4 +13,4 @@ hasura:
   camel_case: true
   select_limit: 100
   source: dipdup
-  add_source: true
+  create_source: true
