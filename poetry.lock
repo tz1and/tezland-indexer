@@ -289,7 +289,7 @@ pytezos = ["pytezos (>=3.5.1,<4.0.0)"]
 type = "git"
 url = "https://github.com/tz1and/dipdup-py.git"
 reference = "feat/hasura-update-metadata-hash"
-resolved_reference = "5a0c646f85785b02e7a0a6198a2f6a6b6bcb0c74"
+resolved_reference = "91a2e7440e4cfa3d5ae12f0b04462ce541be884e"
 
 [[package]]
 name = "dnspython"
