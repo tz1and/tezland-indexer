@@ -39,10 +39,11 @@ datasources:
 # TEMP: For now on rollback wipe and reindex
 advanced:
   reindex:
-    # setting a rollback action means the rollback hook won't be called.
-    #rollback: wipe
+    rollback: wipe
     schema_modified: wipe
-    manual: wipe
+    # alternatively to rollback reindex we could also emit a
+    # manual type and wipe on that.
+    #manual: wipe
     
 indexes:
   tezland_mainnet:
