@@ -253,7 +253,7 @@ http = ["httpx"]
 
 [[package]]
 name = "dipdup"
-version = "5.1.4"
+version = "5.1.5"
 description = "Python SDK for developing indexers of Tezos smart contracts inspired by The Graph"
 category = "main"
 optional = false
@@ -289,7 +289,7 @@ pytezos = ["pytezos (>=3.5.1,<4.0.0)"]
 type = "git"
 url = "https://github.com/tz1and/dipdup-py.git"
 reference = "feat/hasura-update-metadata-hash"
-resolved_reference = "308671cc3a5b1b8362815ce45e2d44c44d5f1806"
+resolved_reference = "17f4731e305cfc5caec93b0b1be3da0c95d9dc7a"
 
 [[package]]
 name = "dnspython"
