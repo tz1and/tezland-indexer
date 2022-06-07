@@ -23,7 +23,10 @@ async def on_item_transfer(
             # update sender holding
             sender_holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=sender)
             sender_holding.quantity -= int(tx.amount)
-            await sender_holding.save()
+            if sender_holding.quantity <= 0:
+                await sender_holding.delete()
+            else:
+                await sender_holding.save()
 
             # update reciever holding
             receiver_holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=receiver)
