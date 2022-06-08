@@ -29,7 +29,7 @@ async def on_item_burn(
         # update token supply
         token.supply -= int(burn_batch_item.amount)
         if token.supply <= 0:
-            token.delete()
+            await token.delete()
 
             # NOTE: delete remaining holders? shouldn't have to,
             #holders = await models.ItemTokenHolder.filter(token=token) ...
