@@ -23,28 +23,6 @@ services:
     volumes:
       - ./tz1aND_metadata:/indexer/tz1aND_metadata
 
-  tezland-metadata:
-    container_name: tezland-metadata
-    image: tezland/metadata:latest
-    restart: always
-    depends_on:
-      db-dipdup:
-        condition: service_healthy
-      tezland-hasura:
-        condition: service_started
-    restart: always
-    environment:
-      - DATASOURCE=tzkt_mainnet
-      - ITEMS_CONTRACT=KT1TKFWDiMk35c5n94TMmLaYksdXkHuaL112
-      - PLACES_CONTRACT=KT1G6bH9NVDp8tSSz7FzDUnCgbJwQikxtUog
-      - HASURA_HOST=tezland-hasura
-      - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET:-changeme}
-      - DB_HOST=db-dipdup
-      - DB_PORT=15435
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
-      - POSTGRES_DB=metadata
-    entrypoint: sh -c "sleep 60 && /go/bin/dipdup-metadata"
-
   db-dipdup:
     container_name: db-dipdup
     image: postgres:13
@@ -55,13 +33,13 @@ services:
     environment: 
       - POSTGRES_USER=dipdup
       - POSTGRES_DB=dipdup
-      - POSTGRES_MULTIPLE_DATABASES=hasurametadata,dipdup:metadata,dipdup
+      - POSTGRES_MULTIPLE_DATABASES=hasurametadata,dipdup
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - PGPORT=15435
     expose:
       - 15435
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dipdup -d dipdup && pg_isready -U dipdup -d metadata && pg_isready -U dipdup -d hasurametadata"]
+      test: ["CMD-SHELL", "pg_isready -U dipdup -d dipdup && pg_isready -U dipdup -d hasurametadata"]
       interval: 10s
       timeout: 5s
       retries: 5

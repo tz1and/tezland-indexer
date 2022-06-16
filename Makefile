@@ -1,15 +1,16 @@
 EXTRA_ARGS?=
 
+localconfig = -c dipdup.yml
 devconfig = -c dipdup.yml -c dipdup.dev.local.yml
 
 run:
-	source .venv/bin/activate && dipdup $(devconfig) init && dipdup $(devconfig) run
+	source .venv/bin/activate && dipdup $(localconfig) init && dipdup $(localconfig) run
 
 run-clean:
-	source .venv/bin/activate && dipdup $(devconfig) schema wipe --force && dipdup $(devconfig) init && dipdup $(devconfig) run
+	source .venv/bin/activate && dipdup $(localconfig) schema wipe --force && dipdup $(localconfig) init && dipdup $(localconfig) run
 
 clean:
-	source .venv/bin/activate && dipdup $(devconfig) schema wipe --force
+	source .venv/bin/activate && dipdup $(localconfig) schema wipe --force
 
 # Dev
 DOCKER_DEV_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml
@@ -39,6 +40,12 @@ staging-docker-logs:
 
 staging-docker-down:
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} down
+
+staging-docker-cycle:
+	make staging-docker-down
+	make staging-docker-build
+	make staging-docker-up
+	make staging-docker-logs
 
 # Prod
 docker-build:

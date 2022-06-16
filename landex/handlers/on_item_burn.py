@@ -31,6 +31,11 @@ async def on_item_burn(
         if token.supply <= 0:
             await token.delete()
 
+            # delete metadata and tags as well.
+            await models.ItemTokenMetadata.filter(id=token.id).delete()
+            await models.ItemTagMap.filter(item_metadata=token.id).delete()
+            # NOTE: orphaned tags need to be deleted as well, eventually.
+
             # NOTE: delete remaining holders? shouldn't have to,
             #holders = await models.ItemTokenHolder.filter(token=token) ...
         else:

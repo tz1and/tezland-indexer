@@ -23,17 +23,17 @@ async def on_item_mint(
         
         minter = holder
 
-        metadata = ''
+        metadata_uri = ''
         # assume minting new tokens. For now, that's the only thing the minter
         # contract allows.
         if mint_batch_item.token.new.metadata['']:
-            metadata = fromhex(mint_batch_item.token.new.metadata[''])
+            metadata_uri = fromhex(mint_batch_item.token.new.metadata[''])
 
         token = models.ItemToken(
             id=token_id,
             royalties=mint_batch_item.token.new.royalties.royalties,
             minter=minter,
-            metadata=metadata,
+            metadata_uri=metadata_uri,
             supply=int(mint_batch_item.amount),
             level=mint.data.level,
             timestamp=mint.data.timestamp

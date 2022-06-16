@@ -23,14 +23,14 @@ async def on_place_mint(
         
         minter = holder
 
-        metadata = ''
+        metadata_uri = ''
         if mint_batch_item.metadata['']:
-            metadata = fromhex(mint_batch_item.metadata[''])
+            metadata_uri = fromhex(mint_batch_item.metadata[''])
 
         token = models.PlaceToken(
             id=token_id,
             minter=minter,
-            metadata=metadata,
+            metadata_uri=metadata_uri,
             level=mint.data.level,
             timestamp=mint.data.timestamp
         )
