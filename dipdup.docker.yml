@@ -5,6 +5,11 @@ database:
   user: dipdup
   password: ${POSTGRES_PASSWORD:-changeme}
   database: dipdup
+  immune_tables:
+    - tag
+    - item_tag_map
+    - item_token_metadata
+    - place_token_metadata
 
 hasura:
   url: http://tezland-hasura:8080

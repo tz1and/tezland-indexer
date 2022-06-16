@@ -4,6 +4,11 @@ package: landex
 database:
   kind: sqlite
   path: landex.sqlite3
+  immune_tables:
+    - tag
+    - item_tag_map
+    - item_token_metadata
+    - place_token_metadata
 
 # Contracts on mainnet
 contracts:
