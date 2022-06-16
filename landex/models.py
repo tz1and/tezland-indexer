@@ -39,7 +39,7 @@ class BaseToken(LevelledBase):
         abstract = True
 
 class ItemToken(BaseToken):
-    minter = fields.ForeignKeyField('models.Holder', 'item_tokens', index=True, null=True)
+    minter = fields.ForeignKeyField('models.Holder', 'item_tokens', null=False, index=True)
     royalties = fields.SmallIntField(default=0)
     supply = fields.BigIntField(default=0)
 
@@ -49,7 +49,7 @@ class ItemToken(BaseToken):
         table = 'item_token'
 
 class PlaceToken(BaseToken):
-    minter = fields.ForeignKeyField('models.Holder', 'place_tokens', index=True, null=True)
+    minter = fields.ForeignKeyField('models.Holder', 'place_tokens', null=False, index=True)
 
     metadata = fields.ForeignKeyField('models.PlaceTokenMetadata', 'place_token', index=True, null=True)
 
@@ -81,6 +81,7 @@ class PlaceTokenMetadata(BaseMetadata):
     place_type = fields.TextField(null=False)
     center_coordinates = fields.TextField(null=False)
     border_coordinates = fields.TextField(null=False)
+    build_height = fields.FloatField(null=False)
     grid_hash = fields.TextField(null=False)
 
     class Meta:
@@ -105,7 +106,7 @@ class PlaceTokenHolder(Model):
 # Auctions
 class DutchAuction(LevelledBase):
     token_id = fields.BigIntField(index=True)
-    owner = fields.ForeignKeyField('models.Holder', 'created_dutch_auctions', index=True)
+    owner = fields.ForeignKeyField('models.Holder', 'created_dutch_auctions', null=False, index=True)
     start_time = fields.DatetimeField(null=False)
     end_time = fields.DatetimeField(null=False)
     start_price = fields.BigIntField(null=False)
@@ -142,8 +143,8 @@ class Tag(LevelledBase):
         table = 'tag'
 
 class ItemTagMap(LevelledBase):
-    item_metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'tag_map', index=True)
-    tag = fields.ForeignKeyField('models.Tag', 'tag_map', index=True)
+    item_metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'tag_map', null=False, index=True)
+    tag = fields.ForeignKeyField('models.Tag', 'tag_map', null=False, index=True)
 
     class Meta:
         table = 'item_tag_map'
