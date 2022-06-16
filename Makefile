@@ -59,9 +59,7 @@ docker-down:
 
 docker-push:
 	docker save -o tezland-indexer-latest.tar tezland/indexer:latest
-	docker save -o tezland-metadata-latest.tar tezland/metadata:latest
-	rsync tezland-indexer-latest.tar tezland-metadata-latest.tar docker-compose.indexer.yml docker_postgresql_multiple_databases.sh nginx.conf .env.production tz1and.com:/home/yves/docker
-	ssh tz1and.com "source .profile; cd docker; docker load -i tezland-indexer-latest.tar; docker load -i tezland-metadata-latest.tar; mv .env.production .env; mv nginx.conf nginx/conf/indexer.conf"
+	rsync tezland-indexer-latest.tar docker-compose.indexer.yml docker_postgresql_multiple_databases.sh nginx.conf .env.production tz1and.com:/home/yves/docker
+	ssh tz1and.com "source .profile; cd docker; docker load -i tezland-indexer-latest.tar; mv .env.production .env; mv nginx.conf nginx/conf/indexer.conf"
 #	; rm tezland-indexer-latest.tar"
 	rm tezland-indexer-latest.tar
-	rm tezland-metadata-latest.tar

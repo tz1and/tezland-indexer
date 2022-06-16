@@ -13,9 +13,8 @@ services:
     volumes:
       - ./tz1aND_metadata.dev:/indexer/tz1aND_metadata
 
-  tezland-metadata:
-    environment:
-      - LOCAL_IPFS_NODE=http://ipfs-node:8080
+  tezland-metadata-processing:
+    command: "--env development"
 
   tezland-hasura:
     ports:

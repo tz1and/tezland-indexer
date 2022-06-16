@@ -23,6 +23,17 @@ services:
     volumes:
       - ./tz1aND_metadata:/indexer/tz1aND_metadata
 
+  tezland-metadata-processing:
+    command: "--env production"
+    container_name: tezland-metadata-processing
+    image: tezland/metadata-processing:latest
+    depends_on:
+      db-dipdup:
+        condition: service_healthy
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+
   db-dipdup:
     container_name: db-dipdup
     image: postgres:13

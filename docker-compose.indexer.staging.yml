@@ -12,6 +12,9 @@ services:
     volumes:
       - ./tz1aND_metadata.staging:/indexer/tz1aND_metadata
 
+  tezland-metadata-processing:
+    command: "--env staging"
+
   tezland-hasura:
     ports:
       - 127.0.0.1:42000:8080
