@@ -43,7 +43,7 @@ class ItemToken(BaseToken):
     royalties = fields.SmallIntField(default=0)
     supply = fields.BigIntField(default=0)
 
-    metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'item_token', index=True, null=True)
+    metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'item_token', index=True, null=True, on_delete=fields.SET_NULL)
 
     class Meta:
         table = 'item_token'
@@ -51,7 +51,7 @@ class ItemToken(BaseToken):
 class PlaceToken(BaseToken):
     minter = fields.ForeignKeyField('models.Holder', 'place_tokens', null=False, index=True)
 
-    metadata = fields.ForeignKeyField('models.PlaceTokenMetadata', 'place_token', index=True, null=True)
+    metadata = fields.ForeignKeyField('models.PlaceTokenMetadata', 'place_token', index=True, null=True, on_delete=fields.SET_NULL)
 
     class Meta:
         table = 'place_token'
