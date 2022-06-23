@@ -103,6 +103,45 @@ class PlaceTokenHolder(Model):
     class Meta:
         table = 'place_token_holder'
 
+# World
+class WorldItemPlacement(LevelledBase):
+    place = fields.ForeignKeyField('models.PlaceToken', 'world_item_placements', null=False, index=True)
+    issuer = fields.ForeignKeyField('models.Holder', 'item_token_placements', null=False, index=True)
+    item_token = fields.ForeignKeyField('models.ItemToken', 'item_token_placements', null=False, index=True)
+
+    item_id = fields.BigIntField(null=False)
+    token_amount = fields.BigIntField(null=False)
+    mutez_per_token = fields.BigIntField(null=False)
+    item_data = fields.TextField(null=False)
+
+    class Meta:
+        table = 'world_item_placement'
+        unique_together = ('item_id', 'place')
+
+# TODO:
+# class WorldFA2ItemPlacement
+# class WorldOtherItemPlacement
+# Or: handle all of those this the same table (prob preferred)
+
+class ItemCollectionHistory(LevelledBase):
+    place = fields.ForeignKeyField('models.PlaceToken', 'item_collection_histories', null=False, index=True)
+    item_token = fields.ForeignKeyField('models.ItemToken', 'collection_histories', null=False, index=True)
+
+    issuer = fields.ForeignKeyField('models.Holder', 'item_collection_histories', null=False, index=True)
+    collector = fields.ForeignKeyField('models.Holder', 'collected_items_histories', null=False, index=True)
+    
+    mutez_per_token = fields.BigIntField(null=False)
+
+    class Meta:
+        table = 'item_collection_history'
+
+# TODO:
+#class PlaceProps(LevelledBase):
+#    place = fields.ForeignKeyField('models.PlaceToken', 'place_props', null=False, index=True)
+#
+#    class Meta:
+#        table = 'place_prop'
+
 # Auctions
 class DutchAuction(LevelledBase):
     token_id = fields.BigIntField(index=True)

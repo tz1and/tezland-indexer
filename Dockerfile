@@ -8,7 +8,7 @@ WORKDIR /indexer
 # alpine - doesn't work tho. some pytz error.
 #RUN apk update && apk add gcc libc-dev python3-dev libffi-dev
 
-# debian - git needed for installing dipdup from git
+# update/install debian packages - git needed for installing dipdup from git
 RUN apt update
 RUN apt install git postgresql-client -y
 

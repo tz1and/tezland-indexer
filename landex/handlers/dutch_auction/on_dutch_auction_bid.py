@@ -44,7 +44,7 @@ async def on_dutch_auction_bid(
     # TODO: should we keep finished auctions in the index?
     auction_id = bid.parameter.auction_id
 
-    auction = await models.DutchAuction.filter(id=int(auction_id)).get()
+    auction = await models.DutchAuction.get(id=int(auction_id)).prefetch_related("owner")
 
     auction.bid_op_hash = bid.data.hash
     auction.finishing_bid = getAuctionPrice(auction, bid)
@@ -53,7 +53,6 @@ async def on_dutch_auction_bid(
 
     # handle wl removal
     if bid.storage.whitelist_enabled:
-        await auction.fetch_related("owner")
         is_primary = (auction.owner.address == bid.storage.administrator)
 
         if is_primary:

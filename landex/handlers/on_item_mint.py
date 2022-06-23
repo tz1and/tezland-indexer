@@ -45,3 +45,5 @@ async def on_item_mint(
             holder=holder,
             quantity=int(mint_batch_item.amount))
         await holding.save()
+
+        mint_counter -= 1

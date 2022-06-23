@@ -9,6 +9,17 @@ from landex.types.tezlandWorld.storage import TezlandWorldStorage
 
 async def on_world_remove_items(
     ctx: HandlerContext,
-    bid: Transaction[RemoveItemsParameter, TezlandWorldStorage],
+    remove_items: Transaction[RemoveItemsParameter, TezlandWorldStorage],
 ) -> None:
-    pass
+    place = await models.PlaceToken.get(id=int(remove_items.parameter.lot_id))
+
+    for (issuer_address, item_list) in remove_items.parameter.remove_map.items():
+        issuer = await models.Holder.get(address=issuer_address)
+
+        for item_id in item_list:
+            item_placement = await models.WorldItemPlacement.get(
+                place=place,
+                issuer=issuer,
+                item_id=int(item_id))
+
+            await item_placement.delete()
