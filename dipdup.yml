@@ -4,11 +4,6 @@ package: landex
 database:
   kind: sqlite
   path: landex.sqlite3
-  immune_tables:
-    - tag
-    - item_tag_map
-    - item_token_metadata
-    - place_token_metadata
 
 # Contracts on mainnet
 contracts:
@@ -59,25 +54,48 @@ indexes:
       - tezlandItems
       - tezlandPlaces
       - tezlandDutchAuctions
+      - tezlandWorld
     handlers:
 
+      # World
+      - callback: world.on_world_place_items
+        pattern:
+          - type: transaction
+            destination: tezlandWorld
+            entrypoint: place_items
+      - callback: world.on_world_remove_items
+        pattern:
+          - type: transaction
+            destination: tezlandWorld
+            entrypoint: remove_items
+      - callback: world.on_world_set_item_data
+        pattern:
+          - type: transaction
+            destination: tezlandWorld
+            entrypoint: set_item_data
+      - callback: world.on_world_get_item
+        pattern:
+          - type: transaction
+            destination: tezlandWorld
+            entrypoint: get_item
+
       # Dutch auctions
-      - callback: on_dutch_auction_create
+      - callback: dutch_auction.on_dutch_auction_create
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: create
-      - callback: on_dutch_auction_cancel
+      - callback: dutch_auction.on_dutch_auction_cancel
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: cancel
-      - callback: on_dutch_auction_bid
+      - callback: dutch_auction.on_dutch_auction_bid
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: bid
-      - callback: on_dutch_auction_manage_wl
+      - callback: dutch_auction.on_dutch_auction_manage_wl
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
