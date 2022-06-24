@@ -131,6 +131,7 @@ class ItemCollectionHistory(LevelledBase):
     collector = fields.ForeignKeyField('models.Holder', 'collected_items_histories', null=False, index=True)
     
     mutez_per_token = fields.BigIntField(null=False)
+    op_hash = fields.CharField(max_length=51, null=False)
 
     class Meta:
         table = 'item_collection_history'
@@ -155,7 +156,7 @@ class DutchAuction(LevelledBase):
     is_primary = fields.BooleanField(default=False)
     finished = fields.BooleanField(default=False)
     finishing_bid = fields.BigIntField(null=True)
-    bid_op_hash = fields.TextField(null=True)
+    bid_op_hash = fields.CharField(max_length=51, null=True)
 
     class Meta:
         table = 'dutch_auction'

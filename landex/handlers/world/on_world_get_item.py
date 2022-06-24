@@ -27,6 +27,7 @@ async def on_world_get_item(
         issuer=issuer,
         collector=collector,
         mutez_per_token=item_placement.mutez_per_token,
+        op_hash=get_item.data.hash,
         level=get_item.data.level,
         timestamp=get_item.data.timestamp)
 
