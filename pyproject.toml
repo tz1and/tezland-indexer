@@ -6,7 +6,8 @@ authors = ["852Kerfunkle <852Kerfunkle@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-dipdup = "^5.0.0"
+dipdup = { git = "https://github.com/tz1and/dipdup-py.git", branch = "feat/hasura-root-field-permissions" }
+#dipdup = "^5.0.0"
 sh = "^1.14.2"
 
 [tool.poetry.dev-dependencies]

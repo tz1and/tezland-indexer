@@ -14,7 +14,7 @@ database:
 hasura:
   url: http://tezland-hasura:8080
   admin_secret: ${HASURA_ADMIN_SECRET:-changeme}
-  allow_aggregations: false
+  allow_aggregations: true
   camel_case: true
   select_limit: 100
   source: dipdup
