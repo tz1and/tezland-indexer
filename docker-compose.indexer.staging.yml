@@ -13,7 +13,7 @@ services:
       - ./tz1aND_metadata.staging:/indexer/tz1aND_metadata
 
   tezland-metadata-processing:
-    command: "--env staging"
+    command: ["--env", "staging"]
 
   tezland-hasura:
     ports:

@@ -14,7 +14,7 @@ services:
       - ./tz1aND_metadata.dev:/indexer/tz1aND_metadata
 
   tezland-metadata-processing:
-    command: "--env development"
+    command: ["--env", "development"]
 
   tezland-hasura:
     ports:
