@@ -20,3 +20,10 @@ if [ -n "$POSTGRES_MULTIPLE_DATABASES" ]; then
     done
     echo "Multiple databases created"
 fi
+
+# We have 8 gateway cluster workers with 10 connections each,
+# dipdup and hasura. Let's take a guess and say we need 100 * 2.5.
+echo "setting max connections"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
+    ALTER SYSTEM SET max_connections = 250;
+EOSQL
