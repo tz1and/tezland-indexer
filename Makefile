@@ -25,6 +25,11 @@ dev-docker-up:
 dev-docker-down:
 	TAG=dev docker-compose ${DOCKER_DEV_CONF} down -v
 
+dev-docker-cycle:
+	make dev-docker-down
+	make dev-docker-build
+	make dev-docker-up
+
 # Staging
 DOCKER_STAGING_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.staging.yml
 
