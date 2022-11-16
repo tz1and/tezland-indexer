@@ -6,19 +6,19 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandPlaces.parameter.transfer import TransferParameter
-from landex.types.tezlandPlaces.storage import TezlandPlacesStorage
+from landex.types.tezlandFA2NFT.parameter.transfer import TransferParameter
+from landex.types.tezlandFA2NFT.storage import TezlandFA2NFTStorage
 
 
 async def on_place_transfer(
     ctx: HandlerContext,
-    transfer: Transaction[TransferParameter, TezlandPlacesStorage],
+    transfer: Transaction[TransferParameter, TezlandFA2NFTStorage],
 ) -> None:
     for t in transfer.parameter.__root__:
         sender, _ = await models.Holder.get_or_create(address=t.from_)
         for tx in t.txs:
             receiver, _ = await models.Holder.get_or_create(address=tx.to_)
-            token = await models.PlaceToken.filter(id=int(tx.token_id)).get()
+            token = await models.PlaceToken.filter(token_id=int(tx.token_id), contract=transfer.data.target_address).get()
 
             # TODO: rather use balances like in item_transfer?
 

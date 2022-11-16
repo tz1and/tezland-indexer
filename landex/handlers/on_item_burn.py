@@ -6,17 +6,17 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandItems.parameter.burn import BurnParameter
-from landex.types.tezlandItems.storage import TezlandItemsStorage
+from landex.types.tezlandFA2Fungible.parameter.burn import BurnParameter
+from landex.types.tezlandFA2Fungible.storage import TezlandFA2FungibleStorage
 
 
 async def on_item_burn(
     ctx: HandlerContext,
-    burn: Transaction[BurnParameter, TezlandItemsStorage],
+    burn: Transaction[BurnParameter, TezlandFA2FungibleStorage],
 ) -> None:
     for burn_batch_item in burn.parameter.__root__:
         holder, _ = await models.Holder.get_or_create(address=burn_batch_item.from_)
-        token = await models.ItemToken.filter(id=int(burn_batch_item.token_id)).get()
+        token = await models.ItemToken.filter(token_id=int(burn_batch_item.token_id), contract=burn.data.target_address).get()
 
         # update sender holding
         holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder)
@@ -32,8 +32,9 @@ async def on_item_burn(
             await token.delete()
 
             # delete metadata and tags as well.
-            await models.ItemTokenMetadata.filter(id=token.id).delete()
-            await models.ItemTagMap.filter(item_metadata=token.id).delete()
+            await models.ItemTokenMetadata.filter(token_id=token.token_id, contract=burn.data.target_address).delete()
+            # NOTE: Tag map should cascade.
+            #await models.ItemTagMap.filter(item_metadata=metadataId).delete()
             # NOTE: orphaned tags need to be deleted as well, eventually.
 
             # NOTE: delete remaining holders? shouldn't have to,

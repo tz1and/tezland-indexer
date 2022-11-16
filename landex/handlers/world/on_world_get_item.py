@@ -11,7 +11,13 @@ async def on_world_get_item(
     ctx: HandlerContext,
     get_item: Transaction[GetItemParameter, TezlandWorldStorage],
 ) -> None:
-    place = await models.PlaceToken.get(id=int(get_item.parameter.lot_id))
+    # If this bid call is after the upgrade, it's to update the metadata. skip it.
+    # TODO: maybe do it by level.
+    if get_item.parameter.extension is not None and get_item.parameter.extension["metadata_uri"] is not None:
+        print("Op updated metadata, skipping.")
+        return
+
+    place = await models.PlaceToken.get(token_id=int(get_item.parameter.lot_id), contract=get_item.storage.places_contract)
     issuer = await models.Holder.get(address=get_item.parameter.issuer)
 
     item_placement = await models.WorldItemPlacement.get(

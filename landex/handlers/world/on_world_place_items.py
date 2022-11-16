@@ -12,7 +12,7 @@ async def on_world_place_items(
     place_items: Transaction[PlaceItemsParameter, TezlandWorldStorage],
 ) -> None:
     issuer = await models.Holder.get(address=place_items.data.sender_address)
-    place = await models.PlaceToken.get(id=int(place_items.parameter.lot_id))
+    place = await models.PlaceToken.get(token_id=int(place_items.parameter.lot_id), contract=place_items.storage.places_contract)
 
     place_next_id = int(place_items.storage.places.get(place_items.parameter.lot_id).next_id)
 
@@ -21,12 +21,13 @@ async def on_world_place_items(
         # subtract decresing counter from next_id to get item_id
         item_id = place_next_id - place_items_counter
 
-        item_token = await models.ItemToken.get(id=int(i.item.token_id))
+        item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=place_items.storage.items_contract)
 
         await models.WorldItemPlacement.create(
             place=place,
             issuer=issuer,
             item_id=item_id,
+            chunk=0,
             item_token=item_token,
             token_amount=i.item.token_amount,
             mutez_per_token=i.item.mutez_per_token,

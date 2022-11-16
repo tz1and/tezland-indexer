@@ -40,6 +40,12 @@ async def on_dutch_auction_bid(
     ctx: HandlerContext,
     bid: Transaction[BidParameter, TezlandDutchAuctionsStorage],
 ) -> None:
+    # If this bid call is after the upgrade, it's to update the metadata. skip it.
+    # TODO: maybe do it by level.
+    if bid.parameter.extension is not None and bid.parameter.extension["metadata_uri"] is not None:
+        print("Op updated metadata, skipping.")
+        return
+
     # nothing to do but to delete the auction.
     # TODO: should we keep finished auctions in the index?
     auction_id = bid.parameter.auction_id

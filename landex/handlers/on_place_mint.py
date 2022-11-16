@@ -6,14 +6,14 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandPlaces.parameter.mint import MintParameter
-from landex.types.tezlandPlaces.storage import TezlandPlacesStorage
+from landex.types.tezlandFA2NFT.parameter.mint import MintParameter
+from landex.types.tezlandFA2NFT.storage import TezlandFA2NFTStorage
 from landex.utils import fromhex
 
 
 async def on_place_mint(
     ctx: HandlerContext,
-    mint: Transaction[MintParameter, TezlandPlacesStorage],
+    mint: Transaction[MintParameter, TezlandFA2NFTStorage],
 ) -> None:
     mint_counter = len(mint.parameter.__root__)
     for mint_batch_item in mint.parameter.__root__:
@@ -28,7 +28,8 @@ async def on_place_mint(
             metadata_uri = fromhex(mint_batch_item.metadata[''])
 
         token = models.PlaceToken(
-            id=token_id,
+            token_id=token_id,
+            contract=mint.data.target_address,
             minter=minter,
             metadata_uri=metadata_uri,
             level=mint.data.level,
