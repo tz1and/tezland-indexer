@@ -3,6 +3,10 @@ from enum import Enum, unique
 from tortoise import Model, fields
 
 
+# TODO: have an FA2 table, maybe, for references to contracts, fa2.
+# TODO: whitelist for different place types.
+
+
 # TODO: probably shouldn't be called holder?
 # maybe Account or TezosAccount or TezlandAccount?
 class Holder(Model):
@@ -129,10 +133,10 @@ class PlaceTokenHolder(Model):
 # World
 class WorldItemPlacement(LevelledBaseTransient):
     place = fields.ForeignKeyField('models.PlaceToken', 'world_item_placements', null=False, index=True)
+    chunk = fields.BigIntField(null=False)
     issuer = fields.ForeignKeyField('models.Holder', 'item_token_placements', null=False, index=True)
     item_token = fields.ForeignKeyField('models.ItemToken', 'item_token_placements', null=False, index=True)
 
-    chunk = fields.BigIntField(null=False)
     item_id = fields.BigIntField(null=False)
     token_amount = fields.BigIntField(null=False)
     mutez_per_token = fields.BigIntField(null=False)
@@ -140,7 +144,7 @@ class WorldItemPlacement(LevelledBaseTransient):
 
     class Meta:
         table = 'world_item_placement'
-        unique_together = ('item_id', 'place')
+        unique_together = ('chunk', 'item_id', 'place')
 
 # TODO:
 # class WorldFA2ItemPlacement
@@ -184,6 +188,7 @@ class DutchAuction(LevelledBase):
 
     class Meta:
         table = 'dutch_auction'
+        unique_together = ('token_id', 'fa2', 'owner')
 
 # Whitelist
 class DutchAuctionWhitelist(Model):
