@@ -22,7 +22,7 @@ async def on_dutch_auction_bid(
     # TODO: should we keep finished auctions in the index?
     auction_id = bid.parameter.auction_id
 
-    auction = await models.DutchAuction.get(id=int(auction_id)).prefetch_related("owner")
+    auction = await models.DutchAuction.get(transient_id=int(auction_id)).prefetch_related("owner")
 
     auction.bid_op_hash = bid.data.hash
     auction.finishing_bid = utils.getAuctionPrice(auction, int(bid.storage.granularity), bid.data.timestamp)

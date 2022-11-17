@@ -172,7 +172,7 @@ class ItemCollectionHistory(LevelledBaseTransient):
 #        table = 'place_prop'
 
 # Auctions
-class DutchAuction(LevelledBase):
+class DutchAuction(LevelledBaseTransient):
     token_id = fields.BigIntField(index=True)
     owner = fields.ForeignKeyField('models.Holder', 'created_dutch_auctions', null=False, index=True)
     start_time = fields.DatetimeField(null=False)

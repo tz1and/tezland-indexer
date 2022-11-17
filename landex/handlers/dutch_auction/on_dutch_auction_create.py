@@ -18,7 +18,7 @@ async def on_dutch_auction_create(
     owner, _ = await models.Holder.get_or_create(address=create.data.sender_address)
     
     auction = models.DutchAuction(
-        id=auction_id,
+        transient_id=auction_id,
         owner=owner,
         token_id=create.parameter.token_id,
         start_price=create.parameter.start_price,
