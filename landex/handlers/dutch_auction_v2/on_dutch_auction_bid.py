@@ -27,7 +27,6 @@ async def on_dutch_auction_bid(
 
     # handle wl removal
     # TODO: wl v2 changes. new table
-    print(bid.storage.permitted_fa2)
     if bid.storage.permitted_fa2[auction_key.fa2].whitelist_enabled:
         is_primary = (auction.owner.address == bid.storage.permitted_fa2[auction_key.fa2].whitelist_admin)
 
