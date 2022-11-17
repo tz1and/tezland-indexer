@@ -1,7 +1,7 @@
 EXTRA_ARGS?=
 
-localconfig = -c dipdup.yml
-devconfig = -c dipdup.yml -c dipdup.dev.local.yml
+#localconfig = -c dipdup.yml
+localconfig = -c dipdup.yml -c dipdup.dev.local.yml
 
 run:
 	source .venv/bin/activate && dipdup $(localconfig) init && dipdup $(localconfig) run

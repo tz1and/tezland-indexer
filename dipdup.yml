@@ -8,28 +8,56 @@ database:
 # Contracts on mainnet
 contracts:
   tezlandItems:
-    address: KT1TKFWDiMk35c5n94TMmLaYksdXkHuaL112
-    typename: tezlandItems
+    address: KT1NgT7tLpWNXJBpVWuRQNdmeVPzfK7mwRTw
+    typename: tezlandFA2Fungible
 
   tezlandPlaces:
-    address: KT1G6bH9NVDp8tSSz7FzDUnCgbJwQikxtUog
-    typename: tezlandPlaces
+    address: KT1AXDSh6yvwcPHgfcPeQmhUAoHgiQCpegH8
+    typename: tezlandFA2NFT
+
+  tezlandPlacesV2:
+    address: KT1Kk4hsVADuCNqcM38itgq3mhsYiJLbBWEZ
+    typename: tezlandFA2NFTV2
+
+  tezlandInteriors:
+    address: KT1VWhnWJA9paUNqTtKKop61cUNmYFxmSMnz
+    typename: tezlandFA2NFTV2
 
   tezlandDAO:
-    address: KT1Xag669km4EXaQPi3GH9fcofjvPnJneuaL
+    address: KT1BgrcQcWXCcadHaJdPzYJpdCjn3JhE4K52
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1EuSjJgQRGXM18TEu1WaMRyshPSkSCg11n
+    address: KT1HpcojG46YMxyGVxbsMeHiLL49ecebRkdg
     typename: tezlandWorld
 
+  tezlandWorldV2:
+    address: KT1Afaj2VAGVMnGcUcytEbXGfYDw9Jw7VYU1
+    typename: tezlandWorldV2
+    
   tezlandMinter:
-    address: KT1GmLfej8mFrfB3bRSoc1fTuCa9eQHJw8Qi
+    address: KT1AZY3DGurGUXoCmRtqPvd2ZRehmnYVLff7
     typename: tezlandMinter
 
+  tezlandMinterV2:
+    address: KT1QCvSDTt11pKjbEpQd6qGJL3vGhRJ9jLKN
+    typename: tezlandMinterV2
+
   tezlandDutchAuctions:
-    address: KT1WmMn55RjXwk5Xb4YE6asjy5BvMiEsB6nA
+    address: KT1BhwQEGG7oNAmLVkmYmfNyxinn26aoybNo
     typename: tezlandDutchAuctions
+
+  tezlandDutchAuctionsV2:
+    address: KT1GEiomTCpjNuMnuzU2Z7qq8xjJDSa6ivKd
+    typename: tezlandDutchAuctionsV2
+    
+  tezlandFactory:
+    address: KT1XYUCvEfvWYE6LHseq9b9VsGmANC4FKqpS
+    typename: tezlandFactory
+    
+  tezlandRegistry:
+    address: KT1JJcjbuiZwSb3oFwuoKTuTnEPgUpTjBnao
+    typename: tezlandRegistry
 
 datasources:
   tzkt_mainnet:
@@ -44,7 +72,9 @@ advanced:
     # alternatively to rollback reindex we could also emit a
     # manual type and wipe on that.
     #manual: wipe
-    
+
+# NOTE: indexes are mutable and independent of each other,
+# so they need to contain all their dependencies.
 indexes:
   tezland_mainnet:
     kind: operation
@@ -53,9 +83,39 @@ indexes:
       - tezlandMinter
       - tezlandItems
       - tezlandPlaces
+      - tezlandInteriors
+      - tezlandPlacesV2
       - tezlandDutchAuctions
+      - tezlandDutchAuctionsV2
       - tezlandWorld
+      - tezlandWorldV2
     handlers:
+      # World V2
+      - callback: world_v2.on_world_place_items
+        pattern:
+          - type: transaction
+            destination: tezlandWorldV2
+            entrypoint: place_items
+      - callback: world_v2.on_world_remove_items
+        pattern:
+          - type: transaction
+            destination: tezlandWorldV2
+            entrypoint: remove_items
+      - callback: world_v2.on_world_set_item_data
+        pattern:
+          - type: transaction
+            destination: tezlandWorldV2
+            entrypoint: set_item_data
+      - callback: world_v2.on_world_get_item
+        pattern:
+          - type: transaction
+            destination: tezlandWorldV2
+            entrypoint: get_item
+      - callback: world_v2.on_world_migration
+        pattern:
+          - type: transaction
+            destination: tezlandWorldV2
+            entrypoint: migration
 
       # World
       - callback: world.on_world_place_items
@@ -79,6 +139,28 @@ indexes:
             destination: tezlandWorld
             entrypoint: get_item
 
+      # Dutch auctions V2
+      - callback: dutch_auction_v2.on_dutch_auction_create
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctionsV2
+            entrypoint: create
+      - callback: dutch_auction_v2.on_dutch_auction_cancel
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctionsV2
+            entrypoint: cancel
+      - callback: dutch_auction_v2.on_dutch_auction_bid
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctionsV2
+            entrypoint: bid
+      - callback: dutch_auction_v2.on_dutch_auction_manage_wl
+        pattern:
+          - type: transaction
+            destination: tezlandDutchAuctionsV2
+            entrypoint: manage_whitelist
+
       # Dutch auctions
       - callback: dutch_auction.on_dutch_auction_create
         pattern:
@@ -101,24 +183,17 @@ indexes:
             destination: tezlandDutchAuctions
             entrypoint: manage_whitelist
 
-      # Minter
-      - callback: on_item_mint
-        pattern:
-          - type: transaction
-            destination: tezlandItems
-            entrypoint: mint
-      - callback: on_place_mint
-        pattern:
-          - type: transaction
-            destination: tezlandPlaces
-            entrypoint: mint
-
       # FA2 Item
       - callback: on_item_transfer
         pattern:
           - type: transaction
             destination: tezlandItems
             entrypoint: transfer
+      - callback: on_item_mint
+        pattern:
+          - type: transaction
+            destination: tezlandItems
+            entrypoint: mint
       - callback: on_item_burn
         pattern:
           - type: transaction
@@ -131,6 +206,35 @@ indexes:
           - type: transaction
             destination: tezlandPlaces
             entrypoint: transfer
+      - callback: on_place_mint
+        pattern:
+          - type: transaction
+            destination: tezlandPlaces
+            entrypoint: mint
+
+      # FA2 Place V2
+      - callback: on_place_transfer
+        pattern:
+          - type: transaction
+            destination: tezlandPlacesV2
+            entrypoint: transfer
+      - callback: on_place_mint
+        pattern:
+          - type: transaction
+            destination: tezlandPlacesV2
+            entrypoint: mint
+
+      # FA2 Interior
+      - callback: on_place_transfer
+        pattern:
+          - type: transaction
+            destination: tezlandInteriors
+            entrypoint: transfer
+      - callback: on_place_mint
+        pattern:
+          - type: transaction
+            destination: tezlandInteriors
+            entrypoint: mint
 
 hooks:
   #retry_metadata:
