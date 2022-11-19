@@ -11,12 +11,14 @@ async def on_world_migration(
     ctx: HandlerContext,
     migration: Transaction[MigrationParameter, TezlandWorldV2Storage],
 ) -> None:
-    place = await models.PlaceToken.get(token_id=int(migration.parameter.place_key.id), contract=migration.parameter.place_key.fa2)
+    place_contract = await models.PlaceContract.get(address=migration.parameter.place_key.fa2)
+    place = await models.PlaceToken.get(token_id=int(migration.parameter.place_key.id), contract=place_contract)
 
     chunk_item_limit = int(migration.storage.place_tokens[migration.parameter.place_key.fa2].chunk_item_limit)
 
     # delete all item placements in old place
-    old_place = await models.PlaceToken.get(token_id=int(migration.parameter.place_key.id), contract=ctx.config.contracts["tezlandPlaces"].address)
+    old_place_contract = await models.PlaceContract.get(address=ctx.config.contracts["tezlandPlaces"].address)
+    old_place = await models.PlaceToken.get(token_id=int(migration.parameter.place_key.id), contract=old_place_contract)
     await models.WorldItemPlacement.filter(place=old_place).delete()
 
     item_id = 0
@@ -26,8 +28,9 @@ async def on_world_migration(
         issuer = await models.Holder.get(address=issuer_key)
 
         for (fa2, item_list) in issuer_map.items():
+            item_contract = await models.ItemContract.get(address=fa2)
             for i in item_list:
-                item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=fa2)
+                item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=item_contract)
 
                 await models.WorldItemPlacement.create(
                     place=place,

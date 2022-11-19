@@ -14,11 +14,13 @@ async def on_place_transfer(
     ctx: HandlerContext,
     transfer: Transaction[TransferParameter, TezlandFA2NFTStorage],
 ) -> None:
+    contract = await models.PlaceContract.get(address=transfer.data.target_address)
+
     for t in transfer.parameter.__root__:
         sender, _ = await models.Holder.get_or_create(address=t.from_)
         for tx in t.txs:
             receiver, _ = await models.Holder.get_or_create(address=tx.to_)
-            token = await models.PlaceToken.filter(token_id=int(tx.token_id), contract=transfer.data.target_address).get()
+            token = await models.PlaceToken.filter(token_id=int(tx.token_id), contract=contract).get()
 
             # TODO: rather use balances like in item_transfer?
 

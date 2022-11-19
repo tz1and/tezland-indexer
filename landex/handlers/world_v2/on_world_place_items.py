@@ -21,18 +21,20 @@ async def on_world_place_items(
     place_items: Transaction[PlaceItemsParameter, TezlandWorldV2Storage],
 ) -> None:
     issuer = await models.Holder.get(address=place_items.data.sender_address)
-    place = await models.PlaceToken.get(token_id=int(place_items.parameter.chunk_key.place_key.id), contract=place_items.parameter.chunk_key.place_key.fa2)
+    place_contract = await models.PlaceContract.get(address=place_items.parameter.chunk_key.place_key.fa2)
+    place = await models.PlaceToken.get(token_id=int(place_items.parameter.chunk_key.place_key.id), contract=place_contract)
 
     chunk = find_chunk(place_items.storage.chunks, place_items.parameter.chunk_key)
     chunk_next_id = int(chunk.value.next_id)
 
     chunk_items_counter = sum(len(x) for x in place_items.parameter.place_item_map.values())
     for (fa2, item_list) in place_items.parameter.place_item_map.items():
+        item_contract = await models.ItemContract.get(address=fa2)
         for i in item_list:
             # subtract decresing counter from next_id to get item_id
             item_id = chunk_next_id - chunk_items_counter
 
-            item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=fa2)
+            item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=item_contract)
 
             await models.WorldItemPlacement.create(
                 place=place,

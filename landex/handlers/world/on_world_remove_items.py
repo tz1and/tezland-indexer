@@ -11,7 +11,8 @@ async def on_world_remove_items(
     ctx: HandlerContext,
     remove_items: Transaction[RemoveItemsParameter, TezlandWorldStorage],
 ) -> None:
-    place = await models.PlaceToken.get(token_id=int(remove_items.parameter.lot_id), contract=remove_items.storage.places_contract)
+    place_contract = await models.PlaceContract.get(address=remove_items.storage.places_contract)
+    place = await models.PlaceToken.get(token_id=int(remove_items.parameter.lot_id), contract=place_contract)
 
     for (issuer_address, item_list) in remove_items.parameter.remove_map.items():
         issuer = await models.Holder.get(address=issuer_address)

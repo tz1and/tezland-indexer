@@ -14,11 +14,13 @@ async def on_item_transfer(
     ctx: HandlerContext,
     transfer: Transaction[TransferParameter, TezlandFA2FungibleStorage],
 ) -> None:
+    contract = await models.ItemContract.get(address=transfer.data.target_address)
+
     for t in transfer.parameter.__root__:
         sender, _ = await models.Holder.get_or_create(address=t.from_)
         for tx in t.txs:
             receiver, _ = await models.Holder.get_or_create(address=tx.to_)
-            token = await models.ItemToken.filter(token_id=int(tx.token_id), contract=transfer.data.target_address).get()
+            token = await models.ItemToken.filter(token_id=int(tx.token_id), contract=contract).get()
 
             # update sender holding
             sender_holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=sender)

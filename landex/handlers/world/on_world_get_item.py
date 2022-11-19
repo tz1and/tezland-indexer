@@ -17,7 +17,8 @@ async def on_world_get_item(
         print("Op updated metadata, skipping.")
         return
 
-    place = await models.PlaceToken.get(token_id=int(get_item.parameter.lot_id), contract=get_item.storage.places_contract)
+    place_contract = await models.PlaceContract.get(address=get_item.storage.places_contract)
+    place = await models.PlaceToken.get(token_id=int(get_item.parameter.lot_id), contract=place_contract)
     issuer = await models.Holder.get(address=get_item.parameter.issuer)
 
     item_placement = await models.WorldItemPlacement.get(

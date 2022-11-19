@@ -11,7 +11,8 @@ async def on_world_set_item_data(
     ctx: HandlerContext,
     set_item_data: Transaction[SetItemDataParameter, TezlandWorldV2Storage],
 ) -> None:
-    place = await models.PlaceToken.get(token_id=int(set_item_data.parameter.chunk_key.place_key.id), contract=set_item_data.parameter.chunk_key.place_key.fa2)
+    place_contract = await models.PlaceContract.get(address=set_item_data.parameter.chunk_key.place_key.fa2)
+    place = await models.PlaceToken.get(token_id=int(set_item_data.parameter.chunk_key.place_key.id), contract=place_contract)
 
     for update_map_item in set_item_data.parameter.update_map:
         issuer = (None if update_map_item.key is None else await models.Holder.get(address=update_map_item.key))

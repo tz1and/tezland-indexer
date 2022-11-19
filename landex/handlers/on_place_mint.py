@@ -20,6 +20,7 @@ async def on_place_mint(
         # subtract decresing mint counter from last_token_id to get token_id
         token_id = int(mint.storage.last_token_id) - mint_counter
         holder, _ = await models.Holder.get_or_create(address=mint_batch_item.to_)
+        contract = await models.PlaceContract.get(address=mint.data.target_address)
         
         minter = holder
 
@@ -29,7 +30,7 @@ async def on_place_mint(
 
         token = models.PlaceToken(
             token_id=token_id,
-            contract=mint.data.target_address,
+            contract=contract,
             minter=minter,
             metadata_uri=metadata_uri,
             level=mint.data.level,

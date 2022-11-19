@@ -11,7 +11,8 @@ async def on_world_get_item(
     ctx: HandlerContext,
     get_item: Transaction[GetItemParameter, TezlandWorldV2Storage],
 ) -> None:
-    place = await models.PlaceToken.get(token_id=int(get_item.parameter.chunk_key.place_key.id), contract=get_item.parameter.chunk_key.place_key.fa2)
+    place_contract = await models.PlaceContract.get(address=get_item.parameter.chunk_key.place_key.fa2)
+    place = await models.PlaceToken.get(token_id=int(get_item.parameter.chunk_key.place_key.id), contract=place_contract)
     issuer = (None if get_item.parameter.issuer is None else await models.Holder.get(address=get_item.parameter.issuer))
 
     item_placement = await models.WorldItemPlacement.get(
