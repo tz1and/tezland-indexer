@@ -106,7 +106,7 @@ class IpfsMetadataCache(Model):
         table = 'ipfs_metadata_cache'
 
 
-class BaseTokenMetadata(LevelledBaseTransient):
+class BaseMetadata(LevelledBaseTransient):
     name = fields.TextField(default='')
     description = fields.TextField(default='')
 
@@ -114,7 +114,7 @@ class BaseTokenMetadata(LevelledBaseTransient):
         abstract = True
 
 
-class ItemTokenMetadata(BaseTokenMetadata):
+class ItemTokenMetadata(BaseMetadata):
     artifact_uri = fields.TextField(null=False)
     thumbnail_uri = fields.TextField(null=True)
     display_uri = fields.TextField(null=True)
@@ -128,7 +128,7 @@ class ItemTokenMetadata(BaseTokenMetadata):
         table = 'item_token_metadata'
 
 
-class PlaceTokenMetadata(BaseTokenMetadata):
+class PlaceTokenMetadata(BaseMetadata):
     place_type = fields.TextField(null=False)
     center_coordinates = fields.TextField(null=False)
     border_coordinates = fields.TextField(null=False)
