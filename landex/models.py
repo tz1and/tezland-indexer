@@ -40,16 +40,21 @@ class LevelledBase(Model):
 
 
 # Contracts
-class PlaceContract(LevelledBaseTransient):
+class BaseContract(LevelledBaseTransient):
     address = fields.CharField(max_length=36, index=True)
 
+    # TODO: contract metadata
+
+    class Meta:
+        abstract = True
+
+
+class PlaceContract(BaseContract):
     class Meta:
         table = 'place_contract'
 
 
-class ItemContract(LevelledBaseTransient):
-    address = fields.CharField(max_length=36, index=True)
-
+class ItemContract(BaseContract):
     class Meta:
         table = 'item_contract'
 
