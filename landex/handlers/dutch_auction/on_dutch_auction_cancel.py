@@ -16,5 +16,4 @@ async def on_dutch_auction_cancel(
 ) -> None:
     auction_id = cancel.parameter.auction_id
 
-    auction = await models.DutchAuction.filter(transient_id=int(auction_id)).get()
-    await auction.delete()
+    await models.DutchAuction.filter(transient_id=int(auction_id)).delete()

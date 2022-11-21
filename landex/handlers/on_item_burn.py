@@ -17,7 +17,7 @@ async def on_item_burn(
     for burn_batch_item in burn.parameter.__root__:
         holder, _ = await models.Holder.get_or_create(address=burn_batch_item.from_)
         contract = await models.ItemContract.get(address=burn.data.target_address)
-        token = await models.ItemToken.filter(token_id=int(burn_batch_item.token_id), contract=contract).get()
+        token = await models.ItemToken.get(token_id=int(burn_batch_item.token_id), contract=contract)
 
         # update sender holding
         holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=holder)

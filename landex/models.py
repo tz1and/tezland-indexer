@@ -147,9 +147,8 @@ class PlaceTokenMetadata(BaseMetadata):
 # Token holders
 class ItemTokenHolder(Model):
     holder = fields.ForeignKeyField('models.Holder', 'holders_item_token', null=False, index=True)
-    # NOTE: this will result in a field tokenId, which is the transient id, not the onchain id...
-    # Unfortunatly can't change the foreign key name.
-    token = fields.ForeignKeyField('models.ItemToken', 'item_token_holders', null=False, index=True)
+    # NOTE: use source_field so id field generated is not token_id. Which would be ambiguous.
+    token = fields.ForeignKeyField('models.ItemToken', 'item_token_holders', null=False, index=True, source_field="token_transient_id")
     quantity = fields.BigIntField(default=0)
 
     class Meta:
@@ -158,9 +157,8 @@ class ItemTokenHolder(Model):
 
 class PlaceTokenHolder(Model):
     holder = fields.ForeignKeyField('models.Holder', 'holders_place_token', null=False, index=True)
-    # NOTE: this will result in a field tokenId, which is the transient id, not the onchain id...
-    # Unfortunatly can't change the foreign key name.
-    token = fields.ForeignKeyField('models.PlaceToken', 'place_token_holders', null=False, index=True)
+    # NOTE: use source_field so id field generated is not token_id. Which would be ambiguous.
+    token = fields.ForeignKeyField('models.PlaceToken', 'place_token_holders', null=False, index=True, source_field="token_transient_id")
 
     class Meta:
         table = 'place_token_holder'

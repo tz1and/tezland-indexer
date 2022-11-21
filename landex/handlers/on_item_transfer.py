@@ -20,7 +20,7 @@ async def on_item_transfer(
         sender, _ = await models.Holder.get_or_create(address=t.from_)
         for tx in t.txs:
             receiver, _ = await models.Holder.get_or_create(address=tx.to_)
-            token = await models.ItemToken.filter(token_id=int(tx.token_id), contract=contract).get()
+            token = await models.ItemToken.get(token_id=int(tx.token_id), contract=contract)
 
             # update sender holding
             sender_holding, _ = await models.ItemTokenHolder.get_or_create(token=token, holder=sender)
