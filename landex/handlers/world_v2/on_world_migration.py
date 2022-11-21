@@ -38,9 +38,9 @@ async def on_world_migration(
                     item_id=item_id,
                     chunk=chunk,
                     item_token=item_token,
-                    token_amount=i.item.token_amount,
-                    mutez_per_token=i.item.mutez_per_token,
-                    item_data=i.item.item_data,
+                    amount=i.item.amount,
+                    rate=i.item.rate,
+                    data=i.item.data,
                     level=migration.data.level,
                     timestamp=migration.data.timestamp)
 

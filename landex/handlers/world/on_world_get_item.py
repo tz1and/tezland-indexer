@@ -33,14 +33,14 @@ async def on_world_get_item(
         item_token=item_placement.item_token,
         issuer=issuer,
         collector=collector,
-        mutez_per_token=item_placement.mutez_per_token,
+        rate=item_placement.rate,
         op_hash=get_item.data.hash,
         level=get_item.data.level,
         timestamp=get_item.data.timestamp)
 
     # reduce amount or delete
-    if item_placement.token_amount > 1:
-        item_placement.token_amount -= 1
+    if item_placement.amount > 1:
+        item_placement.amount -= 1
         await item_placement.save()
     else:
         await item_placement.delete()

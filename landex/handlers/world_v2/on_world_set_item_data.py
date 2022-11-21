@@ -26,5 +26,5 @@ async def on_world_set_item_data(
                     item_id=int(update_item.item_id)
                 )
 
-                item_placement.item_data = update_item.item_data
+                item_placement.data = update_item.data
                 await item_placement.save()

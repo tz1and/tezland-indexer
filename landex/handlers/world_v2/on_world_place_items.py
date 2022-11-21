@@ -15,6 +15,7 @@ def find_chunk(chunk_list: List[Chunk], chunk_key: ChunkKey) -> Chunk:
             return x
     assert False
 
+#def count_items_to_place()
 
 async def on_world_place_items(
     ctx: HandlerContext,
@@ -28,24 +29,27 @@ async def on_world_place_items(
     chunk_next_id = int(chunk.value.next_id)
 
     chunk_items_counter = sum(len(x) for x in place_items.parameter.place_item_map.values())
-    for (fa2, item_list) in place_items.parameter.place_item_map.items():
-        item_contract = await models.ItemContract.get(address=fa2)
-        for i in item_list:
-            # subtract decresing counter from next_id to get item_id
-            item_id = chunk_next_id - chunk_items_counter
+    for (send_to_place, fa2_map) in place_items.parameter.place_item_map.items():
+        send_to_place_bool = False if send_to_place.lower() == "false" else True
 
-            item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=item_contract)
+        for (fa2, item_list) in fa2_map.items():
+            item_contract = await models.ItemContract.get(address=fa2)
+            for i in item_list:
+                # subtract decresing counter from next_id to get item_id
+                item_id = chunk_next_id - chunk_items_counter
 
-            await models.WorldItemPlacement.create(
-                place=place,
-                issuer=(None if place_items.parameter.send_to_place else issuer),
-                item_id=item_id,
-                chunk=place_items.parameter.chunk_key.chunk_id,
-                item_token=item_token,
-                token_amount=i.item.token_amount,
-                mutez_per_token=i.item.mutez_per_token,
-                item_data=i.item.item_data,
-                level=place_items.data.level,
-                timestamp=place_items.data.timestamp)
+                item_token = await models.ItemToken.get(token_id=int(i.item.token_id), contract=item_contract)
 
-            chunk_items_counter -= 1
+                await models.WorldItemPlacement.create(
+                    place=place,
+                    issuer=(None if send_to_place_bool else issuer),
+                    item_id=item_id,
+                    chunk=place_items.parameter.chunk_key.chunk_id,
+                    item_token=item_token,
+                    amount=i.item.amount,
+                    rate=i.item.rate,
+                    data=i.item.data,
+                    level=place_items.data.level,
+                    timestamp=place_items.data.timestamp)
+
+                chunk_items_counter -= 1

@@ -32,9 +32,9 @@ async def on_world_place_items(
             item_id=item_id,
             chunk=0,
             item_token=item_token,
-            token_amount=i.item.token_amount,
-            mutez_per_token=i.item.mutez_per_token,
-            item_data=i.item.item_data,
+            amount=i.item.token_amount,
+            rate=i.item.mutez_per_token,
+            data=i.item.item_data,
             level=place_items.data.level,
             timestamp=place_items.data.timestamp)
 

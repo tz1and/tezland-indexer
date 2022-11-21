@@ -168,13 +168,13 @@ class PlaceTokenHolder(Model):
 class WorldItemPlacement(LevelledBaseTransient):
     place = fields.ForeignKeyField('models.PlaceToken', 'world_item_placements', null=False, index=True)
     chunk = fields.BigIntField(null=False)
-    issuer = fields.ForeignKeyField('models.Holder', 'item_token_placements', null=False, index=True)
+    issuer = fields.ForeignKeyField('models.Holder', 'item_token_placements', null=True, index=True)
     item_token = fields.ForeignKeyField('models.ItemToken', 'item_token_placements', null=False, index=True)
 
     item_id = fields.BigIntField(null=False)
-    token_amount = fields.BigIntField(null=False)
-    mutez_per_token = fields.BigIntField(null=False)
-    item_data = fields.TextField(null=False)
+    amount = fields.BigIntField(null=False)
+    rate = fields.BigIntField(null=False)
+    data = fields.TextField(null=False)
 
     class Meta:
         table = 'world_item_placement'
@@ -193,7 +193,7 @@ class ItemCollectionHistory(LevelledBaseTransient):
     issuer = fields.ForeignKeyField('models.Holder', 'item_collection_histories', null=False, index=True)
     collector = fields.ForeignKeyField('models.Holder', 'collected_items_histories', null=False, index=True)
     
-    mutez_per_token = fields.BigIntField(null=False)
+    rate = fields.BigIntField(null=False)
     op_hash = fields.CharField(max_length=51, null=False)
 
     class Meta:
