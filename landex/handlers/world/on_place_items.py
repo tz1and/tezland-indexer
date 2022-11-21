@@ -7,7 +7,7 @@ from landex.types.tezlandWorld.parameter.place_items import PlaceItemsParameter
 from landex.types.tezlandWorld.storage import TezlandWorldStorage
 
 
-async def on_world_place_items(
+async def on_place_items(
     ctx: HandlerContext,
     place_items: Transaction[PlaceItemsParameter, TezlandWorldStorage],
 ) -> None:

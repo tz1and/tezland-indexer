@@ -8,55 +8,55 @@ database:
 # Contracts on mainnet
 contracts:
   tezlandItems:
-    address: KT1NgT7tLpWNXJBpVWuRQNdmeVPzfK7mwRTw
+    address: KT1MPaLZsGB718Eja5L8iUWog3UogvHgn9TL
     typename: tezlandFA2Fungible
 
   tezlandPlaces:
-    address: KT1AXDSh6yvwcPHgfcPeQmhUAoHgiQCpegH8
+    address: KT1Gwh3WKjEdUjQ2HHkK5hhpodFfMgy4qo9P
     typename: tezlandFA2NFT
 
   tezlandPlacesV2:
-    address: KT1Kk4hsVADuCNqcM38itgq3mhsYiJLbBWEZ
+    address: KT1NRxBaUS5QnX2NgUPwu74jhVzmjNoayGky
     typename: tezlandFA2NFTV2
 
   tezlandInteriors:
-    address: KT1VWhnWJA9paUNqTtKKop61cUNmYFxmSMnz
+    address: KT1VxmX8Nica5RuT1PfYLobjC416qMa8wERM
     typename: tezlandFA2NFTV2
 
   tezlandDAO:
-    address: KT1BgrcQcWXCcadHaJdPzYJpdCjn3JhE4K52
+    address: KT1PDUe1Nrhenx1c2AP5sAyN5wJKdUyhyEZy
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1HpcojG46YMxyGVxbsMeHiLL49ecebRkdg
+    address: KT1QNmd9AMcCzeLKgWWrvYxo3UkVmdAEz3Zx
     typename: tezlandWorld
 
   tezlandWorldV2:
-    address: KT1Afaj2VAGVMnGcUcytEbXGfYDw9Jw7VYU1
+    address: KT1HCHGmxD9kcdrNZGdCe4jLATACgHtoHUP5
     typename: tezlandWorldV2
     
   tezlandMinter:
-    address: KT1AZY3DGurGUXoCmRtqPvd2ZRehmnYVLff7
+    address: KT1LHsPWCst9PCkH4d55BNxziJJ5eBtNt5HT
     typename: tezlandMinter
 
   tezlandMinterV2:
-    address: KT1QCvSDTt11pKjbEpQd6qGJL3vGhRJ9jLKN
+    address: KT1B7qHbvyAJW6hdpdW1pcVZZTHgS8wNqH1g
     typename: tezlandMinterV2
 
   tezlandDutchAuctions:
-    address: KT1BhwQEGG7oNAmLVkmYmfNyxinn26aoybNo
+    address: KT1Jxz58JER4oznLp42AUr5dxw4MyKWW11rZ
     typename: tezlandDutchAuctions
 
   tezlandDutchAuctionsV2:
-    address: KT1GEiomTCpjNuMnuzU2Z7qq8xjJDSa6ivKd
+    address: KT18wsvPwao5abvkQ56keuFcoYxrV9jEBrop
     typename: tezlandDutchAuctionsV2
     
   tezlandFactory:
-    address: KT1XYUCvEfvWYE6LHseq9b9VsGmANC4FKqpS
+    address: KT1TLuL66TwwNYwoDumQ7GpnYoNXaRYd9ynz
     typename: tezlandFactory
     
   tezlandRegistry:
-    address: KT1JJcjbuiZwSb3oFwuoKTuTnEPgUpTjBnao
+    address: KT1XijbPatEq5Torit2Nucz9eUF9irW6exyv
     typename: tezlandRegistry
 
 datasources:
@@ -91,93 +91,93 @@ indexes:
       - tezlandWorldV2
     handlers:
       # World V2
-      - callback: world_v2.on_world_place_items
+      - callback: world_v2.on_place_items
         pattern:
           - type: transaction
             destination: tezlandWorldV2
             entrypoint: place_items
-      - callback: world_v2.on_world_remove_items
+      - callback: world_v2.on_remove_items
         pattern:
           - type: transaction
             destination: tezlandWorldV2
             entrypoint: remove_items
-      - callback: world_v2.on_world_set_item_data
+      - callback: world_v2.on_set_item_data
         pattern:
           - type: transaction
             destination: tezlandWorldV2
             entrypoint: set_item_data
-      - callback: world_v2.on_world_get_item
+      - callback: world_v2.on_get_item
         pattern:
           - type: transaction
             destination: tezlandWorldV2
             entrypoint: get_item
-      - callback: world_v2.on_world_migration
+      - callback: world_v2.on_migration
         pattern:
           - type: transaction
             destination: tezlandWorldV2
             entrypoint: migration
 
       # World
-      - callback: world.on_world_place_items
+      - callback: world.on_place_items
         pattern:
           - type: transaction
             destination: tezlandWorld
             entrypoint: place_items
-      - callback: world.on_world_remove_items
+      - callback: world.on_remove_items
         pattern:
           - type: transaction
             destination: tezlandWorld
             entrypoint: remove_items
-      - callback: world.on_world_set_item_data
+      - callback: world.on_set_item_data
         pattern:
           - type: transaction
             destination: tezlandWorld
             entrypoint: set_item_data
-      - callback: world.on_world_get_item
+      - callback: world.on_get_item
         pattern:
           - type: transaction
             destination: tezlandWorld
             entrypoint: get_item
 
       # Dutch auctions V2
-      - callback: dutch_auction_v2.on_dutch_auction_create
+      - callback: dutch_auction_v2.on_create
         pattern:
           - type: transaction
             destination: tezlandDutchAuctionsV2
             entrypoint: create
-      - callback: dutch_auction_v2.on_dutch_auction_cancel
+      - callback: dutch_auction_v2.on_cancel
         pattern:
           - type: transaction
             destination: tezlandDutchAuctionsV2
             entrypoint: cancel
-      - callback: dutch_auction_v2.on_dutch_auction_bid
+      - callback: dutch_auction_v2.on_bid
         pattern:
           - type: transaction
             destination: tezlandDutchAuctionsV2
             entrypoint: bid
-      - callback: dutch_auction_v2.on_dutch_auction_manage_wl
+      - callback: dutch_auction_v2.on_manage_wl
         pattern:
           - type: transaction
             destination: tezlandDutchAuctionsV2
             entrypoint: manage_whitelist
 
       # Dutch auctions
-      - callback: dutch_auction.on_dutch_auction_create
+      - callback: dutch_auction.on_create
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: create
-      - callback: dutch_auction.on_dutch_auction_cancel
+      - callback: dutch_auction.on_cancel
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: cancel
-      - callback: dutch_auction.on_dutch_auction_bid
+      - callback: dutch_auction.on_bid
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions
             entrypoint: bid
-      - callback: dutch_auction.on_dutch_auction_manage_wl
+      - callback: dutch_auction.on_manage_wl
         pattern:
           - type: transaction
             destination: tezlandDutchAuctions

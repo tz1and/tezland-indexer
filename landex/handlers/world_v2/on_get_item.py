@@ -3,23 +3,17 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandWorld.parameter.get_item import GetItemParameter
-from landex.types.tezlandWorld.storage import TezlandWorldStorage
+from landex.types.tezlandWorldV2.parameter.get_item import GetItemParameter
+from landex.types.tezlandWorldV2.storage import TezlandWorldV2Storage
 
 
-async def on_world_get_item(
+async def on_get_item(
     ctx: HandlerContext,
-    get_item: Transaction[GetItemParameter, TezlandWorldStorage],
+    get_item: Transaction[GetItemParameter, TezlandWorldV2Storage],
 ) -> None:
-    # If this bid call is after the upgrade, it's to update the metadata. skip it.
-    # TODO: maybe do it by level.
-    if get_item.parameter.extension is not None and get_item.parameter.extension["metadata_uri"] is not None:
-        print("Op updated metadata, skipping.")
-        return
-
-    place_contract = await models.PlaceContract.get(address=get_item.storage.places_contract)
-    place = await models.PlaceToken.get(token_id=int(get_item.parameter.lot_id), contract=place_contract)
-    issuer = await models.Holder.get(address=get_item.parameter.issuer)
+    place_contract = await models.PlaceContract.get(address=get_item.parameter.chunk_key.place_key.fa2)
+    place = await models.PlaceToken.get(token_id=int(get_item.parameter.chunk_key.place_key.id), contract=place_contract)
+    issuer = (None if get_item.parameter.issuer is None else await models.Holder.get(address=get_item.parameter.issuer))
 
     item_placement = await models.WorldItemPlacement.get(
         place=place,

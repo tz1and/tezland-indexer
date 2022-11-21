@@ -10,7 +10,7 @@ from landex.types.tezlandDutchAuctionsV2.parameter.create import CreateParameter
 from landex.types.tezlandDutchAuctionsV2.storage import TezlandDutchAuctionsV2Storage
 
 
-async def on_dutch_auction_create(
+async def on_create(
     ctx: HandlerContext,
     create: Transaction[CreateParameter, TezlandDutchAuctionsV2Storage],
 ) -> None:

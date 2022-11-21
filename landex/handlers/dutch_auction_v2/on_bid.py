@@ -8,7 +8,7 @@ from landex.types.tezlandDutchAuctionsV2.parameter.bid import BidParameter
 from landex.types.tezlandDutchAuctionsV2.storage import TezlandDutchAuctionsV2Storage
 
 
-async def on_dutch_auction_bid(
+async def on_bid(
     ctx: HandlerContext,
     bid: Transaction[BidParameter, TezlandDutchAuctionsV2Storage],
 ) -> None:

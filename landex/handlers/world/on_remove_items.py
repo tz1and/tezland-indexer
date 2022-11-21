@@ -7,7 +7,7 @@ from landex.types.tezlandWorld.parameter.remove_items import RemoveItemsParamete
 from landex.types.tezlandWorld.storage import TezlandWorldStorage
 
 
-async def on_world_remove_items(
+async def on_remove_items(
     ctx: HandlerContext,
     remove_items: Transaction[RemoveItemsParameter, TezlandWorldStorage],
 ) -> None:

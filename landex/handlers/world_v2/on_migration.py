@@ -7,7 +7,7 @@ from landex.types.tezlandWorldV2.parameter.migration import MigrationParameter
 from landex.types.tezlandWorldV2.storage import TezlandWorldV2Storage
 
 
-async def on_world_migration(
+async def on_migration(
     ctx: HandlerContext,
     migration: Transaction[MigrationParameter, TezlandWorldV2Storage],
 ) -> None:

@@ -7,7 +7,7 @@ from landex.types.tezlandWorld.parameter.set_item_data import SetItemDataParamet
 from landex.types.tezlandWorld.storage import TezlandWorldStorage
 
 
-async def on_world_set_item_data(
+async def on_set_item_data(
     ctx: HandlerContext,
     set_item_data: Transaction[SetItemDataParameter, TezlandWorldStorage],
 ) -> None:

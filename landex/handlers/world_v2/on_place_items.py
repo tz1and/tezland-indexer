@@ -22,7 +22,7 @@ def count_items_to_place(place_item_param: PlaceItemsParameter) -> int:
             place_items_counter += len(item_list)
     return place_items_counter
 
-async def on_world_place_items(
+async def on_place_items(
     ctx: HandlerContext,
     place_items: Transaction[PlaceItemsParameter, TezlandWorldV2Storage],
 ) -> None:

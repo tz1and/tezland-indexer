@@ -10,7 +10,7 @@ from landex.types.tezlandDutchAuctions.parameter.cancel import CancelParameter
 from landex.types.tezlandDutchAuctions.storage import TezlandDutchAuctionsStorage
 
 
-async def on_dutch_auction_cancel(
+async def on_cancel(
     ctx: HandlerContext,
     cancel: Transaction[CancelParameter, TezlandDutchAuctionsStorage],
 ) -> None:
