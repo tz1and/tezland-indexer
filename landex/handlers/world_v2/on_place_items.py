@@ -3,10 +3,10 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandWorldV2.parameter.place_items import PlaceItemsParameter
+from landex.types.tezlandWorldV2.parameter.place_items import PlaceItemMapItem, PlaceItemMapItem1, PlaceItemsParameter
 from landex.types.tezlandWorldV2.storage import TezlandWorldV2Storage, Chunk, Key
 
-from typing import List
+from typing import Dict, List, Union
 
 
 def find_chunk(chunk_list: List[Chunk], chunk_key: Key) -> Chunk:
@@ -15,9 +15,9 @@ def find_chunk(chunk_list: List[Chunk], chunk_key: Key) -> Chunk:
             return x
     assert False
 
-def count_items_to_place(place_item_param: PlaceItemsParameter) -> int:
+def count_items_to_place(issuer_map: Dict[str, Dict[str, List[Union[PlaceItemMapItem, PlaceItemMapItem1]]]]) -> int:
     place_items_counter: int = 0
-    for fa2_map in place_item_param.place_item_map.values():
+    for fa2_map in issuer_map.values():
         for item_list in fa2_map.values():
             place_items_counter += len(item_list)
     return place_items_counter
@@ -35,7 +35,7 @@ async def on_place_items(
         chunk = find_chunk(place_items.storage.chunks, chunk_key)
         chunk_next_id = int(chunk.value.next_id)
 
-        place_items_counter = count_items_to_place(place_items.parameter)
+        place_items_counter = count_items_to_place(issuer_map)
 
         for (send_to_place, fa2_map) in issuer_map.items():
             send_to_place_bool = False if send_to_place.lower() == "false" else True
