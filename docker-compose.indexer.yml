@@ -57,7 +57,7 @@ services:
 
   tezland-hasura:
     container_name: tezland-hasura
-    image: hasura/graphql-engine:v2.15.0
+    image: hasura/graphql-engine:v2.15.2
     depends_on:
       db-dipdup:
         condition: service_healthy
