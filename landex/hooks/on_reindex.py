@@ -17,3 +17,4 @@ async def on_reindex(
     await models.PlaceContract.create(address=ctx.config.contracts.get("tezlandInteriors").address, level=0, timestamp=0)
 
     await models.ItemContract.create(address=ctx.config.contracts.get("tezlandItems").address, level=0, timestamp=0)
+    await models.ItemContract.create(address=ctx.config.contracts.get("tezlandItemsV2").address, level=0, timestamp=0)

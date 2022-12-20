@@ -21,7 +21,7 @@ async def on_bid(
         owner=owner)
 
     auction.bid_op_hash = bid.data.hash
-    auction.finishing_bid = utils.getAuctionPrice(auction, int(bid.storage.granularity), bid.data.timestamp)
+    auction.finishing_bid = utils.getAuctionPrice(auction, int(bid.storage.settings.granularity), bid.data.timestamp)
     auction.finished = True
     await auction.save()
 

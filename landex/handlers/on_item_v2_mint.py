@@ -3,14 +3,14 @@ from dipdup.context import HandlerContext
 
 import landex.models as models
 
-from landex.types.tezlandFA2Fungible.parameter.mint import MintParameter
-from landex.types.tezlandFA2Fungible.storage import TezlandFA2FungibleStorage
+from landex.types.tezlandFA2FungibleV2.parameter.mint import MintParameter
+from landex.types.tezlandFA2FungibleV2.storage import TezlandFA2FungibleV2Storage
 from landex.utils import fromhex
 
 
-async def on_item_mint(
+async def on_item_v2_mint(
     ctx: HandlerContext,
-    mint: Transaction[MintParameter, TezlandFA2FungibleStorage],
+    mint: Transaction[MintParameter, TezlandFA2FungibleV2Storage],
 ) -> None:
     mint_counter = len(mint.parameter.__root__)
     for mint_batch_item in mint.parameter.__root__:
@@ -27,10 +27,14 @@ async def on_item_mint(
         if mint_batch_item.token.new.metadata['']:
             metadata_uri = fromhex(mint_batch_item.token.new.metadata[''])
 
+        total_royalties = 0
+        for share in mint_batch_item.token.new.royalties.values():
+            total_royalties += int(share)
+
         token = models.ItemToken(
             token_id=token_id,
             contract=contract,
-            royalties=mint_batch_item.token.new.royalties.royalties,
+            royalties=total_royalties,
             minter=minter,
             metadata_uri=metadata_uri,
             supply=int(mint_batch_item.amount),

@@ -1,6 +1,3 @@
-from typing import Optional
-from decimal import Decimal
-
 from dipdup.models import Transaction
 from dipdup.context import HandlerContext
 

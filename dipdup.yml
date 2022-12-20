@@ -8,55 +8,59 @@ database:
 # Contracts on mainnet
 contracts:
   tezlandItems:
-    address: KT1MPaLZsGB718Eja5L8iUWog3UogvHgn9TL
+    address: KT1L5UyUvSEbsc5e3yyCHZwfWc6bcVuLz86Q
     typename: tezlandFA2Fungible
 
+  tezlandItemsV2:
+    address: KT1Phi7w9czpY9u7yBGM1bcTLoQQM3hbtZWd
+    typename: tezlandFA2FungibleV2
+
   tezlandPlaces:
-    address: KT1Gwh3WKjEdUjQ2HHkK5hhpodFfMgy4qo9P
+    address: KT1WuhR34ZCVLLZ96PkjDHgZXjNVvPFXHNVi
     typename: tezlandFA2NFT
 
   tezlandPlacesV2:
-    address: KT1NRxBaUS5QnX2NgUPwu74jhVzmjNoayGky
+    address: KT1Sktri9PKzjYEhjs3RZREuMemGWk5uZiqD
     typename: tezlandFA2NFTV2
 
   tezlandInteriors:
-    address: KT1VxmX8Nica5RuT1PfYLobjC416qMa8wERM
+    address: KT1TXbygMD1g4tbhcWj8VwEbWXEJqdjQGQpW
     typename: tezlandFA2NFTV2
 
   tezlandDAO:
-    address: KT1PDUe1Nrhenx1c2AP5sAyN5wJKdUyhyEZy
+    address: KT1JMnxXWfFxGwhNzzzQETDXUBGByMp8GUq7
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1QNmd9AMcCzeLKgWWrvYxo3UkVmdAEz3Zx
+    address: KT1DN7NPcLX36Fh6PGf1rjGee7mZuXRycJY1
     typename: tezlandWorld
 
   tezlandWorldV2:
-    address: KT1HCHGmxD9kcdrNZGdCe4jLATACgHtoHUP5
+    address: KT1QrEmt1UcG7M11h81WJQSFa8wVCbUJMxWD
     typename: tezlandWorldV2
     
   tezlandMinter:
-    address: KT1LHsPWCst9PCkH4d55BNxziJJ5eBtNt5HT
+    address: KT1KnGJi7Qo9kJLUfQ1PCDnLjqP78YYqHR89
     typename: tezlandMinter
 
   tezlandMinterV2:
-    address: KT1B7qHbvyAJW6hdpdW1pcVZZTHgS8wNqH1g
+    address: KT1EZ8RYEcBjQ8RxGxGuq8XiA2mKUZ7bhhUE
     typename: tezlandMinterV2
 
   tezlandDutchAuctions:
-    address: KT1Jxz58JER4oznLp42AUr5dxw4MyKWW11rZ
+    address: KT1V87Ar49vUAqVVNe1C4MirJcWe4fzyRTGM
     typename: tezlandDutchAuctions
 
   tezlandDutchAuctionsV2:
-    address: KT18wsvPwao5abvkQ56keuFcoYxrV9jEBrop
+    address: KT1LpZMMiLWVGPDeKKggUMJ7At6d5N251wBz
     typename: tezlandDutchAuctionsV2
     
   tezlandFactory:
-    address: KT1TLuL66TwwNYwoDumQ7GpnYoNXaRYd9ynz
+    address: KT1JbQaB1AYq4rs5SmCGDta3EGb6z1NTfTno
     typename: tezlandFactory
     
   tezlandRegistry:
-    address: KT1XijbPatEq5Torit2Nucz9eUF9irW6exyv
+    address: KT1AaRJpwHV23QTiqG5LX6VTtrrM3d6CohLV
     typename: tezlandRegistry
 
 datasources:
@@ -82,6 +86,7 @@ indexes:
     contracts: 
       - tezlandMinter
       - tezlandItems
+      - tezlandItemsV2
       - tezlandPlaces
       - tezlandInteriors
       - tezlandPlacesV2
@@ -198,6 +203,23 @@ indexes:
         pattern:
           - type: transaction
             destination: tezlandItems
+            entrypoint: burn
+
+      # FA2 Item V2
+      - callback: on_item_transfer
+        pattern:
+          - type: transaction
+            destination: tezlandItemsV2
+            entrypoint: transfer
+      - callback: on_item_v2_mint
+        pattern:
+          - type: transaction
+            destination: tezlandItemsV2
+            entrypoint: mint
+      - callback: on_item_burn
+        pattern:
+          - type: transaction
+            destination: tezlandItemsV2
             entrypoint: burn
 
       # FA2 Place
