@@ -21,6 +21,7 @@ async def on_index_rollback(
 
     # Let's try a rollback, if it fails for some reason (let's hope
     # there will be an excpetion!), restore backup as we used to.
+    # TODO: maybe it should just be done one on_reindex?
     try:
         await ctx.rollback(
             index=index.name,
