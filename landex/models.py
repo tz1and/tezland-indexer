@@ -1,6 +1,8 @@
 #from datetime import datetime
 from enum import Enum, unique
-from tortoise import Model, fields
+#from tortoise import Model, fields
+from tortoise import fields
+from dipdup.models import Model
 
 
 # TODO: whitelist for different place types.
@@ -14,6 +16,9 @@ class Holder(Model):
     volume = fields.DecimalField(decimal_places=8, max_digits=20, default=0)
     tx_count = fields.BigIntField(default=0)
     last_seen = fields.DatetimeField(null=True)
+
+    class Meta:
+        table = 'holder'
 
 
 # Levelled base with transient id
@@ -84,7 +89,7 @@ class ItemToken(BaseToken):
     royalties = fields.SmallIntField(default=0)
     supply = fields.BigIntField(default=0)
 
-    metadata = fields.OneToOneField('models.ItemTokenMetadata', 'item_token', null=True)
+    metadata = fields.OneToOneField('models.ItemTokenMetadata', 'token', null=True)
 
     class Meta:
         table = 'item_token'
@@ -95,7 +100,7 @@ class PlaceToken(BaseToken):
     contract = fields.ForeignKeyField('models.PlaceContract', 'place_tokens', null=False, index=True)
     minter = fields.ForeignKeyField('models.Holder', 'place_tokens', null=False, index=True)
 
-    metadata = fields.OneToOneField('models.PlaceTokenMetadata', 'place_token', null=True)
+    metadata = fields.OneToOneField('models.PlaceTokenMetadata', 'token', null=True)
 
     class Meta:
         table = 'place_token'

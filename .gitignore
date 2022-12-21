@@ -1,6 +1,7 @@
 # ignore generated types for now
 landex/types/
 landex/schema/
+landex/py.typed
 # ignore pycache
 __pycache__
 # ignore sqlite files

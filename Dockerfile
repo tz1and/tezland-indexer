@@ -13,7 +13,7 @@ RUN apt update
 RUN apt install git postgresql-client -y
 
 #RUN pip install --upgrade pip
-RUN pip install poetry
+RUN pip install "poetry==1.3.1"
 
 COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false && poetry install --no-dev
