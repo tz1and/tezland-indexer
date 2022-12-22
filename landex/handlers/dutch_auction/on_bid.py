@@ -30,12 +30,13 @@ async def on_bid(
     await auction.save()
 
     # handle wl removal
-    # TODO: v1 wl changes - either use v2 or don't keep track at all.
-    if bid.storage.whitelist_enabled:
-        is_primary = (auction.owner.address == bid.storage.administrator)
+    # It seems wl is always removed, even if currently disabled.
+    #if bid.storage.whitelist_enabled:
+    is_primary = (auction.owner.address == bid.storage.administrator)
 
-        if is_primary:
-            wl = await models.DutchAuctionWhitelist.get(address=bid.data.sender_address)
+    if is_primary:
+        wl = await models.DutchAuctionWhitelistV1.get_or_none(address=bid.data.sender_address)
+        if wl and wl.current_status == True:
             wl.used_count += 1
             wl.current_status = False
             await wl.save()

@@ -246,19 +246,29 @@ class DutchAuction(LevelledBaseTransient):
         #unique_together = ('token_id', 'fa2', 'owner')
 
 
-# Whitelist
-class DutchAuctionWhitelist(Model):
+# Whitelists
+class DutchAuctionWhitelistV1(Model):
     address = fields.CharField(max_length=36, pk=True)
     current_status = fields.BooleanField(default=False)
     added_count = fields.IntField(default=0)
     removed_count = fields.IntField(default=0)
     used_count = fields.IntField(default=0)
 
-    #level = fields.BigIntField(default=0)
-    #timestamp = fields.DatetimeField(null=False)
+    class Meta:
+        table = 'dutch_auction_whitelist_v1'
+
+class DutchAuctionWhitelist(Model):
+    id = fields.BigIntField(pk=True)
+    fa2 = fields.CharField(max_length=36, index=True)
+    address = fields.CharField(max_length=36, index=True)
+    current_status = fields.BooleanField(default=False)
+    added_count = fields.IntField(default=0)
+    removed_count = fields.IntField(default=0)
+    used_count = fields.IntField(default=0)
 
     class Meta:
         table = 'dutch_auction_whitelist'
+        unique_together = ('fa2', 'address')
 
 
 # Tags

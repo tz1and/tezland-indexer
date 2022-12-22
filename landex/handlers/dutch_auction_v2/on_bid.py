@@ -26,12 +26,13 @@ async def on_bid(
     await auction.save()
 
     # handle wl removal
-    # TODO: wl v2 changes. new table
-    if bid.storage.permitted_fa2[auction_key.fa2].whitelist_enabled:
-        is_primary = (auction.owner.address == bid.storage.permitted_fa2[auction_key.fa2].whitelist_admin)
+    # It seems wl is always removed, even if currently disabled.
+    #if bid.storage.permitted_fa2[auction_key.fa2].whitelist_enabled:
+    is_primary = (owner.address == bid.storage.permitted_fa2[auction_key.fa2].whitelist_admin)
 
-        if is_primary:
-            wl = await models.DutchAuctionWhitelist.get(address=bid.data.sender_address)
+    if is_primary:
+        wl = await models.DutchAuctionWhitelist.get_or_none(fa2=bid.parameter.auction_key.fa2, address=bid.data.sender_address)
+        if wl and wl.current_status == True:
             wl.used_count += 1
             wl.current_status = False
             await wl.save()
