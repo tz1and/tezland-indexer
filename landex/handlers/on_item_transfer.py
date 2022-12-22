@@ -11,7 +11,7 @@ async def on_item_transfer(
     ctx: HandlerContext,
     transfer: Transaction[TransferParameter, TezlandFA2FungibleStorage],
 ) -> None:
-    contract = await models.ItemContract.get(address=transfer.data.target_address)
+    contract = await models.Contract.get(address=transfer.data.target_address)
 
     for t in transfer.parameter.__root__:
         sender, _ = await models.Holder.get_or_create(address=t.from_)

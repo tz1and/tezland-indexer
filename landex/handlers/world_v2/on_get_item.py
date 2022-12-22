@@ -11,7 +11,7 @@ async def on_get_item(
     ctx: HandlerContext,
     get_item: Transaction[GetItemParameter, TezlandWorldV2Storage],
 ) -> None:
-    place_contract = await models.PlaceContract.get(address=get_item.parameter.place_key.fa2)
+    place_contract = await models.Contract.get(address=get_item.parameter.place_key.fa2)
     place = await models.PlaceToken.get(token_id=int(get_item.parameter.place_key.id), contract=place_contract)
     issuer = (None if get_item.parameter.issuer is None else await models.Holder.get(address=get_item.parameter.issuer))
 

@@ -27,7 +27,7 @@ async def on_place_items(
     place_items: Transaction[PlaceItemsParameter, TezlandWorldV2Storage],
 ) -> None:
     issuer = await models.Holder.get(address=place_items.data.sender_address)
-    place_contract = await models.PlaceContract.get(address=place_items.parameter.place_key.fa2)
+    place_contract = await models.Contract.get(address=place_items.parameter.place_key.fa2)
     place = await models.PlaceToken.get(token_id=int(place_items.parameter.place_key.id), contract=place_contract)
 
     for (chunk_id, issuer_map) in place_items.parameter.place_item_map.items():
@@ -41,7 +41,7 @@ async def on_place_items(
             send_to_place_bool = False if send_to_place.lower() == "false" else True
 
             for (fa2, item_list) in fa2_map.items():
-                item_contract = await models.ItemContract.get(address=fa2)
+                item_contract = await models.Contract.get(address=fa2)
                 for i in item_list:
                     # subtract decresing counter from next_id to get item_id
                     item_id = chunk_next_id - place_items_counter

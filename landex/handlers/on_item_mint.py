@@ -17,7 +17,7 @@ async def on_item_mint(
         # subtract decresing mint counter from last_token_id to get token_id
         token_id = int(mint.storage.last_token_id) - mint_counter
         holder, _ = await models.Holder.get_or_create(address=mint_batch_item.to_)
-        contract = await models.ItemContract.get(address=mint.data.target_address)
+        contract = await models.Contract.get(address=mint.data.target_address)
         
         minter = holder
 

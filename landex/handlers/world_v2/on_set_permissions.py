@@ -14,7 +14,7 @@ async def on_set_permissions(
     for task in set_permissions.parameter.__root__:
         values = task.add if hasattr(task, "add") else task.remove
 
-        place_contract = await models.PlaceContract.get(address=values.place_key.fa2)
+        place_contract = await models.Contract.get(address=values.place_key.fa2)
         place = await models.PlaceToken.get(token_id=int(values.place_key.id), contract=place_contract)
         owner, _ = await models.Holder.get_or_create(address=values.owner)
         permittee, _ = await models.Holder.get_or_create(address=values.permittee)

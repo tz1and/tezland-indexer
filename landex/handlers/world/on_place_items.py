@@ -12,10 +12,10 @@ async def on_place_items(
     place_items: Transaction[PlaceItemsParameter, TezlandWorldStorage],
 ) -> None:
     issuer = await models.Holder.get(address=place_items.data.sender_address)
-    place_contract = await models.PlaceContract.get(address=place_items.storage.places_contract)
+    place_contract = await models.Contract.get(address=place_items.storage.places_contract)
     place = await models.PlaceToken.get(token_id=int(place_items.parameter.lot_id), contract=place_contract)
 
-    item_contract = await models.ItemContract.get(address=place_items.storage.items_contract)
+    item_contract = await models.Contract.get(address=place_items.storage.items_contract)
 
     place_next_id = int(place_items.storage.places.get(place_items.parameter.lot_id).next_id)
 

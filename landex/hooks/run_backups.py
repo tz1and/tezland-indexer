@@ -1,6 +1,5 @@
 import logging
 from typing import Union
-from contextlib import AsyncExitStack
 
 from dipdup.context import HookContext
 from dipdup.enums import MessageType
