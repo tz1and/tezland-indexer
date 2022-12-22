@@ -185,6 +185,16 @@ class WorldItemPlacement(LevelledBaseTransient):
         table = 'world_item_placement'
         unique_together = ('chunk', 'item_id', 'place')
 
+class PlacePermissions(LevelledBaseTransient):
+    place = fields.ForeignKeyField('models.PlaceToken', 'permissions', null=False, index=True)
+    owner = fields.ForeignKeyField('models.Holder', 'given_permissions', null=False, index=True)
+    permittee = fields.ForeignKeyField('models.Holder', 'held_permissions', null=False, index=True)
+    premissions = fields.SmallIntField(default=0)
+
+    class Meta:
+        table = 'place_permissions'
+        unique_together = ('place_id', 'owner_id', 'permittee_id')
+
 
 # TODO:
 # class WorldFA2ItemPlacement
@@ -229,7 +239,11 @@ class DutchAuction(LevelledBaseTransient):
 
     class Meta:
         table = 'dutch_auction'
-        unique_together = ('token_id', 'fa2', 'owner')
+        # Note: auctions should not be unique on these, because finished auctions
+        # are kept around for history.
+        # NOTE: should maybe put them into another table: DutchAuctionFinished
+        # and keep the unique constraint?
+        #unique_together = ('token_id', 'fa2', 'owner')
 
 
 # Whitelist
