@@ -440,14 +440,14 @@ http = ["httpx"]
 
 [[package]]
 name = "dipdup"
-version = "6.4.0"
+version = "6.4.1"
 description = "Modular framework for creating selective indexers and featureful backends for dapps"
 category = "main"
 optional = false
 python-versions = ">=3.10,<3.11"
 files = [
-    {file = "dipdup-6.4.0-py3-none-any.whl", hash = "sha256:df69d461bed1a1e3daf88ef180fa913e44d68372ec9a2a01ff6afee92bd39f6e"},
-    {file = "dipdup-6.4.0.tar.gz", hash = "sha256:ae61835b4fd3ee7ec689f9a88c7fb87b403f8f259c5d6f44c1981790b33c8000"},
+    {file = "dipdup-6.4.1-py3-none-any.whl", hash = "sha256:cf33aff6d60230c5ca610f013f903c4eb4d05ef6af3cadc504d4c72d31252894"},
+    {file = "dipdup-6.4.1.tar.gz", hash = "sha256:1c1a0ea52a784c4d5106f08aeae2ece389168ebc684936247fa8b00d6b136800"},
 ]
 
 [package.dependencies]
@@ -661,14 +661,14 @@ six = "*"
 
 [[package]]
 name = "isort"
-version = "5.11.3"
+version = "5.11.4"
 description = "A Python utility / library to sort Python imports."
 category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "isort-5.11.3-py3-none-any.whl", hash = "sha256:83155ffa936239d986b0f190347a3f2285f42a9b9e1725c89d865b27dd0627e5"},
-    {file = "isort-5.11.3.tar.gz", hash = "sha256:a8ca25fbfad0f7d5d8447a4314837298d9f6b23aed8618584c894574f626b64b"},
+    {file = "isort-5.11.4-py3-none-any.whl", hash = "sha256:c033fd0edb91000a7f09527fe5c75321878f98322a77ddcc81adbd83724afb7b"},
+    {file = "isort-5.11.4.tar.gz", hash = "sha256:6db30c5ded9815d813932c04c2f85a360bcdd35fed496f4d8f35495ef0a261b6"},
 ]
 
 [package.extras]
