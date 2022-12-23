@@ -107,7 +107,7 @@ class PlaceToken(BaseToken):
 
 # Metadata
 class IpfsMetadataCache(Model):
-    metadata_uri = fields.CharField(max_length=66, pk=True)
+    metadata_uri = fields.CharField(max_length=255, pk=True)
     metadata_json = fields.JSONField()
 
     class Meta:
