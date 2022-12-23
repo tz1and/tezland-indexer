@@ -24,6 +24,6 @@ async def on_create(
         fa2=auction_key.fa2,
         level=create.data.level,
         timestamp=create.data.timestamp,
-        is_primary=(owner.address == create.storage.administrator)
+        is_primary=(owner.address == create.storage.permitted_fa2[auction_key.fa2].whitelist_admin)
     )
     await auction.save()

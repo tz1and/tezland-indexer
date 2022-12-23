@@ -18,7 +18,8 @@ async def on_bid(
     auction = await models.DutchAuction.get(
         token_id=auction_key.token_id,
         fa2=auction_key.fa2,
-        owner=owner)
+        owner=owner,
+        finished=False)
 
     auction.bid_op_hash = bid.data.hash
     auction.finishing_bid = utils.getAuctionPrice(auction, int(bid.storage.settings.granularity), bid.data.timestamp)
@@ -26,11 +27,8 @@ async def on_bid(
     await auction.save()
 
     # handle wl removal
-    # It seems wl is always removed, even if currently disabled.
-    #if bid.storage.permitted_fa2[auction_key.fa2].whitelist_enabled:
-    is_primary = (owner.address == bid.storage.permitted_fa2[auction_key.fa2].whitelist_admin)
-
-    if is_primary:
+    # It seems wl is always removed, even if's currently disabled.
+    if auction.is_primary:
         wl = await models.DutchAuctionWhitelist.get_or_none(fa2=bid.parameter.auction_key.fa2, address=bid.data.sender_address)
         if wl and wl.current_status == True:
             wl.used_count += 1

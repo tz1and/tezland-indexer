@@ -17,5 +17,6 @@ async def on_cancel(
     auction = await models.DutchAuction.get(
         token_id=auction_key.token_id,
         fa2=auction_key.fa2,
-        owner=owner)
+        owner=owner,
+        finished=False)
     await auction.delete()
