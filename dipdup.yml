@@ -8,59 +8,59 @@ database:
 # Contracts on mainnet
 contracts:
   tezlandItems:
-    address: KT1QTdMcE76qfGtJiU25UCUxznkZz2Z7byoS
+    address: KT1TKFWDiMk35c5n94TMmLaYksdXkHuaL112
     typename: tezlandFA2Fungible
 
   tezlandItemsV2:
-    address: KT1FKjrGJoRCTaptCgforuPCPYZsy6hEFri6
+    address: KT1Fw3CTyc3b1tQDhQrvq6vCd4wNphSm1qgg
     typename: tezlandFA2FungibleV2
 
   tezlandPlaces:
-    address: KT1XoLJEsViee2xzjWiryi3yJ7MErdpWH4Nv
+    address: KT1G6bH9NVDp8tSSz7FzDUnCgbJwQikxtUog
     typename: tezlandFA2NFT
 
   tezlandPlacesV2:
-    address: KT1VwwuuPc3GnCMyRcQ6P9WadAhmx8PGDeQU
-    typename: tezlandFA2NFTV2
+    address: KT1AxxoqSJ8BfjCMZ3iQxAJXj1nabZWx9xkb
+    typename: tezlandFA2NFTV2NonstandardTransfer
 
   tezlandInteriors:
-    address: KT1FgfAeYheuSHrqocaxJDN7vjuePVD8vcL6
-    typename: tezlandFA2NFTV2
+    address: KT1JgXBVefMv4bz5FnXM7XB8Yx4HejKvsXgE
+    typename: tezlandFA2NFTV2NonstandardTransfer
 
   tezlandDAO:
-    address: KT1E15skLoXuD2A12Wws8fn3VdNzXMZW9TUS
+    address: KT1Xag669km4EXaQPi3GH9fcofjvPnJneuaL
     typename: tezlandDAO
 
   tezlandWorld:
-    address: KT1SUuBch2hmWVcQpqo21MJFneN3T1ex4bHx
+    address: KT1EuSjJgQRGXM18TEu1WaMRyshPSkSCg11n
     typename: tezlandWorld
 
   tezlandWorldV2:
-    address: KT1QE4rhSnwxWA4i9xBhXdrTQGcUGo7to8Z4
+    address: KT1977zpPmwDqiDRqoGS47HRhQUaxcQigVYc
     typename: tezlandWorldV2
     
   tezlandMinter:
-    address: KT1VqSDzgykqEYMGhW3v1gF82c5fcphC16mt
+    address: KT1GmLfej8mFrfB3bRSoc1fTuCa9eQHJw8Qi
     typename: tezlandMinter
 
   tezlandMinterV2:
-    address: KT1RptCbehRZQt52BshauxkQfS82fh4eHjL7
+    address: KT1Na8LVvrzuBXuwCiEDgRGssq9yBZvSjfUV
     typename: tezlandMinterV2
 
   tezlandDutchAuctions:
-    address: KT1VFAVatCqvMJxcWYrQgX2YNqBmdTiccZS4
+    address: KT1WmMn55RjXwk5Xb4YE6asjy5BvMiEsB6nA
     typename: tezlandDutchAuctions
 
   tezlandDutchAuctionsV2:
-    address: KT1QcZ8V7wDUk7BmHj43jVYkA4bkbzsrBJjh
+    address: KT1VFX9Dzt1QBiBNh6fnepoYdFeE4GeNtkKG
     typename: tezlandDutchAuctionsV2
     
   tezlandFactory:
-    address: KT1TLFpn5e3nRvKUNaDp3S5wxkYVzmc9z29L
+    address: KT1Qo5rBCWDCqo124ccdWsd4TKN8NAUVpHZR
     typename: tezlandFactory
     
   tezlandRegistry:
-    address: KT1NPGNTMvFMjWhMn6C8SSd8JLaxVKLTQyQT
+    address: KT1X4HDjXt3fdmSHpJSj7yzGxK3HALRduufF
     typename: tezlandRegistry
 
 datasources:
@@ -244,7 +244,7 @@ indexes:
         pattern:
           - type: transaction
             destination: tezlandPlacesV2
-            entrypoint: transfer
+            entrypoint: transfer_tokens
       - callback: on_place_mint
         pattern:
           - type: transaction
@@ -256,7 +256,7 @@ indexes:
         pattern:
           - type: transaction
             destination: tezlandInteriors
-            entrypoint: transfer
+            entrypoint: transfer_tokens
       - callback: on_place_mint
         pattern:
           - type: transaction
