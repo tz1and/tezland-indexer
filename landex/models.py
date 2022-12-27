@@ -61,6 +61,7 @@ class LevelledBaseNoPk(Model):
 # Contracts
 class Contract(LevelledBaseNoPk):
     address = fields.CharField(max_length=36, pk=True)
+    owner = fields.ForeignKeyField('models.Holder', 'collections', null=True, index=True)
 
     metadata_uri = fields.TextField(null=False)
     metadata_status = fields.BigIntField(default=int(MetadataStatus.New.value))
@@ -148,6 +149,8 @@ class PlaceTokenMetadata(BaseMetadata):
 
 
 class ContractMetadata(BaseMetadata):
+    user_description = fields.TextField(null=True)
+
     class Meta:
         table = 'contract_metadata'
 
@@ -283,8 +286,16 @@ class Tag(LevelledBaseTransient):
 
 
 class ItemTagMap(LevelledBaseTransient):
-    item_metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'tag_map', null=False, index=True, on_delete=fields.CASCADE)
-    tag = fields.ForeignKeyField('models.Tag', 'tag_map', null=False, index=True)
+    item_metadata = fields.ForeignKeyField('models.ItemTokenMetadata', 'tags', null=False, index=True, on_delete=fields.CASCADE)
+    tag = fields.ForeignKeyField('models.Tag', 'items', null=False, index=True)
 
     class Meta:
         table = 'item_tag_map'
+
+
+class ContractTagMap(LevelledBaseTransient):
+    contract_metadata = fields.ForeignKeyField('models.ContractMetadata', 'tags', null=False, index=True, on_delete=fields.CASCADE)
+    tag = fields.ForeignKeyField('models.Tag', 'contracts', null=False, index=True)
+
+    class Meta:
+        table = 'contract_tag_map'

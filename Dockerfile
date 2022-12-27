@@ -20,6 +20,9 @@ RUN poetry config virtualenvs.create false && poetry install --no-dev
 
 COPY ./ ./
 
+# need the items collection types, for now.
+COPY ./landex/types/tezlandItemsCollection ./landex/types/tezlandItemsCollection
+
 RUN poetry run dipdup -c dipdup.yml -c dipdup.docker.yml $EXTRA_DIPDUP_CONF init
 
 ENTRYPOINT ["poetry", "run", "dipdup"]

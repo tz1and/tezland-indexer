@@ -63,6 +63,10 @@ contracts:
     address: KT1X4HDjXt3fdmSHpJSj7yzGxK3HALRduufF
     typename: tezlandRegistry
 
+  #tezlandItemsCollection:
+  #  code_hash: -767789104
+  #  typename: tezlandItemsCollection
+
 datasources:
   tzkt_mainnet:
     kind: tzkt
@@ -77,9 +81,69 @@ advanced:
     # manual type and wipe on that.
     #manual: wipe
 
+templates:
+  tezland_item_collection_template:
+    kind: operation
+    datasource: tzkt_mainnet
+    contracts:
+      - <contract>
+    types:
+      - transaction
+    handlers:
+      - callback: on_item_v2_mint
+        pattern:
+          - type: transaction
+            destination: <contract>
+            entrypoint: mint
+      - callback: on_item_burn
+        pattern:
+          - type: transaction
+            destination: <contract>
+            entrypoint: burn
+      - callback: on_item_transfer
+        pattern:
+          - type: transaction
+            destination: <contract>
+            entrypoint: transfer
+
 # NOTE: indexes are mutable and independent of each other,
 # so they need to contain all their dependencies.
 indexes:
+# TODO: code_hash stuff
+#  tezland_items_collections:
+#    kind: operation
+#    datasource: tzkt_mainnet
+#    contracts:
+#      - tezlandFactory
+#      - tezlandItemsCollection
+#    types:
+#      - transaction
+#      - origination
+#    handlers:
+#      # Items Collection
+#      - callback: on_item_v2_mint
+#        pattern:
+#          - type: transaction
+#            destination: tezlandItemsCollection
+#            entrypoint: mint
+#      - callback: on_item_burn
+#        pattern:
+#          - type: transaction
+#            destination: tezlandItemsCollection
+#            entrypoint: burn
+#      - callback: on_item_transfer
+#        pattern:
+#          - type: transaction
+#            destination: tezlandItemsCollection
+#            entrypoint: transfer
+#
+#      # Factory
+#      - callback: on_create_token
+#        pattern:
+#          - type: origination
+#            source: tezlandFactory
+#            #entrypoint: create_token
+
   tezland_mainnet:
     kind: operation
     datasource: tzkt_mainnet
@@ -94,6 +158,10 @@ indexes:
       - tezlandDutchAuctionsV2
       - tezlandWorld
       - tezlandWorldV2
+      - tezlandFactory
+    types:
+      - transaction
+      - origination
     handlers:
       # World V2
       - callback: world_v2.on_place_items
@@ -262,6 +330,13 @@ indexes:
           - type: transaction
             destination: tezlandInteriors
             entrypoint: mint
+
+      # Factory
+      - callback: on_create_token
+        pattern:
+          - type: origination
+            source: tezlandFactory
+            #entrypoint: create_token
 
 hooks:
   #retry_metadata:

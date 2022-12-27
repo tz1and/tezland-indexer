@@ -23,3 +23,6 @@ poetry.toml
 
 # notes and stuff
 TODO.txt
+
+# need the items collection types, for now.
+!landex/types/tezlandItemsCollection
