@@ -77,8 +77,7 @@ advanced:
   reindex:
     rollback: wipe
     schema_modified: wipe
-    # alternatively to rollback reindex we could also emit a
-    # manual type and wipe on that.
+    # NOTE: trigger_reindex needs to wipe to work
     #manual: wipe
 
 templates:
