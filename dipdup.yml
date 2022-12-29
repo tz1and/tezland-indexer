@@ -356,7 +356,7 @@ jobs:
     #interval: 1  # in seconds
   run_backups:
     hook: run_backups
-    interval: 1800 # in seconds, 30 minutes
+    interval: 3600 # in seconds, 60 minutes
   #simulate_reorg:
   #  hook: simulate_reorg
   #  interval: 90  # in seconds
