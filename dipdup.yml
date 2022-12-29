@@ -345,8 +345,8 @@ hooks:
   run_backups:
     callback: run_backups
     atomic: False
-  #simulate_reorg:
-  #  callback: simulate_reorg
+  #trigger_reindex:
+  #  callback: trigger_reindex
   #  atomic: True
 
 jobs:
@@ -357,6 +357,6 @@ jobs:
   run_backups:
     hook: run_backups
     interval: 3600 # in seconds, 60 minutes
-  #simulate_reorg:
-  #  hook: simulate_reorg
+  #trigger_reindex:
+  #  hook: trigger_reindex
   #  interval: 90  # in seconds
