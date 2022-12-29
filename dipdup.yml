@@ -339,9 +339,6 @@ indexes:
             #entrypoint: create_token
 
 hooks:
-  #retry_metadata:
-  #  callback: retry_metadata
-  #  atomic: False
   run_backups:
     callback: run_backups
     atomic: False
@@ -350,10 +347,6 @@ hooks:
   #  atomic: True
 
 jobs:
-  #retry_metadata:
-  #  hook: retry_metadata
-  #  daemon: true
-    #interval: 1  # in seconds
   run_backups:
     hook: run_backups
     interval: 3600 # in seconds, 60 minutes
