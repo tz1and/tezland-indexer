@@ -68,7 +68,7 @@ class Contract(LevelledBaseNoPk):
     metadata = fields.OneToOneField('models.ContractMetadata', 'contract', null=True)
 
     class Meta:
-        table = 'contact'
+        table = 'token_contract'
 
 
 # Tokens
