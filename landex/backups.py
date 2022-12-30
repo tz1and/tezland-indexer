@@ -24,14 +24,14 @@ logging.getLogger("sh").setLevel(logging.WARNING)
 
 def backup(ctx: HookContext):
     """Backup database.
-    Raises and Exception on error."""
+    Raises an Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
     _backup(level, database_config)
 
 
 def backup_if_older_than(ctx: HookContext, age_in_blocks: int):
     """Backup database if current_level - last_backup_level > `age_in_blocks`.
-    Raises and Exception on error."""
+    Raises an Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
 
     available_levels = _get_available_backups()
