@@ -16,7 +16,7 @@ clean:
 DOCKER_DEV_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.dev.yml
 
 dev-docker-build:
-	TAG=dev docker-compose ${DOCKER_DEV_CONF} build $(EXTRA_ARGS)
+	TAG=dev docker-compose ${DOCKER_DEV_CONF} build --pull $(EXTRA_ARGS)
 
 dev-docker-up:
 	TAG=dev docker-compose ${DOCKER_DEV_CONF} up -d
@@ -34,7 +34,7 @@ dev-docker-cycle:
 DOCKER_STAGING_CONF?=-f docker-compose.indexer.yml -f docker-compose.indexer.staging.yml
 
 staging-docker-build:
-	TAG=staging docker-compose ${DOCKER_STAGING_CONF} build $(EXTRA_ARGS)
+	TAG=staging docker-compose ${DOCKER_STAGING_CONF} build --pull $(EXTRA_ARGS)
 
 staging-docker-up:
 	TAG=staging docker-compose ${DOCKER_STAGING_CONF} up -d -V
@@ -54,7 +54,7 @@ staging-docker-cycle:
 
 # Prod
 docker-build:
-	TAG=latest docker-compose -f docker-compose.indexer.yml build
+	TAG=latest docker-compose -f docker-compose.indexer.yml build --pull
 
 docker-up:
 	TAG=latest docker-compose -f docker-compose.indexer.yml up -d -V
