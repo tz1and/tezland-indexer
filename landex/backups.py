@@ -23,11 +23,15 @@ logging.getLogger("sh").setLevel(logging.WARNING)
 
 
 def backup(ctx: HookContext):
+    """Backup database.
+    Raises and Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
     _backup(level, database_config)
 
 
 def backup_if_older_than(ctx: HookContext, age_in_blocks: int):
+    """Backup database if current_level - last_backup_level > `age_in_blocks`.
+    Raises and Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
 
     available_levels = _get_available_backups()
@@ -46,6 +50,8 @@ def backup_if_older_than(ctx: HookContext, age_in_blocks: int):
 
 
 async def restore(ctx: HookContext):
+    """Restore database from last leve <= head.
+    Raises an Exception on error."""
     database_config = _get_dbconfig(ctx)
 
     available_levels = _get_available_backups()
@@ -68,6 +74,7 @@ async def restore(ctx: HookContext):
 
 
 def delete_old_backups(keep: int = 3):
+    """Deletes backups if there are more than `keep` backups."""
     backups = _get_available_backups()
 
     # sort in descending order
