@@ -123,7 +123,16 @@ class BaseMetadata(LevelledBaseTransient):
         abstract = True
 
 
-class ItemTokenMetadata(BaseMetadata):
+class BaseTokenMetadata(BaseMetadata):
+    contract = fields.CharField(max_length=36, index=True)
+    token_id = fields.BigIntField(index=True)
+
+    class Meta:
+        abstract = True
+        unique_together = ('token_id', 'contract')
+
+
+class ItemTokenMetadata(BaseTokenMetadata):
     artifact_uri = fields.TextField(null=False)
     thumbnail_uri = fields.TextField(null=True)
     display_uri = fields.TextField(null=True)
@@ -137,7 +146,7 @@ class ItemTokenMetadata(BaseMetadata):
         table = 'item_token_metadata'
 
 
-class PlaceTokenMetadata(BaseMetadata):
+class PlaceTokenMetadata(BaseTokenMetadata):
     place_type = fields.TextField(null=False)
     center_coordinates = fields.TextField(null=False)
     border_coordinates = fields.TextField(null=False)
@@ -149,6 +158,8 @@ class PlaceTokenMetadata(BaseMetadata):
 
 
 class ContractMetadata(BaseMetadata):
+    address = fields.CharField(max_length=36, index=True)
+
     user_description = fields.TextField(null=True)
 
     class Meta:

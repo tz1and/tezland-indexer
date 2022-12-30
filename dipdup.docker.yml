@@ -6,6 +6,12 @@ database:
   password: ${POSTGRES_PASSWORD:-changeme}
   database: dipdup
   immune_tables:
+    - tag
+    - item_tag_map
+    - contract_tag_map
+    - item_token_metadata
+    - place_token_metadata
+    - contract_metadata
     - ipfs_metadata_cache
 
 hasura:
