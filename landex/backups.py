@@ -24,14 +24,14 @@ logging.getLogger("sh").setLevel(logging.WARNING)
 
 def backup(ctx: HookContext):
     """Backup database.
-    Raises and Exception on error."""
+    Raises an Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
     _backup(level, database_config)
 
 
 def backup_if_older_than(ctx: HookContext, age_in_blocks: int):
     """Backup database if current_level - last_backup_level > `age_in_blocks`.
-    Raises and Exception on error."""
+    Raises an Exception on error."""
     level, database_config = _get_level_and_dbconfig(ctx)
 
     available_levels = _get_available_backups()
@@ -50,7 +50,7 @@ def backup_if_older_than(ctx: HookContext, age_in_blocks: int):
 
 
 async def restore(ctx: HookContext):
-    """Restore database from last leve <= head.
+    """Restore database from last backup (highest level).
     Raises an Exception on error."""
     database_config = _get_dbconfig(ctx)
 
@@ -60,15 +60,14 @@ async def restore(ctx: HookContext):
     if not available_levels:
         raise Exception('Not backups available, skipping restore')
 
-    # find the right level. ie the on that's closest to to_level
-    chosen_level: int = 0
-    to_level: int = sys.maxsize
+    # find highest level
+    highest_level = 0
     for level in available_levels:
-        if level <= to_level and level > chosen_level:
-            chosen_level = level
+        if level > highest_level:
+            highest_level = level
 
     # Try to restore or reindex. Will throw on error.
-    _restore_level(chosen_level, database_config)
+    _restore_level(highest_level, database_config)
     _logger.info('Restarting dipdup...')
     await ctx.restart()
 
