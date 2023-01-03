@@ -48,7 +48,7 @@ def getAuctionPrice(the_auction: models.DutchAuction, granularity: int, op_now: 
             return current_price
 
 
-async def addContract(ctx: DipDupContext, address: str, owner: str | None = None, level: int = sys.maxsize, timestamp: datetime = 0):
+async def addContract(ctx: DipDupContext, address: str, owner: str | None, level: int, timestamp: datetime):
     tzkt: TzktDatasource = ctx.get_tzkt_datasource("tzkt_mainnet")
 
     big_maps = await tzkt.get_contract_big_maps(address)
@@ -61,8 +61,7 @@ async def addContract(ctx: DipDupContext, address: str, owner: str | None = None
 
     metadata_uri = "error_no_metadata"
     if metadata_ptr >= 0:
-        # TODO: don't specify level, offset, limit! waiting for dipdup fix.
-        metadata_map = await tzkt.get_big_map(metadata_ptr, active=True, level=level, offset=0, limit=10)
+        metadata_map = await tzkt.get_big_map(metadata_ptr, active=True, level=level)
         
         for item in metadata_map:
             if item["key"] == "":

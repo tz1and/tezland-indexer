@@ -440,14 +440,14 @@ http = ["httpx"]
 
 [[package]]
 name = "dipdup"
-version = "6.4.1"
+version = "6.4.2"
 description = "Modular framework for creating selective indexers and featureful backends for dapps"
 category = "main"
 optional = false
 python-versions = ">=3.10,<3.11"
 files = [
-    {file = "dipdup-6.4.1-py3-none-any.whl", hash = "sha256:cf33aff6d60230c5ca610f013f903c4eb4d05ef6af3cadc504d4c72d31252894"},
-    {file = "dipdup-6.4.1.tar.gz", hash = "sha256:1c1a0ea52a784c4d5106f08aeae2ece389168ebc684936247fa8b00d6b136800"},
+    {file = "dipdup-6.4.2-py3-none-any.whl", hash = "sha256:fdd6fde4009f29f1e038a57f49aa292ab27bf4ab186ff2ec2d3ce4211f6be3f5"},
+    {file = "dipdup-6.4.2.tar.gz", hash = "sha256:7c9798e3141656d12892a8b39b7e89fc4cd349636fb9b1fd9e1adc947821ecff"},
 ]
 
 [package.dependencies]

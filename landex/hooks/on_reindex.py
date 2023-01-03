@@ -19,9 +19,19 @@ async def on_reindex(
 
         await ctx.execute_sql('on_reindex')
 
-        await utils.addContract(ctx, ctx.config.contracts.get("tezlandPlaces").address)
-        await utils.addContract(ctx, ctx.config.contracts.get("tezlandPlacesV2").address)
-        await utils.addContract(ctx, ctx.config.contracts.get("tezlandInteriors").address)
+        head_block = await ctx.get_tzkt_datasource("tzkt_mainnet").get_head_block()
 
-        await utils.addContract(ctx, ctx.config.contracts.get("tezlandItems").address)
-        await utils.addContract(ctx, ctx.config.contracts.get("tezlandItemsV2").address)
+        default_tokens = [
+            # Place tokens
+            "tezlandPlaces",
+            "tezlandPlacesV2",
+            "tezlandInteriors",
+            # Item tokens
+            "tezlandItems",
+            "tezlandItemsV2"
+        ]
+
+        for contract in default_tokens:
+            await utils.addContract(ctx,
+                ctx.config.contracts.get(contract).address,
+                None, head_block.level, head_block.timestamp)
