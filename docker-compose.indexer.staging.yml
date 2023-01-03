@@ -9,8 +9,6 @@ services:
         - TZKT_URL=https://api.tzkt.io
     environment:
       - TZKT_URL=https://api.tzkt.io
-    volumes:
-      - ./tz1aND_metadata.staging:/indexer/tz1aND_metadata
 
   tezland-metadata-processing:
     command: ["--env", "staging"]

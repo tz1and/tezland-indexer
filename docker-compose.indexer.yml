@@ -18,10 +18,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
       - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET:-changeme}
-      - TOKEN_METADATA_DIR=/indexer/tz1aND_metadata
+      - BACKUPS_DIR=/indexer/backups
       - TZKT_URL=https://api.tzkt.io
     volumes:
-      - ./tz1aND_metadata:/indexer/tz1aND_metadata
+      - ./backups:/indexer/backups
 
   tezland-metadata-processing:
     command: ["--env", "production"]

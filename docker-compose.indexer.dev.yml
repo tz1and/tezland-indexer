@@ -10,8 +10,6 @@ services:
         - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
     environment:
       - TZKT_URL=http://api-tzkt:5000 # as defined in tezland sandbox
-    volumes:
-      - ./tz1aND_metadata.dev:/indexer/tz1aND_metadata
 
   tezland-metadata-processing:
     command: ["--env", "development"]

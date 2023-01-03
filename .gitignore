@@ -9,8 +9,7 @@ __pycache__
 # ignore .env file
 .env*
 dipdup.dev.local.yml
-tz1aND_metadata.staging/
-tz1aND_metadata.dev/
+backups/
 
 # notes and stuff
 TODO.txt

@@ -16,6 +16,6 @@ async def on_synchronized(
 
     # Let's say back if it's older than 100 blocks.
     try:
-        backups.backup_if_older_than(ctx, 100)
+        await backups.backup_if_older_than(ctx, 100)
     except Exception as e:
         _logger.warning(f'Database backup failed: {e}')

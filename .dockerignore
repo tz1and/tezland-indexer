@@ -11,7 +11,7 @@ Makefile
 .venv/
 landex/types/
 landex/schema/
-tz1aND_metadata.*/
+backups/
 poetry.toml
 *.sqlite3*
 **/__pycache__
