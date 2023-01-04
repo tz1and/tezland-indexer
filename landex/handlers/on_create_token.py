@@ -24,7 +24,7 @@ async def on_create_token(
         level=origination.level,
         timestamp=origination.timestamp)
 
-    await ctx.add_contract(contract_name, contract_address, 'tezlandItemsCollection')
+    await ctx.add_contract(contract_name, contract_address, typename='tezlandItemsCollection')
 
     _logger.info(f'Adding index for item collection {contract_name}')
     await ctx.add_index(contract_name, 'tezland_item_collection_template',
