@@ -222,7 +222,7 @@ class ItemCollectionHistory(LevelledBaseTransient):
     place = fields.ForeignKeyField('models.PlaceToken', 'item_collection_histories', null=False, index=True)
     item_token = fields.ForeignKeyField('models.ItemToken', 'collection_histories', null=False, index=True)
 
-    issuer = fields.ForeignKeyField('models.Holder', 'item_collection_histories', null=False, index=True)
+    issuer = fields.ForeignKeyField('models.Holder', 'item_collection_histories', null=True, index=True)
     collector = fields.ForeignKeyField('models.Holder', 'collected_items_histories', null=False, index=True)
     
     rate = fields.BigIntField(null=False)
