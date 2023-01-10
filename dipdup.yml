@@ -78,8 +78,6 @@ advanced:
     rollback: wipe
     schema_modified: wipe
     config_modified: wipe
-    # NOTE: trigger_reindex needs to wipe to work
-    #manual: wipe
 
 # NOTE: indexes are mutable and independent of each other,
 # so they need to contain all their dependencies.
