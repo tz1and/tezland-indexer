@@ -142,6 +142,10 @@ class ItemTokenMetadata(BaseTokenMetadata):
     base_scale = fields.FloatField(null=False)
     polygon_count = fields.BigIntField(null=False)
 
+    width = fields.IntField(null=True)
+    height = fields.IntField(null=True)
+    image_frame_json = fields.JSONField(null=True)
+
     class Meta:
         table = 'item_token_metadata'
 
